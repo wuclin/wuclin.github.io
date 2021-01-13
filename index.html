@@ -121,12 +121,12 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+    <a href="/tags" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+    <a href="/categories" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
 
   </li>
         <li class="menu-item menu-item-archives">
@@ -161,6 +161,131 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/02/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/mysql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.png">
+      <meta itemprop="name" content="wudelic">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="呜呼">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/02/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/mysql/" class="post-title-link" itemprop="url">新建文件夹/mysql</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-02 11:05:37" itemprop="dateCreated datePublished" datetime="2021-01-02T11:05:37+08:00">2021-01-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-01-04 14:55:59" itemprop="dateModified" datetime="2021-01-04T14:55:59+08:00">2021-01-04</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>SQL 分为两个部分：数据操作语言 (DML) 和 数据定义语言 (DDL)。</p>
+<p>SQL 的 DML 部分：</p>
+<ul>
+<li><em>SELECT</em> - 从数据库表中获取数据</li>
+<li><em>UPDATE</em> - 更新数据库表中的数据</li>
+<li><em>DELETE</em> - 从数据库表中删除数据</li>
+<li><em>INSERT INTO</em> - 向数据库表中插入数据</li>
+</ul>
+<p>SQL 中最重要的 DDL 语句:</p>
+<ul>
+<li><em>CREATE DATABASE</em> - 创建新数据库</li>
+<li><em>ALTER DATABASE</em> - 修改数据库</li>
+<li><em>CREATE TABLE</em> - 创建新表</li>
+<li><em>ALTER TABLE</em> - 变更（改变）数据库表</li>
+<li><em>DROP TABLE</em> - 删除表</li>
+<li><em>CREATE INDEX</em> - 创建索引（搜索键）</li>
+<li><em>DROP INDEX</em> - 删除索引</li>
+</ul>
+<h1 id="CREATE"><a href="#CREATE" class="headerlink" title="CREATE"></a>CREATE</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE celebs (</span><br><span class="line">  id INTEGER, </span><br><span class="line">  name TEXT, </span><br><span class="line">  age INTEGER</span><br><span class="line"></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE awards (</span><br><span class="line">   id INTEGER PRIMARY KEY,</span><br><span class="line">   recipient TEXT NOT NULL,</span><br><span class="line">   award_name TEXT DEFAULT &#39;Grammy&#39;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="INSERT"><a href="#INSERT" class="headerlink" title="INSERT"></a>INSERT</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO celebs (id, name, age)</span><br><span class="line">VALUES(1, &#39;Justin&#39;, 22);</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="SELECT"><a href="#SELECT" class="headerlink" title="SELECT"></a>SELECT</h1><ul>
+<li><h4 id="WHERE"><a href="#WHERE" class="headerlink" title="WHERE"></a>WHERE</h4></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">这是正确的：</span><br><span class="line">SELECT * FROM Persons WHERE FirstName&#x3D;&#39;Bush&#39;;</span><br><span class="line"></span><br><span class="line">这是错误的：</span><br><span class="line">SELECT * FROM Persons WHERE FirstName&#x3D;Bush;</span><br><span class="line"></span><br><span class="line">这是正确的：</span><br><span class="line">SELECT * FROM Persons WHERE Year&gt;1965;</span><br><span class="line"></span><br><span class="line">这是错误的：</span><br><span class="line">SELECT * FROM Persons WHERE Year&gt;&#39;1965&#39;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h4 id="AND-amp-OR"><a href="#AND-amp-OR" class="headerlink" title="AND &amp; OR"></a>AND &amp; OR</h4></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM Persons WHERE (FirstName&#x3D;&#39;Thomas&#39; OR FirstName&#x3D;&#39;William&#39;)</span><br><span class="line">AND LastName&#x3D;&#39;Carter&#39;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h4 id="LIMIT"><a href="#LIMIT" class="headerlink" title="LIMIT"></a>LIMIT</h4></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from c_table limit 14;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h4 id="ORDER-BY-默认升序-amp-DESC（降序）"><a href="#ORDER-BY-默认升序-amp-DESC（降序）" class="headerlink" title="ORDER BY(默认升序)  &amp; DESC（降序）"></a>ORDER BY(默认升序)  &amp; DESC（降序）</h4></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT Company, OrderNumber FROM Orders ORDER BY Company DESC;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h4 id="DISTINCT"><a href="#DISTINCT" class="headerlink" title="DISTINCT"></a>DISTINCT</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select distinct company from orders;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="ALTER"><a href="#ALTER" class="headerlink" title="ALTER"></a>ALTER</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alter table celebs</span><br><span class="line">add column twitter_handle TEXT;</span><br></pre></td></tr></table></figure>
+
+<h1 id="UPDATE"><a href="#UPDATE" class="headerlink" title="UPDATE"></a>UPDATE</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">UPDATE celebs </span><br><span class="line">SET twitter_handle &#x3D; &#39;@taylorswift13&#39; </span><br><span class="line">WHERE id &#x3D; 4;</span><br></pre></td></tr></table></figure>
+
+<h1 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DELETE FROM celebs </span><br><span class="line">WHERE twitter_handle IS NULL;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="常用"><a href="#常用" class="headerlink" title="常用"></a>常用</h1>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -678,7 +803,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -708,7 +833,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
