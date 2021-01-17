@@ -165,7 +165,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/17/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/18/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%8C%83%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.png">
@@ -179,7 +179,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2021/01/17/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="post-title-link" itemprop="url">并发</a>
+            <a href="/2021/01/18/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%8C%83%E5%BC%8F/" class="post-title-link" itemprop="url">数据库范式</a>
         </h1>
 
         <div class="post-meta">
@@ -190,7 +190,704 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-01-17 09:40:12 / Modified: 09:55:31" itemprop="dateCreated datePublished" datetime="2021-01-17T09:40:12+08:00">2021-01-17</time>
+              <time title="Created: 2021-01-18 01:27:07 / Modified: 01:27:59" itemprop="dateCreated datePublished" datetime="2021-01-18T01:27:07+08:00">2021-01-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="数据库范式"><a href="#数据库范式" class="headerlink" title="数据库范式"></a>数据库范式</h1><p><strong>元组也称为行</strong></p>
+<h2 id="1-1NF"><a href="#1-1NF" class="headerlink" title="1. 1NF"></a>1. 1NF</h2><p><strong>字段不可再分</strong>  </p>
+<ul>
+<li>不满足1NF</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>地址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>北京市海淀区</td>
+</tr>
+<tr>
+<td>广东省深圳市福田区</td>
+</tr>
+<tr>
+<td>陕西省西安市雁塔区</td>
+</tr>
+</tbody></table>
+<ul>
+<li>满足1NF</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">省份</th>
+<th align="center">城市</th>
+<th align="center">详细地址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">北京</td>
+<td align="center">北京</td>
+<td align="center">海淀区</td>
+</tr>
+<tr>
+<td align="center">广东</td>
+<td align="center">深圳</td>
+<td align="center">福田区</td>
+</tr>
+<tr>
+<td align="center">陕西</td>
+<td align="center">西安</td>
+<td align="center">雁塔区</td>
+</tr>
+</tbody></table>
+<h2 id="2-2NF"><a href="#2-2NF" class="headerlink" title="2. 2NF"></a>2. 2NF</h2><p><strong>在第一范式的基础上消除非主属性（主键外的属性）对候选键（联合主键）的部分函数依赖，主要是针对联合主键，将联合主键变成单主键</strong></p>
+<ul>
+<li>不满足2NF的情况  </li>
+</ul>
+<blockquote>
+<p><strong>例如：</strong><br>有一个表：学号，姓名，年龄，课程名称，成绩，学分；<br>可能会存在的情况：<br>1.<strong>数据冗余</strong>：每条记录都含有系统的信息；<br>2.<strong>删除异常</strong>：删除学生的成绩，会把课程信息给删除了；<br>3.<strong>插入异常</strong>：学生未选课就无法记录到数据库；<br>4.<strong>更新异常</strong>：调整课程学分，所有的行都要调整。</p>
+</blockquote>
+<p>*正确的做法</p>
+<blockquote>
+<p>拆为多个表：<br>学生表：学号，姓名，年龄<br>课程表：课程名称，学分<br>选课关系：学号，课程名称，成绩</p>
+</blockquote>
+<p><strong>例子2</strong></p>
+<blockquote>
+<p>在选课关系表(学号，课程号，成绩，学分)，关键字为组合关键字(学号，课程号)，但由于非主属性学分仅依赖于课程号，对关键字(学号，课程号)只是部分依赖，而不是完全依赖，因此此种方式会导致数据冗余以及更新异常等问题，解决办法是将其分为两个关系模式：学生表(学号，课程号，分数)和课程表(课程号，学分)，新关系通过学生表中的外关键字课程号联系，在需要时进行连接。</p>
+</blockquote>
+<h2 id="3-3NF"><a href="#3-3NF" class="headerlink" title="3. 3NF"></a>3. 3NF</h2><p><strong>每一列都和主键直接相关，而不是间接相关，在第二范式的基础上消除非主属性对候选键的传递依赖</strong>  </p>
+<ul>
+<li>不符合3NF的表：</li>
+</ul>
+<blockquote>
+<p>学号，姓名，年龄，学院名称，学院电话。存在依赖传递（学号）-&gt;（学生）-&gt; （所在学院）-&gt; (学院电话)<br>正确做法：<br>学生：学号，姓名，年龄，所在学院<br>学院：学院，电话  </p>
+</blockquote>
+<blockquote>
+<p>表二：<br>以学生表(学号，姓名，课程号，成绩)为例，其中学生姓名无重名，所以该表有两个候选码(学号，课程号)和(姓名，课程号)，故存在函数依赖：学号——&gt;姓名，(学号，课程号)——&gt;成绩，唯一的非主属性成绩对码不存在部分依赖，也不存在传递依赖，所以属性属于第三范式。</p>
+</blockquote>
+<h2 id="4-BCNF"><a href="#4-BCNF" class="headerlink" title="4. BCNF"></a>4. BCNF</h2><blockquote>
+<p>它构建在第三范式的基础上，如果关系模型R是第一范式，且每个属性都不传递依赖于R的候选键，那么称R为BCNF的模式。</p>
+</blockquote>
+<blockquote>
+<p>假设仓库管理关系表(仓库号，存储物品号，管理员号，数量)，满足一个管理员只在一个仓库工作；一个仓库可以存储多种物品，则存在如下关系：</p>
+</blockquote>
+<blockquote>
+<p>(仓库号，存储物品号)——&gt;(管理员号，数量)</p>
+</blockquote>
+<blockquote>
+<p>(管理员号，存储物品号)——&gt;(仓库号，数量)</p>
+</blockquote>
+<blockquote>
+<p>所以，(仓库号，存储物品号)和(管理员号，存储物品号)都是仓库管理关系表的候选码，表中唯一非关键字段为数量，它是符合第三范式的。但是，由于存在如下决定关系：</p>
+</blockquote>
+<blockquote>
+<p>(仓库号)——&gt;(管理员号)</p>
+</blockquote>
+<blockquote>
+<p>(管理员号)——&gt;(仓库号)</p>
+</blockquote>
+<blockquote>
+<p>即存在关键字段决定关键字段的情况，因此其不符合BCNF。把仓库管理关系表分解为两个关系表仓库管理表(仓库号，管理员号)和仓库表(仓库号，存储物品号，数量)，这样这个数据库表是符合BCNF的，并消除了删除异常、插入异常和更新异常。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/18/MySQL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.png">
+      <meta itemprop="name" content="wudelic">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fufu">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/18/MySQL/" class="post-title-link" itemprop="url">MySQL</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-01-18 01:23:06 / Modified: 01:26:19" itemprop="dateCreated datePublished" datetime="2021-01-18T01:23:06+08:00">2021-01-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>SQL 分为两个部分：数据操作语言 (DML) 和 数据定义语言 (DDL)。</p>
+<p>SQL 的 DML 部分：</p>
+<ul>
+<li><em>SELECT</em> - 从数据库表中获取数据</li>
+<li><em>UPDATE</em> - 更新数据库表中的数据</li>
+<li><em>DELETE</em> - 从数据库表中删除数据</li>
+<li><em>INSERT INTO</em> - 向数据库表中插入数据</li>
+</ul>
+<p>SQL 中最重要的 DDL 语句:</p>
+<ul>
+<li><em>CREATE DATABASE</em> - 创建新数据库</li>
+<li><em>ALTER DATABASE</em> - 修改数据库</li>
+<li><em>CREATE TABLE</em> - 创建新表</li>
+<li><em>ALTER TABLE</em> - 变更（改变）数据库表</li>
+<li><em>DROP TABLE</em> - 删除表</li>
+<li><em>CREATE INDEX</em> - 创建索引（搜索键）</li>
+<li><em>DROP INDEX</em> - 删除索引</li>
+</ul>
+<h1 id="CREATE"><a href="#CREATE" class="headerlink" title="CREATE"></a>CREATE</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE celebs (</span><br><span class="line">  id INTEGER, </span><br><span class="line">  name TEXT, </span><br><span class="line">  age INTEGER</span><br><span class="line"></span><br><span class="line">); </span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE awards (</span><br><span class="line">   id INTEGER PRIMARY KEY,</span><br><span class="line">   recipient TEXT NOT NULL,</span><br><span class="line">   award_name TEXT DEFAULT &#39;Grammy&#39;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="INSERT"><a href="#INSERT" class="headerlink" title="INSERT"></a>INSERT</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO celebs (id, name, age)</span><br><span class="line">VALUES(1, &#39;Justin&#39;, 22);</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="SELECT"><a href="#SELECT" class="headerlink" title="SELECT"></a>SELECT</h1><ul>
+<li><h4 id="WHERE"><a href="#WHERE" class="headerlink" title="WHERE"></a>WHERE</h4></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">这是正确的：</span><br><span class="line">SELECT * FROM Persons WHERE FirstName&#x3D;&#39;Bush&#39;;</span><br><span class="line"></span><br><span class="line">这是错误的：</span><br><span class="line">SELECT * FROM Persons WHERE FirstName&#x3D;Bush;</span><br><span class="line"></span><br><span class="line">这是正确的：</span><br><span class="line">SELECT * FROM Persons WHERE Year&gt;1965;</span><br><span class="line"></span><br><span class="line">这是错误的：</span><br><span class="line">SELECT * FROM Persons WHERE Year&gt;&#39;1965&#39;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h4 id="AND-amp-OR"><a href="#AND-amp-OR" class="headerlink" title="AND &amp; OR"></a>AND &amp; OR</h4></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM Persons WHERE (FirstName&#x3D;&#39;Thomas&#39; OR FirstName&#x3D;&#39;William&#39;)</span><br><span class="line">AND LastName&#x3D;&#39;Carter&#39;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h4 id="LIMIT"><a href="#LIMIT" class="headerlink" title="LIMIT"></a>LIMIT</h4></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from c_table limit 14;  </span><br></pre></td></tr></table></figure>
+<ul>
+<li><h4 id="ORDER-BY-默认升序-amp-DESC（降序）"><a href="#ORDER-BY-默认升序-amp-DESC（降序）" class="headerlink" title="ORDER BY(默认升序)  &amp; DESC（降序）"></a>ORDER BY(默认升序)  &amp; DESC（降序）</h4></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT Company, OrderNumber FROM Orders ORDER BY Company DESC;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h4 id="DISTINCT"><a href="#DISTINCT" class="headerlink" title="DISTINCT"></a>DISTINCT</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select distinct company from orders;</span><br></pre></td></tr></table></figure>
+<h1 id="ALTER"><a href="#ALTER" class="headerlink" title="ALTER"></a>ALTER</h1></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alter table celebs</span><br><span class="line">add column twitter_handle TEXT;</span><br></pre></td></tr></table></figure>
+<h1 id="UPDATE"><a href="#UPDATE" class="headerlink" title="UPDATE"></a>UPDATE</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">UPDATE celebs </span><br><span class="line">SET twitter_handle &#x3D; &#39;@taylorswift13&#39; </span><br><span class="line">WHERE id &#x3D; 4; </span><br></pre></td></tr></table></figure>
+<h1 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DELETE FROM celebs </span><br><span class="line">WHERE twitter_handle IS NULL;</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="常用"><a href="#常用" class="headerlink" title="常用"></a>常用</h1>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/18/Oracle/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.png">
+      <meta itemprop="name" content="wudelic">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fufu">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/18/Oracle/" class="post-title-link" itemprop="url">Oracle</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-01-18 01:22:54 / Modified: 01:25:25" itemprop="dateCreated datePublished" datetime="2021-01-18T01:22:54+08:00">2021-01-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Oracle"><a href="#Oracle" class="headerlink" title="Oracle"></a>Oracle</h1><p>对于12c版本的Oracle，默认登录连接的就是CDB，在这个状态下，创建用户时，需要在用户名前面加c##</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create user c<span class="comment">##wuwu identified by 134567846;</span></span><br></pre></td></tr></table></figure>
+<p>如果不想在用户名前面加c##，有两种方法：</p>
+<ol>
+<li>在创建数据库时取消勾选“创建为容器数据库”<img src="/2021/01/18/Oracle/image-20210113131611303.png" class title="image-20210113131611303"></li>
+<li>切换为PDB</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">show con_name;<span class="comment">#查看容器名称，若结果为CDB&amp;ROOT，则为容器状态。</span></span><br><span class="line">show pdbs;<span class="comment">#查看pdbs</span></span><br><span class="line"><span class="comment">#打开关闭单个pdb数据库</span></span><br><span class="line">alter pluggable database pdbsName open;</span><br><span class="line">alter pluggable database pdbsName close immediate;</span><br><span class="line"><span class="comment">#开启所有的pdb</span></span><br><span class="line">alter pluggable database all open;</span><br><span class="line">alter pluggable database all close immediate;</span><br><span class="line"><span class="comment">#切换到指定pdb</span></span><br><span class="line">alter session <span class="built_in">set</span> container=pdbsName;</span><br><span class="line"></span><br><span class="line"><span class="comment">#注意，在切换到pdb后，创建用户时，需要打开pdb</span></span><br></pre></td></tr></table></figure>
+<img src="/2021/01/18/Oracle/Users/delic/Desktop/2020106/新建文件夹/数据库/oracle.assets/image-20210113224318082.png" alt="image-20210113224318082" style="zoom: 50%;">
+
+<img src="/2021/01/18/Oracle/Users/delic/Desktop/2020106/新建文件夹/数据库/oracle.assets/image-20210113224328771.png" alt="image-20210113224328771" style="zoom: 67%;">
+
+<h2 id="1-登录"><a href="#1-登录" class="headerlink" title="1.登录"></a>1.登录</h2><p>登录数据库时有三种身份：normal 普通身份，sysdba 系统管理员身份，sysoper系统操作员身份（权限不一样）</p>
+<p>一开始使用系统管理员身份登录，使用在安装数据库时的密码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#启动SQL Plus</span></span><br><span class="line">在输入用户名行输入：sys as sysdba</span><br><span class="line">输入密码</span><br><span class="line"><span class="comment">#第二种方法</span></span><br><span class="line">conn /as sysdba<span class="comment">#和上面的效果一样</span></span><br></pre></td></tr></table></figure>
+<p><strong>授权</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#使用GRANT给用户授权</span></span><br><span class="line">GRANT CONNECT, RESOURCE, DBA TO wuwu;</span><br></pre></td></tr></table></figure>
+<img src="/2021/01/18/Oracle/image-20210113224511002.png" class title="image-20210113224511002">
+
+<h2 id="2-登录新账户"><a href="#2-登录新账户" class="headerlink" title="2.登录新账户"></a>2.登录新账户</h2><p>在pdb下创建新用户后需要进行配置才可以登录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">select name,pdb from v<span class="variable">$services</span>;<span class="comment">#首先查找pdb对应的service名字</span></span><br><span class="line">select username from dba_users;<span class="comment">#查找用户</span></span><br><span class="line"><span class="comment">#然后再修改tnsnames.ora</span></span><br><span class="line"><span class="comment">#文件在 D:\app\delic\product\12.2.0\dbhome_1\network\admin\tnsnames.ora 这个位置</span></span><br><span class="line"><span class="comment">#在文件的底部加上</span></span><br><span class="line">orcl2 =  <span class="comment">#这个位置代表数据库名称</span></span><br><span class="line">  (DESCRIPTION =</span><br><span class="line">    (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))</span><br><span class="line">    (CONNECT_DATA =</span><br><span class="line">      (SERVER = DEDICATED)</span><br><span class="line">      (SERVICE_NAME = orclpdb) <span class="comment">#这个serviceName要和上面查询出来的相对应</span></span><br><span class="line">    )</span><br><span class="line">  )</span><br><span class="line"><span class="comment">#最后</span></span><br><span class="line">conn wuwu@orcl2  <span class="comment">#登录用户</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#要注意一些位置的名称，登录时@后面的名称要和文件新增的对应，文件新增的serviceName要和当前pdb下用户的对应</span></span><br></pre></td></tr></table></figure>
+<img src="/2021/01/18/Oracle/Users/delic/Desktop/2020106/新建文件夹/数据库/oracle.assets/image-20210114004948350.png" alt="image-20210114004948350" style="zoom:50%;">
+
+<img src="/2021/01/18/Oracle/Users/delic/Desktop/2020106/新建文件夹/数据库/oracle.assets/image-20210114004758946.png" alt="image-20210114004758946" style="zoom:50%;">
+
+<h2 id="3-使用sqlplus和-SQL-Developer"><a href="#3-使用sqlplus和-SQL-Developer" class="headerlink" title="3.使用sqlplus和 SQL Developer"></a>3.使用sqlplus和 SQL Developer</h2><ol>
+<li>使用Database Configuration Assistant来创建数据库</li>
+<li>使用SQL Developer连接数据库（只可用于连接） </li>
+</ol>
+<p>连接pdb用户</p>
+<img src="/2021/01/18/Oracle/image-20210114135006472.png" class title="image-20210114135006472">
+
+<p>连接sys</p>
+<img src="/2021/01/18/Oracle/image-20210114141614223.png" class title="image-20210114141614223">
+
+<h2 id="4-select语句"><a href="#4-select语句" class="headerlink" title="4.select语句"></a>4.select语句</h2><p>select语句和mysql的使用一样</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column_1, column_2</span><br><span class="line"><span class="keyword">from</span> table_name;</span><br></pre></td></tr></table></figure>
+<h4 id="Order-By子句"><a href="#Order-By子句" class="headerlink" title="Order By子句"></a>Order By子句</h4><p>根据order by后面的列升序（ACS,可选,默认升序）或降序（DESC）排序输出,</p>
+<p>ORDER BY子句总是SELECT语句中的最后一个子句。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column_1, column_2</span><br><span class="line"><span class="keyword">from</span> table_name</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> <span class="keyword">column</span>[<span class="keyword">ASC</span> <span class="operator">|</span> <span class="keyword">DESC</span>] [<span class="keyword">NULLS</span> <span class="keyword">FIRST</span> <span class="operator">|</span> <span class="keyword">NULLS</span> <span class="keyword">LAST</span>]</span><br><span class="line"><span class="comment">/*	NULLS FIRST: 是指在查出来的数据中，把null值的行排在前面</span></span><br><span class="line"><span class="comment">	NULLS LAST:是指在查出来的数据中，把null值的行排在后面</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<img src="/2021/01/18/Oracle/Users/delic/Desktop/2020106/新建文件夹/数据库/oracle.assets/image-20210114230907366.png" alt="image-20210114230907366" style="zoom:50%;">
+
+<h4 id="Distinct子句"><a href="#Distinct子句" class="headerlink" title="Distinct子句"></a>Distinct子句</h4><p>过滤结果集中的重复行,Distinct子句只能在select中使用，其中把null值也看作重复值</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> coulumn_1</span><br><span class="line"><span class="keyword">from</span> table_name;</span><br></pre></td></tr></table></figure>
+<h4 id="Where子句"><a href="#Where子句" class="headerlink" title="Where子句"></a>Where子句</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column_1, column_2,</span><br><span class="line"><span class="keyword">FROM</span> table_name</span><br><span class="line"><span class="keyword">WHERE</span> search_condition</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> column_1, column_2;</span><br></pre></td></tr></table></figure>
+<p>where子句也可用于DELETE或UPDATE语句中</p>
+<h4 id="And子句-amp-Or子句"><a href="#And子句-amp-Or子句" class="headerlink" title="And子句 &amp; Or子句"></a>And子句 &amp; Or子句</h4><h4 id="Fetch子句"><a href="#Fetch子句" class="headerlink" title="Fetch子句"></a>Fetch子句</h4><p>限制查询返回行数，可用于分页</p>
+<h4 id="IN-amp-NOT-IN子句"><a href="#IN-amp-NOT-IN子句" class="headerlink" title="IN &amp; NOT IN子句"></a>IN &amp; NOT IN子句</h4><h4 id="between子句"><a href="#between子句" class="headerlink" title="between子句"></a>between子句</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> order_id, customer_id, status, order_date</span><br><span class="line"><span class="keyword">FROM</span> orders</span><br><span class="line"><span class="keyword">WHERE</span> order_date <span class="keyword">BETWEEN</span> <span class="type">DATE</span> <span class="string">&#x27;2016-12-01&#x27;</span> <span class="keyword">AND</span> <span class="type">DATE</span> <span class="string">&#x27;2016-12-31&#x27;</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> order_date;</span><br></pre></td></tr></table></figure>
+<h4 id="LIKE-amp-NOT-LIKE子句"><a href="#LIKE-amp-NOT-LIKE子句" class="headerlink" title="LIKE &amp; NOT LIKE子句"></a>LIKE &amp; NOT LIKE子句</h4><p>可用于模糊查询</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*通配符 % </span></span><br><span class="line"><span class="comment">	St% 以st开头</span></span><br><span class="line"><span class="comment">	%er 以er结尾</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">SELECT</span> first_name, last_name, phone</span><br><span class="line"><span class="keyword">FROM</span> contacts</span><br><span class="line"><span class="keyword">WHERE</span> last_name <span class="keyword">LIKE</span> <span class="string">&#x27;St%&#x27;</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> last_name;</span><br><span class="line"><span class="comment">/*通配符 _</span></span><br><span class="line"><span class="comment">	je_i ,匹配任何以&#x27;Je&#x27;开头的字符串，然后是一个字符，最后是 &#x27;i&#x27;，例如 Jeri 或Jeni，但不是 Jenni。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">/*混合通配符</span></span><br><span class="line"><span class="comment">	Je_%， 查找名字以 Je 开头，后跟一个字符，然后是任意数量字符的数据</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<h2 id="5-事务"><a href="#5-事务" class="headerlink" title="5.事务"></a>5.事务</h2><p>数据库的事务其实就是一个操作序列，包含一组数据库操作命令，相当于把一些操作捆绑执行，如写数据时，需要先读数据再写数据，把两个操作当成一个事务，只有都执行成功了，事务才成功完成</p>
+<h4 id="COMMIT（提交事务）"><a href="#COMMIT（提交事务）" class="headerlink" title="COMMIT（提交事务）"></a>COMMIT（提交事务）</h4><p>用于提交当前事务的是有修改</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">COMMIT</span> [ WORK ] [ COMMENT clause ] [ WRITE clause ] [ FORCE clause ];</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">	WORK：可选的。它被 Oracle 添加为符合 SQL 标准。使用或不使用 WORK 参数来执行 COMMIT 将产生相同的结果。</span></span><br><span class="line"><span class="comment">	COMMENT clause：可选的。 它用于指定与当前事务关联的注释。 该注释最多可以包含在单引号中的 255 个字节的文本中。 如果出现问题，它将与事务ID一起存储在名为 DBA_2PC_PENDING 的系统视图中。</span></span><br><span class="line"><span class="comment">	WRITE clause：可选的。 它用于指定将已提交事务的重做信息写入重做日志的优先级。 用这个子句，有两个参数可以指定：</span></span><br><span class="line"><span class="comment">		WAIT 或 NOWAIT (如果省略，WAIT是默认值)</span></span><br><span class="line"><span class="comment">		IMMEDIATE 或 BATCH(IMMEDIATE是省略时的默认值)</span></span><br><span class="line"><span class="comment">	FORCE clause：可选的。 它用于强制提交可能已损坏或有疑问的事务。 有了这个子句，可以用3种方式指定FORCE：</span></span><br><span class="line"><span class="comment">		FORCE&#x27;string&#x27;，[integer]或FORCE CORRUPT_XID&#x27;string&#x27; 或 FORCE CORRUPT_XID_ALL</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p><strong>只有拥有DBA权限才能指定COMMIT语句的某些功能</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*发出提交*/</span></span><br><span class="line"><span class="keyword">COMMIT</span>;		等效于<span class="keyword">COMMIT</span> WORK WRITE WAIT IMMEDIATE;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*添加备注*/</span></span><br><span class="line"><span class="keyword">COMMIT</span> COMMENT <span class="string">&#x27;This is the comment for the transaction&#x27;</span>;</span><br><span class="line">等效于</span><br><span class="line"><span class="keyword">COMMIT</span> WORK COMMENT <span class="string">&#x27;This is the comment for the transaction&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*强制*/</span></span><br><span class="line"><span class="keyword">COMMIT</span> FORCE <span class="string">&#x27;22.14.67&#x27;</span>; 等效于<span class="keyword">COMMIT</span> WORK FORCE <span class="string">&#x27;22.14.67&#x27;</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="ROLLBACK（回滚事务）"><a href="#ROLLBACK（回滚事务）" class="headerlink" title="ROLLBACK（回滚事务）"></a>ROLLBACK（回滚事务）</h4><p>用来撤销当前事务或有问题的事务</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ROLLBACK</span> [ WORK ] [ <span class="keyword">TO</span> [<span class="keyword">SAVEPOINT</span>] savepoint_name  <span class="operator">|</span> FORCE <span class="string">&#x27;string&#x27;</span> ];</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">	WORK：可选的。 它被 Oracle 添加为符合 SQL 标准。 使用或不使用 WORK 参数来发出 ROLLBACK 会导致相同的结果。</span></span><br><span class="line"><span class="comment">	TO SAVEPOINT savepoint_name：可选的。 ROLLBACK语句撤消当前会话的所有更改，直到由 savepoint_name 指定的保存点。 如果省略该子句，则所有更改都将被撤消。</span></span><br><span class="line"><span class="comment">	FORCE‘string’：可选的。它用于强制回滚可能已损坏或有问题的事务。 使用此子句，可以将单引号中的事务ID指定为字符串。 可以在系统视图中找到名为 DBA_2PC_PENDING 的事务标识。</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p><strong>无法将有问题的事务回滚到保存点。</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*ROLLBACK 语句在 Oracle 中发出回滚*/</span></span><br><span class="line"><span class="keyword">ROLLBACK</span>; 等效于 <span class="keyword">ROLLBACK</span> WORK;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*将ROLLBACK写入保存点*/</span></span><br><span class="line"><span class="keyword">ROLLBACK</span> <span class="keyword">TO</span> <span class="keyword">SAVEPOINT</span> savepoint1; 等效于 <span class="keyword">ROLLBACK</span> WORK <span class="keyword">TO</span> <span class="keyword">SAVEPOINT</span> savepoint1;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*强制回滚有问题的事务(强制回滚由事务 ID “22.14.67”标识的损坏或有问题的事务)*/</span></span><br><span class="line"><span class="keyword">ROLLBACK</span> FORCE <span class="string">&#x27;22.14.67&#x27;</span>; 等效于 <span class="keyword">ROLLBACK</span> WORK FORCE <span class="string">&#x27;22.14.67&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="SET-TRANSACTION（设置事务）"><a href="#SET-TRANSACTION（设置事务）" class="headerlink" title="SET TRANSACTION（设置事务）"></a>SET TRANSACTION（设置事务）</h4><p>可用于设置事务的状态如只读、读/写、隔离级别，为事务分配名称或将事务分配回滚段等等。</p>
+<p>具体实例</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DECLARE</span></span><br><span class="line">  l_name VARCHAR2(<span class="number">100</span>);</span><br><span class="line">  l_age  NUMBER;</span><br><span class="line">  l_sex  VARCHAR2(<span class="number">2</span>);</span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">  <span class="comment">-- 为保证set transaction是事务的第一条语句，先使用commit或rollback来结束掉前面可能存在的事务</span></span><br><span class="line">  <span class="keyword">COMMIT</span>;</span><br><span class="line">  <span class="comment">-- 使用name给事务命名</span></span><br><span class="line">  <span class="keyword">SET</span> TRANSACTION READ <span class="keyword">ONLY</span> NAME <span class="string">&#x27;查询报表&#x27;</span>;</span><br><span class="line">  <span class="keyword">SELECT</span> NAME</span><br><span class="line">    <span class="keyword">INTO</span> l_name</span><br><span class="line">    <span class="keyword">FROM</span> student</span><br><span class="line">   <span class="keyword">WHERE</span> student_id <span class="operator">=</span> <span class="number">1001</span>;</span><br><span class="line">  <span class="keyword">SELECT</span> age</span><br><span class="line">    <span class="keyword">INTO</span> l_age</span><br><span class="line">    <span class="keyword">FROM</span> student</span><br><span class="line">   <span class="keyword">WHERE</span> student_id <span class="operator">=</span> <span class="number">1001</span>;</span><br><span class="line">  <span class="keyword">SELECT</span> sex</span><br><span class="line">    <span class="keyword">INTO</span> l_sex</span><br><span class="line">    <span class="keyword">FROM</span> student</span><br><span class="line">   <span class="keyword">WHERE</span> student_id <span class="operator">=</span> <span class="number">1001</span>;</span><br><span class="line">  <span class="comment">-- 终止只读事务</span></span><br><span class="line">  <span class="keyword">COMMIT</span>;</span><br><span class="line">  dbms_output.put_line(<span class="string">&#x27;输出：&#x27;</span> <span class="operator">||</span> l_name <span class="operator">||</span> l_age <span class="operator">||</span> l_sex);</span><br><span class="line"><span class="keyword">END</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="LOCK-TABLE"><a href="#LOCK-TABLE" class="headerlink" title="LOCK TABLE"></a>LOCK TABLE</h4><p>用来锁定表、表分区或表子分区</p>
+<h2 id="6-外键"><a href="#6-外键" class="headerlink" title="6.外键"></a>6.外键</h2><p>外键是强制实施参照完整性的一种方式，使用外键就意味着一个表中的值在另一个表中也必须出现。被引用的表称为父表，而带有外键的表称为子表。子表中的外键通常会引用父表中的主键。</p>
+<h4 id="创建外键方式"><a href="#创建外键方式" class="headerlink" title="创建外键方式"></a>创建外键方式</h4><ol>
+<li>可在创建表时创建</li>
+<li>是用alter table创建</li>
+</ol>
+<h4 id="级联删除外键"><a href="#级联删除外键" class="headerlink" title="级联删除外键"></a>级联删除外键</h4><h4 id="删除外键"><a href="#删除外键" class="headerlink" title="删除外键"></a>删除外键</h4><h4 id="禁用外键"><a href="#禁用外键" class="headerlink" title="禁用外键"></a>禁用外键</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name</span><br><span class="line">DISABLE <span class="keyword">CONSTRAINT</span> constraint_name;</span><br></pre></td></tr></table></figure>
+<h4 id="启用外键"><a href="#启用外键" class="headerlink" title="启用外键"></a>启用外键</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name</span><br><span class="line">ENABLE <span class="keyword">CONSTRAINT</span> constraint_name;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/18/Linux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.png">
+      <meta itemprop="name" content="wudelic">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fufu">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/18/Linux/" class="post-title-link" itemprop="url">Linux</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-01-18 01:19:28 / Modified: 01:23:36" itemprop="dateCreated datePublished" datetime="2021-01-18T01:19:28+08:00">2021-01-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Linux—红帽工程师"><a href="#Linux—红帽工程师" class="headerlink" title="Linux—红帽工程师"></a>Linux—红帽工程师</h1><p>关机前执行 sync同步后在 shutdown</p>
+<p>读，写，权限</p>
+<h2 id="1-云服务器"><a href="#1-云服务器" class="headerlink" title="1.云服务器"></a>1.云服务器</h2><p>要注意开启安全组</p>
+<p>可以用xshell直接操作服务器 </p>
+<h2 id="2-常用命令"><a href="#2-常用命令" class="headerlink" title="2.常用命令"></a>2.常用命令</h2><h3 id="目录管理"><a href="#目录管理" class="headerlink" title="目录管理"></a>目录管理</h3><blockquote>
+<p>绝对路径 相对路径</p>
+</blockquote>
+<p>cd ： 切换目录</p>
+<p>./  ：当前目录</p>
+<p>cd .. ： 返回上一级目录</p>
+<blockquote>
+<p>ls （列出目录）</p>
+</blockquote>
+<p>-a参数 : 查看所有的文件，包括隐藏文件</p>
+<p>-l参数 ：列出所有的文件 包含属性和权限 不包括隐藏文件</p>
+<img src="/2021/01/18/Linux/image-20210104194152027-1610904055085.png" class title="image-20210104194152027">
+
+<blockquote>
+<p>cd 切换目录</p>
+</blockquote>
+<img src="/2021/01/18/Linux/image-20210104194352533-1610904055088.png" class title="image-20210104194352533">
+
+<blockquote>
+<p>pwd 显示当前目录</p>
+</blockquote>
+<blockquote>
+<p>mkdir 创建目录</p>
+</blockquote>
+<p>-p参数 ：创建多级目录</p>
+<blockquote>
+<p>rmdir 删除目录</p>
+</blockquote>
+<p>-p参数 : 删除多级目录</p>
+<blockquote>
+<p>cp(复制文件 或目录)</p>
+</blockquote>
+<p>cp  文件  位置</p>
+<blockquote>
+<p>rm (移除文件或者目录)</p>
+</blockquote>
+<p>-f 忽略不存在文件，不会出现警告强制删除</p>
+<p>-r 递归删除目录</p>
+<p>-i 互动，删除时询问</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf /  <span class="comment"># 删库跑路</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>mv 移动文件或者目录 重命名文件</p>
+</blockquote>
+<p>-f 强制</p>
+<p>-u 只替换已经更新过的文件</p>
+<h3 id="基本属性"><a href="#基本属性" class="headerlink" title="基本属性"></a>基本属性</h3><img src="/2021/01/18/Linux/image-20210104200533956-1610904055089.png" class title="image-20210104200533956">
+
+<p>第一个字符：</p>
+<p>d：表示目录</p>
+<p>-:  表示文件</p>
+<p>l ：表示链接文档 （都会有一个箭头指向文件）</p>
+<p>后面的以3个为一组</p>
+<p>r代表可读，w代表可写，x代表可执行</p>
+<p>第一组代表root用户权限</p>
+<p>第二组代表组权限</p>
+<p>第三组代表其他用户权限</p>
+<blockquote>
+<p>修改文件属性</p>
+<p>对应有 owner/group/others 各自拥有 read/write/execute</p>
+<p>-R 递归修改文件</p>
+</blockquote>
+<ol>
+<li><p>chgrp</p>
+</li>
+<li><p>chown</p>
+</li>
+<li><p>chmod</p>
+<p>修改权限 1: 数字  r：4 w：2  x：1</p>
+<p>​                             可读可写可执行   rwx    7</p>
+<p>​                             可读可写不可执行 rw-    6</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 777 文件名</span><br></pre></td></tr></table></figure>
+<h3 id="文件内容查看"><a href="#文件内容查看" class="headerlink" title="文件内容查看"></a>文件内容查看</h3><ul>
+<li>cat 从第一行开始显示文件</li>
+</ul>
+<img src="/2021/01/18/Linux/image-20210104204246991-1610904055089.png" class title="image-20210104204246991">
+
+<ul>
+<li>tac 从最后一行开始显示文件</li>
+</ul>
+<img src="/2021/01/18/Linux/image-20210104204220652-1610904055089.png" class title="image-20210104204220652">
+
+<ul>
+<li>nl 显示的时候 输出行号</li>
+</ul>
+<img src="/2021/01/18/Linux/image-20210104204201384-1610904055089.png" class title="image-20210104204201384">
+
+<ul>
+<li>more 一页一页的显示内容（空格翻页，enter代表下一行）</li>
+<li>less和more类似，不过可以翻页（q退出， /加查询字符 可向下查询字符串；？加查询字符 可向上查询字符串 n表示向下寻找，N表示向上寻找）</li>
+<li>head 只看头几行 （-n 20 表示头20行）</li>
+<li>tail 只看最后几行</li>
+</ul>
+<h3 id="软链接和硬链接"><a href="#软链接和硬链接" class="headerlink" title="软链接和硬链接"></a>软链接和硬链接</h3><p>软链接：类似快捷方式</p>
+<p>硬链接：可以防止文件误删</p>
+<blockquote>
+<p>touch : 创建文件</p>
+<p>ln :  文件名 文件名（硬）</p>
+<p>​        -s    文件名 文件名（软）</p>
+<p>echo ：写入字符</p>
+</blockquote>
+<img src="/2021/01/18/Linux/image-20210104210026889-1610904055090.png" class title="image-20210104210026889">
+
+<p>若rm f1则f3不可用 ，f2可用</p>
+<img src="/2021/01/18/Linux/image-20210104210314466-1610904055090.png" class title="image-20210104210314466">
+
+<h2 id="3-VIM编辑器"><a href="#3-VIM编辑器" class="headerlink" title="3.VIM编辑器"></a>3.VIM编辑器</h2><img src="/2021/01/18/Linux/image-20210105102412297-1610904055090.png" class title="image-20210105102412297">
+
+<p>用vim打开文件（如果文件不存在则新建，存在则修改），开始进入命令模式</p>
+<p>使用i进入输入模式，使用ESC进入命令模式</p>
+<p>具体有三种模式：命令模式，输入模式，底线命令模式</p>
+<ol>
+<li>命令模式：输入i进入输入模式； x删除当前字符； :进入底线命令模式</li>
+<li>输入模式：和正常文本一样使用，用Insert键可以变成替换字符</li>
+<li>底线命令模式：命令模式下按:进入底线命令模式；主要命令： q退出程序；w保存程序；一般连用wq 退出并保存  强制离开使用:q!</li>
+</ol>
+<p>set nu 显示行号</p>
+<img src="/2021/01/18/Linux/Users/delic/Desktop/2020106/新建文件夹/linux/linux.assets/image-20210105103902219.png" alt="image-20210105103902219" style="zoom:33%;">
+
+<p>/word 搜索关键字 可以使用n和N进行下上查询</p>
+<p><img src="/2021/01/18/Linux/Users/delic/Desktop/2020106/新建文件夹/linux/linux.assets/image-20210105104242168.png" alt="image-20210105104242168" style="zoom:33%;">黄色代表所有，绿色代表当前 使用noh取消搜索</p>
+<img src="/2021/01/18/Linux/image-20210105113722938-1610904055090.png" class title="image-20210105113722938">
+
+<h2 id="4-账号管理"><a href="#4-账号管理" class="headerlink" title="4.账号管理"></a>4.账号管理</h2><blockquote>
+<p>useradd 添加用户</p>
+</blockquote>
+<p>-m：自动在home目录下创建用户的主目录</p>
+<img src="/2021/01/18/Linux/image-20210105114303596-1610904055091.png" class title="image-20210105114303596">
+
+<blockquote>
+<p>userdel 删除用户</p>
+</blockquote>
+<p>-r： 删除用户时一并删除用户目录</p>
+<img src="/2021/01/18/Linux/image-20210105114351203-1610904055091.png" class title="image-20210105114351203">
+
+<blockquote>
+<p>root切换成其他用户 su username </p>
+<p>exit退回root用户</p>
+</blockquote>
+<blockquote>
+<p>用户设置密码 passwd username</p>
+<p>注意：linux输入密码不显示</p>
+</blockquote>
+<blockquote>
+<p>锁定账号，这个用户就登录不上系统</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">passwd -l username</span><br><span class="line">passwd -d username <span class="comment"># 需要输入密码</span></span><br></pre></td></tr></table></figure>
+<h2 id="5-用户组管理"><a href="#5-用户组管理" class="headerlink" title="5.用户组管理"></a>5.用户组管理</h2><blockquote>
+<p>groupadd groupname 新建用户组</p>
+<p>如果用-g 参数 则可以为用户组分配id</p>
+</blockquote>
+<img src="/2021/01/18/Linux/image-20210105120100641-1610904055091.png" class title="image-20210105120100641">
+
+<blockquote>
+<p>groupdel groupname 删除用户组</p>
+</blockquote>
+<blockquote>
+<p>group -g id  -n newname name 可修改名字</p>
+</blockquote>
+<h2 id="6-磁盘管理"><a href="#6-磁盘管理" class="headerlink" title="6.磁盘管理"></a>6.磁盘管理</h2><blockquote>
+<p>df 查看所有 du查看当前</p>
+</blockquote>
+<img src="/2021/01/18/Linux/image-20210105122251891-1610904055091.png" class title="image-20210105122251891">
+
+<h2 id="7-进程管理"><a href="#7-进程管理" class="headerlink" title="7.进程管理"></a>7.进程管理</h2><blockquote>
+<p>ps</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ps -a <span class="comment"># 当前终端运行的所有进程</span></span><br><span class="line">ps -u <span class="comment"># 用户的信息显示进程</span></span><br><span class="line">ps -x <span class="comment"># 显示后台运行进程的参数</span></span><br><span class="line">ps -aux|grep mysql <span class="comment"># 从所有中查找关于mysql的进程</span></span><br><span class="line"><span class="comment"># | 管道符， A|B 即B使用A的数据</span></span><br><span class="line"><span class="comment"># grep 查找文件中符合条件的字符串</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>pstree -pu 进程树</p>
+</blockquote>
+<blockquote>
+<p>kill -id 结束进程</p>
+</blockquote>
+<h2 id="8-环境安装"><a href="#8-环境安装" class="headerlink" title="8.环境安装"></a>8.环境安装</h2><p>安装方式：rpm，解压缩，yum在线</p>
+<h3 id="jdk安装-（使用rpm安装-可直接使用）"><a href="#jdk安装-（使用rpm安装-可直接使用）" class="headerlink" title="jdk安装 （使用rpm安装 可直接使用）"></a>jdk安装 （使用rpm安装 可直接使用）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># rpm -qa|grep jdk  #检测JDK版本信息</span></span><br><span class="line"><span class="comment"># rpm -e --nodeps #卸载jdk</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#rpm -ivh  rpm包  # 安装jdk</span></span><br></pre></td></tr></table></figure>
+<img src="/2021/01/18/Linux/image-20210105155638936-1610904055091.png" class title="image-20210105155638936">
+
+<p>配置环境变量: /etc/profile</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">JAVA_HOME=/usr/java/jdk1.8.0_221-amd64</span><br><span class="line">CLASSPATH=%JAVA_HOME%/lib;%JAVA_HOME%/jre/lib</span><br><span class="line">PATH=<span class="variable">$JAVA_HOME</span>/bin;<span class="variable">$JAVA_HOME</span>/jre/bin</span><br><span class="line"><span class="built_in">export</span> PATH CLASSPATH JAVA_HOME</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">配置完后使用 java jar 包 就可以在服务器上运行项目</span><br></pre></td></tr></table></figure>
+<img src="/2021/01/18/Linux/image-20210105161522626-1610904055092.png" class title="image-20210105161522626">
+
+<blockquote>
+<p>注意防火墙</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">systemctl status firewalld <span class="comment"># 查看防火墙状态</span></span><br><span class="line"></span><br><span class="line">service firewalld start</span><br><span class="line">service firewalld restart</span><br><span class="line">service firewalld stop</span><br><span class="line"></span><br><span class="line">firewall-cmd --list-all	<span class="comment">#查看全部信息</span></span><br><span class="line">firewall-cmd --list-ports	<span class="comment">#只看端口信息</span></span><br><span class="line"></span><br><span class="line">firewall-cmd --zone=public --add-port=端口/tcp --permanent <span class="comment">#开启端口 开启后要重启才生效</span></span><br><span class="line">systemctl restart firewalld.service <span class="comment">#重启防火墙</span></span><br><span class="line"></span><br><span class="line">含义：</span><br><span class="line">--zone <span class="comment">#作用域</span></span><br><span class="line">--add-port=80/tcp <span class="comment">#添加端口 格式为：端口/协议</span></span><br><span class="line">--permanent <span class="comment">#永久生效，没有这个参数重启后失效</span></span><br></pre></td></tr></table></figure>
+<img src="/2021/01/18/Linux/image-20210105164201933-1610904055092.png" class title="image-20210105164201933">
+
+<h3 id="Tomcat安装"><a href="#Tomcat安装" class="headerlink" title="Tomcat安装"></a>Tomcat安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf xx.tar.gz <span class="comment">#解压</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#进入tomcat目录后</span></span><br><span class="line"><span class="comment"># /.startup.sh 开启</span></span><br><span class="line"><span class="comment"># /.shotdown.sh 执行</span></span><br></pre></td></tr></table></figure>
+ <img src="/2021/01/18/Linux/image-20210105162616943-1610904055092.png" class title="image-20210105162616943">
+
+<p>配置完tomcat端口的防火墙之后就可以访问tomcat主页</p>
+<img src="/2021/01/18/Linux/image-20210105164414559-1610904055092.png" class title="image-20210105164414559">使用服务器主机加tomcat端口号访问
+
+<img src="/2021/01/18/Linux/image-20210105164353285-1610904055093.png" class title="image-20210105164353285">
+
+<p>域名解析后，如果端口时80（http）或443（https）则可直接访问，如果是9000，8080则用Apache或nginx进行反向代理</p>
+<h3 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h3><p>1.检测centos 7</p>
+<img src="/2021/01/18/Linux/image-20210105170138159-1610904055093.png" class title="image-20210105170138159">
+
+<p>2.安装准备环境</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum -y install gcc 包名 <span class="comment"># -y表示自动确定都为y</span></span><br><span class="line"></span><br><span class="line">yum -y install gcc</span><br><span class="line">yum -y install gcc-c++</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>3.(官网找)先卸载之前的版本</p>
+<img src="/2021/01/18/Linux/image-20210105171356712-1610904055093.png" class title="image-20210105171356712">
+
+<p>说明安装成功</p>
+<img src="/2021/01/18/Linux/image-20210105171554973-1610904055093.png" class title="image-20210105171554973">第一次会去官网下载
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/17/%E5%B9%B6%E5%8F%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.png">
+      <meta itemprop="name" content="wudelic">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fufu">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/17/%E5%B9%B6%E5%8F%91/" class="post-title-link" itemprop="url">并发</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-01-17 09:40:12 / Modified: 14:26:32" itemprop="dateCreated datePublished" datetime="2021-01-17T09:40:12+08:00">2021-01-17</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -213,7 +910,25 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
+          <h1 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h1><h2 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> threads;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadTest</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DELAY = <span class="number">10</span>;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> STEPS = <span class="number">100</span>;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">double</span> MAX_AMOUNT = <span class="number">1000</span>;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">   </span>&#123;</span><br><span class="line">      <span class="keyword">var</span> bank = <span class="keyword">new</span> Bank(<span class="number">4</span>, <span class="number">100000</span>);</span><br><span class="line">      Runnable task1 = () -&gt;</span><br><span class="line">      &#123;</span><br><span class="line">         <span class="keyword">try</span></span><br><span class="line">         &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; STEPS; i++)</span><br><span class="line">            &#123;</span><br><span class="line">               <span class="keyword">double</span> amount = MAX_AMOUNT * Math.random();</span><br><span class="line">               bank.transfer(<span class="number">0</span>, <span class="number">1</span>, amount);</span><br><span class="line">               Thread.sleep((<span class="keyword">int</span>) (DELAY * Math.random()));</span><br><span class="line">            &#125;</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">catch</span> (InterruptedException e)</span><br><span class="line">         &#123;</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;;</span><br><span class="line">      </span><br><span class="line">      Runnable task2 = () -&gt;</span><br><span class="line">      &#123;</span><br><span class="line">         <span class="keyword">try</span></span><br><span class="line">         &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; STEPS; i++)</span><br><span class="line">            &#123;</span><br><span class="line">               <span class="keyword">double</span> amount = MAX_AMOUNT * Math.random();</span><br><span class="line">               bank.transfer(<span class="number">2</span>, <span class="number">3</span>, amount);</span><br><span class="line">               Thread.sleep((<span class="keyword">int</span>) (DELAY * Math.random()));</span><br><span class="line">            &#125;</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">catch</span> (InterruptedException e)</span><br><span class="line">         &#123;</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;;</span><br><span class="line">      </span><br><span class="line">      <span class="keyword">new</span> Thread(task1).start();  <span class="comment">//这里不直接调用Thread类或Runnable对象的run方法，直接调用run</span></span><br><span class="line">      <span class="keyword">new</span> Thread(task2).start();  <span class="comment">//方法只会在同一线程中执行这个任务，而没有启动新的线程</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<img src="/2021/01/17/%E5%B9%B6%E5%8F%91/image-20210117102052816.png" class title="image-20210117102052816">
+
+<p>可以看到两个线程输出交错，说明在并发运行</p>
+<h3 id="线程状态"><a href="#线程状态" class="headerlink" title="线程状态"></a>线程状态</h3><ul>
+<li>New（新建）</li>
+<li>Runnable（可运行）</li>
+<li>Blocked（阻塞）</li>
+<li>Waiting（等待）</li>
+<li>Timed waiting（计时等待）</li>
+<li>Terminated（终止）</li>
+</ul>
+<p><strong>可使用getState方法确定线程的状态</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Thread(r); <span class="comment">//使用new创建新线程时，线程还没开始运行，状态为new</span></span><br><span class="line"><span class="keyword">new</span> Thread(r).start(); <span class="comment">//调用start方法时，线程处于runnable状态，在任何时刻可能在运行也可能没有运行，</span></span><br><span class="line">					   <span class="comment">//因为运行中的线程有时需要暂停，让其他线程运行</span></span><br><span class="line">yeild();<span class="comment">//可以让正在执行的线程向另一个线程交出运行权</span></span><br><span class="line"><span class="comment">//阻塞和等待</span></span><br><span class="line">两种情况：</span><br><span class="line">    <span class="number">1.</span>run方法正常退出</span><br><span class="line">    <span class="number">2.</span>没有捕获的异常终止了run方法</span><br><span class="line">    <span class="comment">//终止</span></span><br></pre></td></tr></table></figure>
+<h3 id="线程状态转换图"><a href="#线程状态转换图" class="headerlink" title="线程状态转换图"></a>线程状态转换图</h3><img src="/2021/01/17/%E5%B9%B6%E5%8F%91/image-20210117142056675.png" alt="image-20210117142056675" style="zoom:50%;">
+
+<h3 id="线程属性"><a href="#线程属性" class="headerlink" title="线程属性"></a>线程属性</h3><h4 id="中断线程"><a href="#中断线程" class="headerlink" title="中断线程"></a>中断线程</h4><p>线程的run方法执行完最后一条语句后再执行return返回时，或者出现没有捕获的异常时，线程终止。</p>
+<p>有一个stop方法可用于终止一个线程，不过该方法已经弃用，原因是</p>
+
       
     </div>
 
@@ -464,312 +1179,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/15/%E6%95%B0%E6%8D%AE%E5%BA%93/oracle/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.png">
-      <meta itemprop="name" content="wudelic">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="fufu">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/01/15/%E6%95%B0%E6%8D%AE%E5%BA%93/oracle/" class="post-title-link" itemprop="url">数据库/oracle</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2021-01-15 15:27:05 / Modified: 15:26:08" itemprop="dateCreated datePublished" datetime="2021-01-15T15:27:05+08:00">2021-01-15</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Oracle"><a href="#Oracle" class="headerlink" title="Oracle"></a>Oracle</h1><p>对于12c版本的Oracle，默认登录连接的就是CDB，在这个状态下，创建用户时，需要在用户名前面加c##</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create user c<span class="comment">##wuwu identified by 134567846;</span></span><br></pre></td></tr></table></figure>
-
-<p>如果不想在用户名前面加c##，有两种方法：</p>
-<ol>
-<li>在创建数据库时取消勾选“创建为容器数据库”<img src="C:%5CUsers%5Cdelic%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210113131611303.png" alt="image-20210113131611303"></li>
-<li>切换为PDB</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">show con_name;<span class="comment">#查看容器名称，若结果为CDB&amp;ROOT，则为容器状态。</span></span><br><span class="line">show pdbs;<span class="comment">#查看pdbs</span></span><br><span class="line"><span class="comment">#打开关闭单个pdb数据库</span></span><br><span class="line">alter pluggable database pdbsName open;</span><br><span class="line">alter pluggable database pdbsName close immediate;</span><br><span class="line"><span class="comment">#开启所有的pdb</span></span><br><span class="line">alter pluggable database all open;</span><br><span class="line">alter pluggable database all close immediate;</span><br><span class="line"><span class="comment">#切换到指定pdb</span></span><br><span class="line">alter session <span class="built_in">set</span> container=pdbsName;</span><br><span class="line"></span><br><span class="line"><span class="comment">#注意，在切换到pdb后，创建用户时，需要打开pdb</span></span><br></pre></td></tr></table></figure>
-
-<img src="C:\Users\delic\AppData\Roaming\Typora\typora-user-images\image-20210113224318082.png" alt="image-20210113224318082" style="zoom: 50%;" />
-
-<img src="C:\Users\delic\AppData\Roaming\Typora\typora-user-images\image-20210113224328771.png" alt="image-20210113224328771" style="zoom: 67%;" />
-
-<h2 id="1-登录"><a href="#1-登录" class="headerlink" title="1.登录"></a>1.登录</h2><p>登录数据库时有三种身份：normal 普通身份，sysdba 系统管理员身份，sysoper系统操作员身份（权限不一样）</p>
-<p>一开始使用系统管理员身份登录，使用在安装数据库时的密码</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#启动SQL Plus</span></span><br><span class="line">在输入用户名行输入：sys as sysdba</span><br><span class="line">输入密码</span><br><span class="line"><span class="comment">#第二种方法</span></span><br><span class="line">conn /as sysdba<span class="comment">#和上面的效果一样</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>授权</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#使用GRANT给用户授权</span></span><br><span class="line">GRANT CONNECT, RESOURCE, DBA TO wuwu;</span><br></pre></td></tr></table></figure>
-
-<p><img src="C:%5CUsers%5Cdelic%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210113224511002.png" alt="image-20210113224511002"></p>
-<h2 id="2-登录新账户"><a href="#2-登录新账户" class="headerlink" title="2.登录新账户"></a>2.登录新账户</h2><p>在pdb下创建新用户后需要进行配置才可以登录</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">select name,pdb from v<span class="variable">$services</span>;<span class="comment">#首先查找pdb对应的service名字</span></span><br><span class="line">select username from dba_users;<span class="comment">#查找用户</span></span><br><span class="line"><span class="comment">#然后再修改tnsnames.ora</span></span><br><span class="line"><span class="comment">#文件在 D:\app\delic\product\12.2.0\dbhome_1\network\admin\tnsnames.ora 这个位置</span></span><br><span class="line"><span class="comment">#在文件的底部加上</span></span><br><span class="line">orcl2 =  <span class="comment">#这个位置代表数据库名称</span></span><br><span class="line">  (DESCRIPTION =</span><br><span class="line">    (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))</span><br><span class="line">    (CONNECT_DATA =</span><br><span class="line">      (SERVER = DEDICATED)</span><br><span class="line">      (SERVICE_NAME = orclpdb) <span class="comment">#这个serviceName要和上面查询出来的相对应</span></span><br><span class="line">    )</span><br><span class="line">  )</span><br><span class="line"><span class="comment">#最后</span></span><br><span class="line">conn wuwu@orcl2  <span class="comment">#登录用户</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#要注意一些位置的名称，登录时@后面的名称要和文件新增的对应，文件新增的serviceName要和当前pdb下用户的对应</span></span><br></pre></td></tr></table></figure>
-
-<img src="C:\Users\delic\AppData\Roaming\Typora\typora-user-images\image-20210114004948350.png" alt="image-20210114004948350" style="zoom:50%;" />
-
-<img src="C:\Users\delic\AppData\Roaming\Typora\typora-user-images\image-20210114004758946.png" alt="image-20210114004758946" style="zoom:50%;" />
-
-<h2 id="3-使用sqlplus和-SQL-Developer"><a href="#3-使用sqlplus和-SQL-Developer" class="headerlink" title="3.使用sqlplus和 SQL Developer"></a>3.使用sqlplus和 SQL Developer</h2><ol>
-<li>使用Database Configuration Assistant来创建数据库</li>
-<li>使用SQL Developer连接数据库（只可用于连接） </li>
-</ol>
-<p>连接pdb用户</p>
-<p><img src="C:%5CUsers%5Cdelic%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210114135006472.png" alt="image-20210114135006472"></p>
-<p>连接sys</p>
-<p><img src="C:%5CUsers%5Cdelic%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210114141614223.png" alt="image-20210114141614223"></p>
-<h2 id="4-select语句"><a href="#4-select语句" class="headerlink" title="4.select语句"></a>4.select语句</h2><p>select语句和mysql的使用一样</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column_1, column_2</span><br><span class="line"><span class="keyword">from</span> table_name;</span><br></pre></td></tr></table></figure>
-
-<h4 id="Order-By子句"><a href="#Order-By子句" class="headerlink" title="Order By子句"></a>Order By子句</h4><p>根据order by后面的列升序（ACS,可选,默认升序）或降序（DESC）排序输出,</p>
-<p>ORDER BY子句总是SELECT语句中的最后一个子句。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column_1, column_2</span><br><span class="line"><span class="keyword">from</span> table_name</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> <span class="keyword">column</span>[<span class="keyword">ASC</span> | <span class="keyword">DESC</span>] [<span class="keyword">NULLS</span> <span class="keyword">FIRST</span> | <span class="keyword">NULLS</span> <span class="keyword">LAST</span>]</span><br><span class="line"><span class="comment">/*	NULLS FIRST: 是指在查出来的数据中，把null值的行排在前面</span></span><br><span class="line"><span class="comment">	NULLS LAST:是指在查出来的数据中，把null值的行排在后面</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-
-<img src="C:\Users\delic\AppData\Roaming\Typora\typora-user-images\image-20210114230907366.png" alt="image-20210114230907366" style="zoom:50%;" />
-
-<h4 id="Distinct子句"><a href="#Distinct子句" class="headerlink" title="Distinct子句"></a>Distinct子句</h4><p>过滤结果集中的重复行,Distinct子句只能在select中使用，其中把null值也看作重复值</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> coulumn_1</span><br><span class="line"><span class="keyword">from</span> table_name;</span><br></pre></td></tr></table></figure>
-
-<h4 id="Where子句"><a href="#Where子句" class="headerlink" title="Where子句"></a>Where子句</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column_1, column_2,</span><br><span class="line"><span class="keyword">FROM</span> table_name</span><br><span class="line"><span class="keyword">WHERE</span> search_condition</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> column_1, column_2;</span><br></pre></td></tr></table></figure>
-
-<p>where子句也可用于DELETE或UPDATE语句中</p>
-<h4 id="And子句-amp-Or子句"><a href="#And子句-amp-Or子句" class="headerlink" title="And子句 &amp; Or子句"></a>And子句 &amp; Or子句</h4><h4 id="Fetch子句"><a href="#Fetch子句" class="headerlink" title="Fetch子句"></a>Fetch子句</h4><p>限制查询返回行数，可用于分页</p>
-<h4 id="IN-amp-NOT-IN子句"><a href="#IN-amp-NOT-IN子句" class="headerlink" title="IN &amp; NOT IN子句"></a>IN &amp; NOT IN子句</h4><h4 id="between子句"><a href="#between子句" class="headerlink" title="between子句"></a>between子句</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> order_id, customer_id, <span class="keyword">status</span>, order_date</span><br><span class="line"><span class="keyword">FROM</span> orders</span><br><span class="line"><span class="keyword">WHERE</span> order_date <span class="keyword">BETWEEN</span> <span class="built_in">DATE</span> <span class="string">'2016-12-01'</span> <span class="keyword">AND</span> <span class="built_in">DATE</span> <span class="string">'2016-12-31'</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> order_date;</span><br></pre></td></tr></table></figure>
-
-<h4 id="LIKE-amp-NOT-LIKE子句"><a href="#LIKE-amp-NOT-LIKE子句" class="headerlink" title="LIKE &amp; NOT LIKE子句"></a>LIKE &amp; NOT LIKE子句</h4><p>可用于模糊查询</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*通配符 % </span></span><br><span class="line"><span class="comment">	St% 以st开头</span></span><br><span class="line"><span class="comment">	%er 以er结尾</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">SELECT</span> first_name, last_name, phone</span><br><span class="line"><span class="keyword">FROM</span> contacts</span><br><span class="line"><span class="keyword">WHERE</span> last_name <span class="keyword">LIKE</span> <span class="string">'St%'</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> last_name;</span><br><span class="line"><span class="comment">/*通配符 _</span></span><br><span class="line"><span class="comment">	je_i ,匹配任何以'Je'开头的字符串，然后是一个字符，最后是 'i'，例如 Jeri 或Jeni，但不是 Jenni。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">/*混合通配符</span></span><br><span class="line"><span class="comment">	Je_%， 查找名字以 Je 开头，后跟一个字符，然后是任意数量字符的数据</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="5-事务"><a href="#5-事务" class="headerlink" title="5.事务"></a>5.事务</h2><p>数据库的事务其实就是一个操作序列，包含一组数据库操作命令，相当于把一些操作捆绑执行，如写数据时，需要先读数据再写数据，把两个操作当成一个事务，只有都执行成功了，事务才成功完成</p>
-<h4 id="COMMIT（提交事务）"><a href="#COMMIT（提交事务）" class="headerlink" title="COMMIT（提交事务）"></a>COMMIT（提交事务）</h4><p>用于提交当前事务的是有修改</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">COMMIT</span> [ <span class="keyword">WORK</span> ] [ <span class="keyword">COMMENT</span> clause ] [ WRITE clause ] [ <span class="keyword">FORCE</span> clause ];</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">	WORK：可选的。它被 Oracle 添加为符合 SQL 标准。使用或不使用 WORK 参数来执行 COMMIT 将产生相同的结果。</span></span><br><span class="line"><span class="comment">	COMMENT clause：可选的。 它用于指定与当前事务关联的注释。 该注释最多可以包含在单引号中的 255 个字节的文本中。 如果出现问题，它将与事务ID一起存储在名为 DBA_2PC_PENDING 的系统视图中。</span></span><br><span class="line"><span class="comment">	WRITE clause：可选的。 它用于指定将已提交事务的重做信息写入重做日志的优先级。 用这个子句，有两个参数可以指定：</span></span><br><span class="line"><span class="comment">		WAIT 或 NOWAIT (如果省略，WAIT是默认值)</span></span><br><span class="line"><span class="comment">		IMMEDIATE 或 BATCH(IMMEDIATE是省略时的默认值)</span></span><br><span class="line"><span class="comment">	FORCE clause：可选的。 它用于强制提交可能已损坏或有疑问的事务。 有了这个子句，可以用3种方式指定FORCE：</span></span><br><span class="line"><span class="comment">		FORCE'string'，[integer]或FORCE CORRUPT_XID'string' 或 FORCE CORRUPT_XID_ALL</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>只有拥有DBA权限才能指定COMMIT语句的某些功能</strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*发出提交*/</span></span><br><span class="line"><span class="keyword">COMMIT</span>;		等效于<span class="keyword">COMMIT</span> <span class="keyword">WORK</span> WRITE <span class="keyword">WAIT</span> <span class="keyword">IMMEDIATE</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*添加备注*/</span></span><br><span class="line"><span class="keyword">COMMIT</span> <span class="keyword">COMMENT</span> <span class="string">'This is the comment for the transaction'</span>;</span><br><span class="line">等效于</span><br><span class="line"><span class="keyword">COMMIT</span> <span class="keyword">WORK</span> <span class="keyword">COMMENT</span> <span class="string">'This is the comment for the transaction'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*强制*/</span></span><br><span class="line"><span class="keyword">COMMIT</span> <span class="keyword">FORCE</span> <span class="string">'22.14.67'</span>; 等效于<span class="keyword">COMMIT</span> <span class="keyword">WORK</span> <span class="keyword">FORCE</span> <span class="string">'22.14.67'</span>;</span><br></pre></td></tr></table></figure>
-
-<h4 id="ROLLBACK（回滚事务）"><a href="#ROLLBACK（回滚事务）" class="headerlink" title="ROLLBACK（回滚事务）"></a>ROLLBACK（回滚事务）</h4><p>用来撤销当前事务或有问题的事务</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ROLLBACK</span> [ <span class="keyword">WORK</span> ] [ <span class="keyword">TO</span> [<span class="keyword">SAVEPOINT</span>] savepoint_name  | <span class="keyword">FORCE</span> <span class="string">'string'</span> ];</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">	WORK：可选的。 它被 Oracle 添加为符合 SQL 标准。 使用或不使用 WORK 参数来发出 ROLLBACK 会导致相同的结果。</span></span><br><span class="line"><span class="comment">	TO SAVEPOINT savepoint_name：可选的。 ROLLBACK语句撤消当前会话的所有更改，直到由 savepoint_name 指定的保存点。 如果省略该子句，则所有更改都将被撤消。</span></span><br><span class="line"><span class="comment">	FORCE‘string’：可选的。它用于强制回滚可能已损坏或有问题的事务。 使用此子句，可以将单引号中的事务ID指定为字符串。 可以在系统视图中找到名为 DBA_2PC_PENDING 的事务标识。</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>无法将有问题的事务回滚到保存点。</strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*ROLLBACK 语句在 Oracle 中发出回滚*/</span></span><br><span class="line"><span class="keyword">ROLLBACK</span>; 等效于 <span class="keyword">ROLLBACK</span> <span class="keyword">WORK</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*将ROLLBACK写入保存点*/</span></span><br><span class="line"><span class="keyword">ROLLBACK</span> <span class="keyword">TO</span> <span class="keyword">SAVEPOINT</span> savepoint1; 等效于 <span class="keyword">ROLLBACK</span> <span class="keyword">WORK</span> <span class="keyword">TO</span> <span class="keyword">SAVEPOINT</span> savepoint1;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*强制回滚有问题的事务(强制回滚由事务 ID “22.14.67”标识的损坏或有问题的事务)*/</span></span><br><span class="line"><span class="keyword">ROLLBACK</span> <span class="keyword">FORCE</span> <span class="string">'22.14.67'</span>; 等效于 <span class="keyword">ROLLBACK</span> <span class="keyword">WORK</span> <span class="keyword">FORCE</span> <span class="string">'22.14.67'</span>;</span><br></pre></td></tr></table></figure>
-
-<h4 id="SET-TRANSACTION（设置事务）"><a href="#SET-TRANSACTION（设置事务）" class="headerlink" title="SET TRANSACTION（设置事务）"></a>SET TRANSACTION（设置事务）</h4><p>可用于设置事务的状态如只读、读/写、隔离级别，为事务分配名称或将事务分配回滚段等等。</p>
-<p>具体实例</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DECLARE</span></span><br><span class="line">  l_name <span class="built_in">VARCHAR2</span>(<span class="number">100</span>);</span><br><span class="line">  l_age  NUMBER;</span><br><span class="line">  l_sex  VARCHAR2(2);</span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">  <span class="comment">-- 为保证set transaction是事务的第一条语句，先使用commit或rollback来结束掉前面可能存在的事务</span></span><br><span class="line">  <span class="keyword">COMMIT</span>;</span><br><span class="line">  <span class="comment">-- 使用name给事务命名</span></span><br><span class="line">  <span class="keyword">SET</span> <span class="keyword">TRANSACTION</span> <span class="keyword">READ</span> <span class="keyword">ONLY</span> <span class="keyword">NAME</span> <span class="string">'查询报表'</span>;</span><br><span class="line">  <span class="keyword">SELECT</span> <span class="keyword">NAME</span></span><br><span class="line">    <span class="keyword">INTO</span> l_name</span><br><span class="line">    <span class="keyword">FROM</span> student</span><br><span class="line">   <span class="keyword">WHERE</span> student_id = <span class="number">1001</span>;</span><br><span class="line">  <span class="keyword">SELECT</span> age</span><br><span class="line">    <span class="keyword">INTO</span> l_age</span><br><span class="line">    <span class="keyword">FROM</span> student</span><br><span class="line">   <span class="keyword">WHERE</span> student_id = <span class="number">1001</span>;</span><br><span class="line">  <span class="keyword">SELECT</span> sex</span><br><span class="line">    <span class="keyword">INTO</span> l_sex</span><br><span class="line">    <span class="keyword">FROM</span> student</span><br><span class="line">   <span class="keyword">WHERE</span> student_id = <span class="number">1001</span>;</span><br><span class="line">  <span class="comment">-- 终止只读事务</span></span><br><span class="line">  <span class="keyword">COMMIT</span>;</span><br><span class="line">  dbms_output.put_line('输出：' || l_name || l_age || l_sex);</span><br><span class="line"><span class="keyword">END</span>;</span><br></pre></td></tr></table></figure>
-
-<h4 id="LOCK-TABLE"><a href="#LOCK-TABLE" class="headerlink" title="LOCK TABLE"></a>LOCK TABLE</h4><p>用来锁定表、表分区或表子分区</p>
-<h2 id="6-外键"><a href="#6-外键" class="headerlink" title="6.外键"></a>6.外键</h2><p>外键是强制实施参照完整性的一种方式，使用外键就意味着一个表中的值在另一个表中也必须出现。被引用的表称为父表，而带有外键的表称为子表。子表中的外键通常会引用父表中的主键。</p>
-<h4 id="创建外键方式"><a href="#创建外键方式" class="headerlink" title="创建外键方式"></a>创建外键方式</h4><ol>
-<li>可在创建表时创建</li>
-<li>是用alter table创建</li>
-</ol>
-<h4 id="级联删除外键"><a href="#级联删除外键" class="headerlink" title="级联删除外键"></a>级联删除外键</h4><h4 id="删除外键"><a href="#删除外键" class="headerlink" title="删除外键"></a>删除外键</h4><h4 id="禁用外键"><a href="#禁用外键" class="headerlink" title="禁用外键"></a>禁用外键</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name</span><br><span class="line"><span class="keyword">DISABLE</span> <span class="keyword">CONSTRAINT</span> constraint_name;</span><br></pre></td></tr></table></figure>
-
-<h4 id="启用外键"><a href="#启用外键" class="headerlink" title="启用外键"></a>启用外键</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name</span><br><span class="line"><span class="keyword">ENABLE</span> <span class="keyword">CONSTRAINT</span> constraint_name;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/02/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.png">
-      <meta itemprop="name" content="wudelic">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="fufu">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/01/02/%E6%95%B0%E6%8D%AE%E5%BA%93/mysql/" class="post-title-link" itemprop="url">数据库/mysql</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-01-02 11:05:37" itemprop="dateCreated datePublished" datetime="2021-01-02T11:05:37+08:00">2021-01-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-04 14:55:59" itemprop="dateModified" datetime="2021-01-04T14:55:59+08:00">2021-01-04</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>SQL 分为两个部分：数据操作语言 (DML) 和 数据定义语言 (DDL)。</p>
-<p>SQL 的 DML 部分：</p>
-<ul>
-<li><em>SELECT</em> - 从数据库表中获取数据</li>
-<li><em>UPDATE</em> - 更新数据库表中的数据</li>
-<li><em>DELETE</em> - 从数据库表中删除数据</li>
-<li><em>INSERT INTO</em> - 向数据库表中插入数据</li>
-</ul>
-<p>SQL 中最重要的 DDL 语句:</p>
-<ul>
-<li><em>CREATE DATABASE</em> - 创建新数据库</li>
-<li><em>ALTER DATABASE</em> - 修改数据库</li>
-<li><em>CREATE TABLE</em> - 创建新表</li>
-<li><em>ALTER TABLE</em> - 变更（改变）数据库表</li>
-<li><em>DROP TABLE</em> - 删除表</li>
-<li><em>CREATE INDEX</em> - 创建索引（搜索键）</li>
-<li><em>DROP INDEX</em> - 删除索引</li>
-</ul>
-<h1 id="CREATE"><a href="#CREATE" class="headerlink" title="CREATE"></a>CREATE</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE celebs (</span><br><span class="line">  id INTEGER, </span><br><span class="line">  name TEXT, </span><br><span class="line">  age INTEGER</span><br><span class="line"></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE awards (</span><br><span class="line">   id INTEGER PRIMARY KEY,</span><br><span class="line">   recipient TEXT NOT NULL,</span><br><span class="line">   award_name TEXT DEFAULT &#39;Grammy&#39;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="INSERT"><a href="#INSERT" class="headerlink" title="INSERT"></a>INSERT</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO celebs (id, name, age)</span><br><span class="line">VALUES(1, &#39;Justin&#39;, 22);</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="SELECT"><a href="#SELECT" class="headerlink" title="SELECT"></a>SELECT</h1><ul>
-<li><h4 id="WHERE"><a href="#WHERE" class="headerlink" title="WHERE"></a>WHERE</h4></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">这是正确的：</span><br><span class="line">SELECT * FROM Persons WHERE FirstName&#x3D;&#39;Bush&#39;;</span><br><span class="line"></span><br><span class="line">这是错误的：</span><br><span class="line">SELECT * FROM Persons WHERE FirstName&#x3D;Bush;</span><br><span class="line"></span><br><span class="line">这是正确的：</span><br><span class="line">SELECT * FROM Persons WHERE Year&gt;1965;</span><br><span class="line"></span><br><span class="line">这是错误的：</span><br><span class="line">SELECT * FROM Persons WHERE Year&gt;&#39;1965&#39;;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><h4 id="AND-amp-OR"><a href="#AND-amp-OR" class="headerlink" title="AND &amp; OR"></a>AND &amp; OR</h4></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM Persons WHERE (FirstName&#x3D;&#39;Thomas&#39; OR FirstName&#x3D;&#39;William&#39;)</span><br><span class="line">AND LastName&#x3D;&#39;Carter&#39;;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><h4 id="LIMIT"><a href="#LIMIT" class="headerlink" title="LIMIT"></a>LIMIT</h4></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from c_table limit 14;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><h4 id="ORDER-BY-默认升序-amp-DESC（降序）"><a href="#ORDER-BY-默认升序-amp-DESC（降序）" class="headerlink" title="ORDER BY(默认升序)  &amp; DESC（降序）"></a>ORDER BY(默认升序)  &amp; DESC（降序）</h4></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT Company, OrderNumber FROM Orders ORDER BY Company DESC;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><h4 id="DISTINCT"><a href="#DISTINCT" class="headerlink" title="DISTINCT"></a>DISTINCT</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select distinct company from orders;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h1 id="ALTER"><a href="#ALTER" class="headerlink" title="ALTER"></a>ALTER</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alter table celebs</span><br><span class="line">add column twitter_handle TEXT;</span><br></pre></td></tr></table></figure>
-
-<h1 id="UPDATE"><a href="#UPDATE" class="headerlink" title="UPDATE"></a>UPDATE</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">UPDATE celebs </span><br><span class="line">SET twitter_handle &#x3D; &#39;@taylorswift13&#39; </span><br><span class="line">WHERE id &#x3D; 4;</span><br></pre></td></tr></table></figure>
-
-<h1 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DELETE FROM celebs </span><br><span class="line">WHERE twitter_handle IS NULL;</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="常用"><a href="#常用" class="headerlink" title="常用"></a>常用</h1>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/30/git%E5%91%BD%E4%BB%A4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -828,239 +1237,6 @@
 <pre><code>git push -u origin/remote_branch</code></pre><p>   c.远程没有remote_branch分支并，本地已经切换到local_branch</p>
 <pre><code>git push origin local_branch:remote_branch</code></pre></li>
 </ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/24/%E6%95%B0%E6%8D%AE%E5%BA%93/%E8%B6%85%E9%94%AE%E5%80%99%E9%80%89%E9%94%AE%E4%B8%BB%E9%94%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.png">
-      <meta itemprop="name" content="wudelic">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="fufu">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/24/%E6%95%B0%E6%8D%AE%E5%BA%93/%E8%B6%85%E9%94%AE%E5%80%99%E9%80%89%E9%94%AE%E4%B8%BB%E9%94%AE/" class="post-title-link" itemprop="url">数据库/超键候选键主键</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-03-24 22:37:29" itemprop="dateCreated datePublished" datetime="2020-03-24T22:37:29+08:00">2020-03-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-03-26 19:15:08" itemprop="dateModified" datetime="2020-03-26T19:15:08+08:00">2020-03-26</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="超键，候选键，主键"><a href="#超键，候选键，主键" class="headerlink" title="超键，候选键，主键"></a>超键，候选键，主键</h1><blockquote>
-<p>超键(super key):在关系中能唯一标识元组的属性集称为关系模式的超键<br>候选键(candidate key):不含有多余属性的超键称为候选键<br>主键(primary key):用户选作元组标识的一个候选键程序主键<br>比如一个小范围的所有人，没有重名的，考虑以下属性<br>身份证 姓名 性别 年龄<br>身份证唯一，所以是一个超键<br>姓名唯一，所以是一个超键<br>（姓名，性别）唯一，所以是一个超键<br>（姓名，性别，年龄）唯一，所以是一个超键<br>–这里可以看出，超键的组合是唯一的，但可能不是最小唯一的<br>身份证唯一，而且没有多余属性，所以是一个候选键<br>姓名唯一，而且没有多余属性，所以是一个候选键<br>–这里可以看出，候选键是没有多余属性的超键<br>考虑输入查询方便性，可以选择 身份证 为主键<br>也可以 考虑习惯 选择 姓名 为主键<br>–主键是选中的一个候选键  </p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/23/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.png">
-      <meta itemprop="name" content="wudelic">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="fufu">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/23/%E6%95%B0%E6%8D%AE%E5%BA%93/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-title-link" itemprop="url">数据库/数据库</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-03-23 18:40:40" itemprop="dateCreated datePublished" datetime="2020-03-23T18:40:40+08:00">2020-03-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-03-26 19:11:12" itemprop="dateModified" datetime="2020-03-26T19:11:12+08:00">2020-03-26</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="数据库范式"><a href="#数据库范式" class="headerlink" title="数据库范式"></a>数据库范式</h1><p><strong>元组也称为行</strong></p>
-<h2 id="1-1NF"><a href="#1-1NF" class="headerlink" title="1. 1NF"></a>1. 1NF</h2><p><strong>字段不可再分</strong>  </p>
-<ul>
-<li>不满足1NF<blockquote>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>地址</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>北京市海淀区</td>
-</tr>
-<tr>
-<td>广东省深圳市福田区</td>
-</tr>
-<tr>
-<td>陕西省西安市雁塔区</td>
-</tr>
-</tbody></table>
-</li>
-</ul>
-<ul>
-<li>满足1NF<blockquote>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th align="center">省份</th>
-<th align="center">城市</th>
-<th align="center">详细地址</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">北京</td>
-<td align="center">北京</td>
-<td align="center">海淀区</td>
-</tr>
-<tr>
-<td align="center">广东</td>
-<td align="center">深圳</td>
-<td align="center">福田区</td>
-</tr>
-<tr>
-<td align="center">陕西</td>
-<td align="center">西安</td>
-<td align="center">雁塔区</td>
-</tr>
-</tbody></table>
-</li>
-</ul>
-<h2 id="2-2NF"><a href="#2-2NF" class="headerlink" title="2. 2NF"></a>2. 2NF</h2><p><strong>在第一范式的基础上消除非主属性（主键外的属性）对候选键（联合主键）的部分函数依赖，主要是针对联合主键，将联合主键变成单主键</strong></p>
-<ul>
-<li>不满足2NF的情况  <blockquote>
-<p><strong>例如：</strong><br>有一个表：学号，姓名，年龄，课程名称，成绩，学分；<br>可能会存在的情况：  </p>
-</blockquote>
-</li>
-</ul>
-<p>1.<strong>数据冗余</strong>：每条记录都含有系统的信息；<br>2.<strong>删除异常</strong>：删除学生的成绩，会把课程信息给删除了；<br>3.<strong>插入异常</strong>：学生未选课就无法记录到数据库；<br>4.<strong>更新异常</strong>：调整课程学分，所有的行都要调整。</p>
-<p>*正确的做法</p>
-<blockquote>
-<p>拆为多个表：<br>学生表：学号，姓名，年龄<br>课程表：课程名称，学分<br>选课关系：学号，课程名称，成绩</p>
-</blockquote>
-<p><strong>例子2</strong></p>
-<blockquote>
-<p>在选课关系表(学号，课程号，成绩，学分)，关键字为组合关键字(学号，课程号)，但由于非主属性学分仅依赖于课程号，对关键字(学号，课程号)只是部分依赖，而不是完全依赖，因此此种方式会导致数据冗余以及更新异常等问题，解决办法是将其分为两个关系模式：学生表(学号，课程号，分数)和课程表(课程号，学分)，新关系通过学生表中的外关键字课程号联系，在需要时进行连接。</p>
-</blockquote>
-<h2 id="3-3NF"><a href="#3-3NF" class="headerlink" title="3. 3NF"></a>3. 3NF</h2><p><strong>每一列都和主键直接相关，而不是间接相关，在第二范式的基础上消除非主属性对候选键的传递依赖</strong>  </p>
-<ul>
-<li>不符合3NF的表：<blockquote>
-<p>学号，姓名，年龄，学院名称，学院电话。存在依赖传递（学号）-&gt;（学生）-&gt; （所在学院）-&gt; (学院电话)<br>正确做法：<br>学生：学号，姓名，年龄，所在学院<br>学院：学院，电话  </p>
-</blockquote>
-</li>
-</ul>
-<blockquote>
-<p>表二：<br>以学生表(学号，姓名，课程号，成绩)为例，其中学生姓名无重名，所以该表有两个候选码(学号，课程号)和(姓名，课程号)，故存在函数依赖：学号——&gt;姓名，(学号，课程号)——&gt;成绩，唯一的非主属性成绩对码不存在部分依赖，也不存在传递依赖，所以属性属于第三范式。</p>
-</blockquote>
-<h2 id="4-BCNF"><a href="#4-BCNF" class="headerlink" title="4. BCNF"></a>4. BCNF</h2><blockquote>
-<p>它构建在第三范式的基础上，如果关系模型R是第一范式，且每个属性都不传递依赖于R的候选键，那么称R为BCNF的模式。</p>
-</blockquote>
-<blockquote>
-<p>假设仓库管理关系表(仓库号，存储物品号，管理员号，数量)，满足一个管理员只在一个仓库工作；一个仓库可以存储多种物品，则存在如下关系：</p>
-</blockquote>
-<blockquote>
-<p>(仓库号，存储物品号)——&gt;(管理员号，数量)</p>
-</blockquote>
-<blockquote>
-<p>(管理员号，存储物品号)——&gt;(仓库号，数量)</p>
-</blockquote>
-<blockquote>
-<p>所以，(仓库号，存储物品号)和(管理员号，存储物品号)都是仓库管理关系表的候选码，表中唯一非关键字段为数量，它是符合第三范式的。但是，由于存在如下决定关系：</p>
-</blockquote>
-<blockquote>
-<p>(仓库号)——&gt;(管理员号)</p>
-</blockquote>
-<blockquote>
-<p>(管理员号)——&gt;(仓库号)</p>
-</blockquote>
-<blockquote>
-<p>即存在关键字段决定关键字段的情况，因此其不符合BCNF。把仓库管理关系表分解为两个关系表仓库管理表(仓库号，管理员号)和仓库表(仓库号，存储物品号，数量)，这样这个数据库表是符合BCNF的，并消除了删除异常、插入异常和更新异常。</p>
-</blockquote>
 
       
     </div>
@@ -1292,12 +1468,14 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories">
           
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
+            <a href="/tags">
+          
         <span class="site-state-item-count">1</span>
-        <span class="site-state-item-name">tags</span>
+        <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
