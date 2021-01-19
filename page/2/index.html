@@ -188,10 +188,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-01-17 09:40:03 / Modified: 09:53:48" itemprop="dateCreated datePublished" datetime="2021-01-17T09:40:03+08:00">2021-01-17</time>
+              <time title="Created: 2021-01-17 09:40:03" itemprop="dateCreated datePublished" datetime="2021-01-17T09:40:03+08:00">2021-01-17</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-01-20 00:21:30" itemprop="dateModified" datetime="2021-01-20T00:21:30+08:00">2021-01-20</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -217,52 +223,14 @@
 
 <p>两个基本接口Collection和Map</p>
 <p>插入和读取：对于Collection（集合）使用add插入，迭代器读取；对于Map（映射）使用put插入，get读取</p>
-<p>Abstract开头的类可以用于继承，在实现时比实现所有接口方便</p>
-<h2 id="集合框架中的类"><a href="#集合框架中的类" class="headerlink" title="集合框架中的类"></a>集合框架中的类</h2><img src="/2021/01/17/%E9%9B%86%E5%90%88/image-20210116151112886-1610848424036.png" class title="image-20210116151112886">
-
-<img src="/2021/01/17/%E9%9B%86%E5%90%88/image-20210116151358565-1610848424036.png" class title="image-20210116151358565">
-
-<h2 id="Collection（集合）"><a href="#Collection（集合）" class="headerlink" title="Collection（集合）"></a>Collection（集合）</h2><img src="/2021/01/17/%E9%9B%86%E5%90%88/image-20210116151620786-1610848424036.png" class title="image-20210116151620786">
-
-
-
-<p>集合类的基本接口，collection接口</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 有两个基本方法*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Collection</span>&lt;<span class="title">E</span>&gt;</span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E element)</span></span>;</span><br><span class="line">    <span class="function">Iterator&lt;E&gt; <span class="title">iterator</span><span class="params">()</span></span>;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h3><p>迭代器——实现了Iterator接口的对象，Iterator包含4个方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Iterator</span>&lt;<span class="title">E</span>&gt;</span>&#123;</span><br><span class="line">    <span class="function">E <span class="title">next</span><span class="params">()</span></span>; <span class="comment">//访问下一个元素，集合的末尾调用，抛出NoSuchElementException异常</span></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">remove</span><span class="params">()</span></span>; <span class="comment">//删除上次调用next方法返回的元素</span></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*例子*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IteratorTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        Collection&lt;String&gt; c = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        c.add(<span class="string">&quot;这&quot;</span>);</span><br><span class="line">        c.add(<span class="string">&quot;这&quot;</span>);</span><br><span class="line">        Iterator&lt;String&gt; i = c.iterator();</span><br><span class="line">        <span class="keyword">while</span> (i.hasNext())&#123;</span><br><span class="line">            String s = i.next();</span><br><span class="line">            System.out.println(s);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;done&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (String e : c)&#123;</span><br><span class="line">            System.out.println(e);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;done&quot;</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<img src="/2021/01/17/%E9%9B%86%E5%90%88/Users/delic/Desktop/2020106/新建文件夹/java/集合.assets/image-20210116103739281.png" alt="image-20210116103739281" style="zoom:33%;">
-
-<p>注意remove方法和next调用之间存在依赖性，在调用remove之前没有调用next会抛出异常</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Collection&lt;String&gt; c = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">c.add(<span class="string">&quot;这&quot;</span>);c.add(<span class="string">&quot;这&quot;</span>);</span><br><span class="line">Iterator&lt;String&gt; i = c.iterator();</span><br><span class="line"><span class="comment">//不合法</span></span><br><span class="line">i.remove()</span><br><span class="line"><span class="comment">//合法</span></span><br><span class="line">i.next()</span><br><span class="line">i.remove();<span class="comment">//必须先调用next越过将要删除的元素，如当前语句表示删除next输出的元素</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="List接口"><a href="#List接口" class="headerlink" title="List接口"></a>List接口</h3><p>有序集合</p>
-<h4 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h4><p>用链表实现，java中都是双向链表，隐藏了在删除元素时调整指针的繁琐操作。</p>
-<h4 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h4><blockquote>
-<p>关于动态数组，有ArrayList和Vector。</p>
-<p>一般会使用ArrayList，因为Vector的所有方法都是同步的，虽然可以安全的从两个线程访问同一个Vector对象，但是如果从一个线程中访问Vector（这种情况比较常见），会浪费时间在同步操作上。因此在不需要同步的时候使用ArrayList，需要同步时使用Vector。</p>
-</blockquote>
-<h3 id="Set接口"><a href="#Set接口" class="headerlink" title="Set接口"></a>Set接口</h3><p>等同于Collection，其中的add方法不允许增加重复的元素</p>
-<h4 id="散列表"><a href="#散列表" class="headerlink" title="散列表"></a>散列表</h4><p>如果自己实现自己的类，要自己实现hashCode方法，实现要与equals方法兼容，即如果a.equals(b)为true，a与b要有相同的散列码。</p>
-<p>Java中使用链表数组实现，使用哈希散列法。</p>
-<p>Java集合类提供HashSet（散列集），使用场景：不关心集合中元素的顺序；TreeSet（树集），有序集合，在进行遍历时自动按照排序后的顺序呈现。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        Collection&lt;String&gt; c1 = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">        Collection&lt;String&gt; c2 = <span class="keyword">new</span> TreeSet&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        c1.add(<span class="string">&quot;Bob&quot;</span>);c1.add(<span class="string">&quot;Amy&quot;</span>);c1.add(<span class="string">&quot;Carl&quot;</span>);</span><br><span class="line">        c2.add(<span class="string">&quot;Bob&quot;</span>);c2.add(<span class="string">&quot;Amy&quot;</span>);c2.add(<span class="string">&quot;Carl&quot;</span>);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;HashSet:&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (String i : c1)</span><br><span class="line">            System.out.print(i+<span class="string">&quot;,&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;TreeSet:&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (String i : c2)</span><br><span class="line">            System.out.print(i+<span class="string">&quot;,&quot;</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：<img src="/2021/01/17/%E9%9B%86%E5%90%88/Users/delic/Desktop/2020106/新建文件夹/java/集合.assets/image-20210116142103950.png" alt="image-20210116142103950" style="zoom:50%;"></p>
-<p>TreeSet排序使用红黑树完成，在添加元素时，已经将新元素存放在正确的位置上，<strong>要使用树集，要求这些元素实现Comparable接口</strong></p>
-<h3 id="队列与双端队列"><a href="#队列与双端队列" class="headerlink" title="队列与双端队列"></a>队列与双端队列</h3><p>Queue，Deuqe</p>
-<h3 id="优先队列"><a href="#优先队列" class="headerlink" title="优先队列"></a>优先队列</h3><p>PriorityQueue</p>
-<p>使用了堆</p>
-<h2 id="Map（映射）"><a href="#Map（映射）" class="headerlink" title="Map（映射）"></a>Map（映射）</h2><img src="/2021/01/17/%E9%9B%86%E5%90%88/image-20210116151640760-1610848424036.png" class title="image-20210116151640760">
-
-<p>两个通用实现：HashMap，TreeMap</p>
-<p>与集合一样，散列速度快，当不需要按照有序访问时使用Hash</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*使用put添加对象，使用get和键检索对象*/</span></span><br><span class="line"><span class="keyword">var</span> staff = <span class="keyword">new</span> HashMap&lt;String, Employee&gt;();</span><br><span class="line"><span class="keyword">var</span> harry = <span class="keyword">new</span> Employee(<span class="string">&quot;harry hacker&quot;</span>);</span><br><span class="line">staff.put(<span class="string">&quot;2000-1&quot;</span>, harry);</span><br><span class="line"><span class="keyword">var</span> id = <span class="string">&quot;2000-1&quot;</span>;</span><br><span class="line">Employee e = staff.get(id);</span><br></pre></td></tr></table></figure>
-<h2 id="遗留的集合（了解）"><a href="#遗留的集合（了解）" class="headerlink" title="遗留的集合（了解）"></a>遗留的集合（了解）</h2><ol>
-<li>HashTable：和HashMap类的作用一样，不过方法是同步的。如果有并发访问，目前使用ConcurrentHashMap。</li>
-<li>枚举</li>
-<li>属性映射</li>
-<li>栈：Stack类扩展了Vector</li>
-<li>位集</li>
-</ol>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/01/17/%E9%9B%86%E5%90%88/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -312,7 +280,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-19 21:28:12" itemprop="dateModified" datetime="2021-01-19T21:28:12+08:00">2021-01-19</time>
+                <time title="Modified: 2021-01-19 23:45:00" itemprop="dateModified" datetime="2021-01-19T23:45:00+08:00">2021-01-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -535,13 +503,14 @@
 </li>
 </ol>
 <p><strong>特别：Scaffold文件夹中有三个文件：draft.md; page.md; post.md；</strong></p>
-<p>*<em>也可以自定义模板文件，如design.md *</em></p>
-<blockquote>
-<p>hexo new design “design a house” </p>
-</blockquote>
-<p><strong>此时的文件，会按照design.md的内容建立文章</strong></p>
-<p><strong>由于新建文章默认为post，所以可以修改post.md文件，把tags和categories加上去，这样以后新建的文件都会带这两个变量</strong></p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/03/11/hexo%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
