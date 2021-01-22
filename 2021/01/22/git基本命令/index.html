@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.7.2","exturl":false,"sidebar":{"position":"hide","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="1.如何将本地项目上传到Github有三种方法 1.从github克隆到本地 先在github新建好仓库（repository）  新建成功后复制仓库地址   在本地项目的文件夹中，右键打开git bash  输入以下代码，把上面创建的github的仓库克隆到本地 1git clone https:&#x2F;&#x2F;上面复制的仓库地址 在本地会多一个文件夹，把项目移入文件夹中  按照以下步骤，输入命令 123g">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git基本命令">
+<meta property="og:url" content="http://yoursite.com/2021/01/22/git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/index.html">
+<meta property="og:site_name" content="fufu">
+<meta property="og:description" content="1.如何将本地项目上传到Github有三种方法 1.从github克隆到本地 先在github新建好仓库（repository）  新建成功后复制仓库地址   在本地项目的文件夹中，右键打开git bash  输入以下代码，把上面创建的github的仓库克隆到本地 1git clone https:&#x2F;&#x2F;上面复制的仓库地址 在本地会多一个文件夹，把项目移入文件夹中  按照以下步骤，输入命令 123g">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2021/01/22/git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/image-20210122004630520.png">
+<meta property="og:image" content="http://yoursite.com/2021/01/22/git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/image-20210122005943087.png">
+<meta property="og:image" content="http://yoursite.com/2021/01/22/git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/image-20210122010100178.png">
+<meta property="og:image" content="http://yoursite.com/2021/01/22/git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/image-20210122010123490.png">
+<meta property="og:image" content="http://yoursite.com/2021/01/22/git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/image-20210122010142989.png">
+<meta property="og:image" content="http://yoursite.com/2021/01/22/git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/image-20210122010159225.png">
+<meta property="og:image" content="http://yoursite.com/2021/01/22/git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/image-20210122010244468.png">
+<meta property="og:image" content="http://yoursite.com/2021/01/22/git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/image-20210122091541603.png">
+<meta property="article:published_time" content="2021-01-21T16:25:20.000Z">
+<meta property="article:modified_time" content="2021-01-22T01:38:15.587Z">
+<meta property="article:author" content="wudelic">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2021/01/22/git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/image-20210122004630520.png">
+
+<link rel="canonical" href="http://yoursite.com/2021/01/22/git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>git基本命令 | fufu</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">fufu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">记录一下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-fw fa-calendar"></i>Schedule</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/22/git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.png">
+      <meta itemprop="name" content="wudelic">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fufu">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          git基本命令
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-01-22 00:25:20 / Modified: 09:38:15" itemprop="dateCreated datePublished" datetime="2021-01-22T00:25:20+08:00">2021-01-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="1-如何将本地项目上传到Github"><a href="#1-如何将本地项目上传到Github" class="headerlink" title="1.如何将本地项目上传到Github"></a>1.如何将本地项目上传到Github</h1><p><strong>有三种方法</strong></p>
+<h3 id="1-从github克隆到本地"><a href="#1-从github克隆到本地" class="headerlink" title="1.从github克隆到本地"></a>1.从github克隆到本地</h3><ol>
+<li><p>先在github新建好仓库（repository）</p>
+</li>
+<li><p>新建成功后复制仓库地址</p>
+<img src="/2021/01/22/git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/image-20210122004630520.png" class title="image-20210122004630520">
+</li>
+<li><p>在本地项目的文件夹中，右键打开git bash</p>
+</li>
+<li><p>输入以下代码，把上面创建的github的仓库克隆到本地</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://上面复制的仓库地址</span><br></pre></td></tr></table></figure></li>
+<li><p>在本地会多一个文件夹，把项目移入文件夹中</p>
+</li>
+<li><p>按照以下步骤，输入命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&quot;提交信息&quot;</span></span><br><span class="line">git push -u origin master <span class="comment">#此步骤需要输入账号密码</span></span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ol>
+<h3 id="2-从本地直接上传到github"><a href="#2-从本地直接上传到github" class="headerlink" title="2.从本地直接上传到github"></a>2.从本地直接上传到github</h3><ol>
+<li><p>首先在本地项目的文件夹目录下，新建本地的版本库,并且把它变成git可管理的仓库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init <span class="comment">#此命令后，会有一个.git的隐藏文件夹</span></span><br></pre></td></tr></table></figure></li>
+<li><p>按照以下步骤，输入命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git status <span class="comment">#此命令可以查看文件状态</span></span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&quot;提交信息&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>接下来要进行本地仓库和远程仓库的连接，由于本地Git仓库和Github仓库之间的传输是通过SSH加密的，所以连接时需要设置一下。</p>
+<blockquote>
+<p>先看一下你C盘用户目录下有没有.ssh目录，有的话看下里面有没有id_rsa和id_rsa.pub这两个文件。没有的话需要创建SSH KEY。通过以下命令：</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;youremail@example.com&quot;</span> 注意ssh-keygen之间没有空格</span><br></pre></td></tr></table></figure>
+<p>然后回车，询问保存key的位置，默认是在括号里的路径下，你可以修改，也可以不做修改。如下图所示：</p>
+<img src="/2021/01/22/git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/image-20210122005943087.png" class title="image-20210122005943087">
+
+<p>这里不修改，回车，提示已存在，是否覆盖。因为我这是第二次，所以有这个提示如下题所示：</p>
+<img src="/2021/01/22/git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/image-20210122010100178.png" class title="image-20210122010100178">
+
+<p>输入Y，回车，提示输入密码，如下图所示：</p>
+<img src="/2021/01/22/git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/image-20210122010123490.png" class title="image-20210122010123490">
+
+<p>为了不必要麻烦，还是不要设置密码，因为容易忘记，不输入密码，回车，如下图所示：</p>
+<img src="/2021/01/22/git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/image-20210122010142989.png" class title="image-20210122010142989">
+
+<p>确认密码不输入，回车，如图所示：</p>
+<img src="/2021/01/22/git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/image-20210122010159225.png" class title="image-20210122010159225">
+
+<p> 出现上图结果，表明创建key成功！</p>
+<p>*<em>这时你就会在用户下的.ssh目录里找到id_rsa和id_rsa.pub这两个文件  *</em></p>
+<img src="/2021/01/22/git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/image-20210122010244468.png" alt="image-20210122010244468" style="zoom:50%;">
+</li>
+<li><p>这时再登录github，打开点进里面的Settings，再选中里面的SSH and GPG KEYS，点击右上角的New SSH key，然后Title里面随便填，再把刚才id_rsa.pub里面的内容复制到Title下面的Key内容框里面，最后点击Add SSH key，这样就完成了SSH Key的加密。</p>
+<img src="/2021/01/22/git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/image-20210122091541603.png" class title="image-20210122091541603">
+</li>
+<li><p>在Github上创建一个Git仓库。</p>
+</li>
+<li><p>在Github上创建好Git仓库之后我们就可以和本地仓库进行关联了，输入以下命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin https://仓库地址</span><br></pre></td></tr></table></figure></li>
+<li><p>关联好之后我们就可以把本地库的所有内容推送到远程仓库，通过</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin master <span class="comment">#由于新建的远程仓库是空的，所以要加上-u这个参数，等远程仓库里面有了内容之后，下次再从本地库上传内容的时候只需下面这样就可以了：</span></span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>注意</strong>：在创建仓库时，如果勾选了创建README文件，在第一次推送时会报错，因为新创建的那个仓库里面的README文件不在本地仓库目录中，这时需要先将内容合并再push</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull --rebase origin master</span><br></pre></td></tr></table></figure>
+<h1 id="2-Git命令"><a href="#2-Git命令" class="headerlink" title="2.Git命令"></a>2.Git命令</h1></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/20/MySQL%E5%92%8COracle%E7%9A%84%E5%8C%BA%E5%88%AB/" rel="prev" title="MySQL和Oracle的区别">
+      <i class="fa fa-chevron-left"></i> MySQL和Oracle的区别
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E5%A6%82%E4%BD%95%E5%B0%86%E6%9C%AC%E5%9C%B0%E9%A1%B9%E7%9B%AE%E4%B8%8A%E4%BC%A0%E5%88%B0Github"><span class="nav-number">1.</span> <span class="nav-text">1.如何将本地项目上传到Github</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%BB%8Egithub%E5%85%8B%E9%9A%86%E5%88%B0%E6%9C%AC%E5%9C%B0"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.从github克隆到本地</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%BB%8E%E6%9C%AC%E5%9C%B0%E7%9B%B4%E6%8E%A5%E4%B8%8A%E4%BC%A0%E5%88%B0github"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.从本地直接上传到github</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Git%E5%91%BD%E4%BB%A4"><span class="nav-number">2.</span> <span class="nav-text">2.Git命令</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="wudelic"
+      src="/uploads/avatar.png">
+  <p class="site-author-name" itemprop="name">wudelic</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wudelic</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v5.3.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
