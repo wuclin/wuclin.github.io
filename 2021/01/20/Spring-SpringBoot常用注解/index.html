@@ -28,7 +28,7 @@
 <meta property="og:description" content="1.@SrpingBootApplication可以把 @SpringBootApplication看作是 @Configuration、@EnableAutoConfiguration、@ComponentScan 注解的集合。 这个注解是 Spring Boot 项目的基石，创建 SpringBoot 项目之后会默认在主类加上。 123456@SpringBootApplicationpubl">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-01-20T06:09:13.000Z">
-<meta property="article:modified_time" content="2021-01-20T14:26:24.314Z">
+<meta property="article:modified_time" content="2021-01-26T09:26:09.701Z">
 <meta property="article:author" content="wudelic">
 <meta name="twitter:card" content="summary">
 
@@ -191,10 +191,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-01-20 14:09:13 / Modified: 22:26:24" itemprop="dateCreated datePublished" datetime="2021-01-20T14:09:13+08:00">2021-01-20</time>
+              <time title="Created: 2021-01-20 14:09:13" itemprop="dateCreated datePublished" datetime="2021-01-20T14:09:13+08:00">2021-01-20</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-01-26 17:26:09" itemprop="dateModified" datetime="2021-01-26T17:26:09+08:00">2021-01-26</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -225,12 +231,24 @@
 <li><code>@ComponentScan</code>： 扫描被<code>@Component</code> (<code>@Service</code>,<code>@Controller</code>)注解的 bean，注解默认会扫描该类所在的包下所有的类。</li>
 <li><code>@Configuration</code>：允许在 Spring 上下文中注册额外的 bean 或导入其他配置类</li>
 </ul>
-<h2 id="2-Spring-Bean相关"><a href="#2-Spring-Bean相关" class="headerlink" title="2.Spring Bean相关"></a>2.Spring Bean相关</h2><ol>
-<li><h4 id="Autowired"><a href="#Autowired" class="headerlink" title="@Autowired"></a>@Autowired</h4><p>自动导入对象到类中，被注入进的类同样要被 Spring 容器管理比如：Service 类注入到 Controller 类中。</p>
+<h2 id="2-Spring-Bean相关"><a href="#2-Spring-Bean相关" class="headerlink" title="2.Spring Bean相关"></a>2.Spring Bean相关</h2><h3 id="第一类"><a href="#第一类" class="headerlink" title="第一类"></a>第一类</h3><h4 id="Controller"><a href="#Controller" class="headerlink" title="@Controller"></a>@Controller</h4><p>标注控制层组件，标记在类上，表示为SpringMVC Controller对象，会检测该方法是否使用了@RequestMapping注解</p>
+<h4 id="RestController"><a href="#RestController" class="headerlink" title="@RestController"></a>@RestController</h4><p>相当于 @Controller和@ResponseBody</p>
+<h4 id="Component"><a href="#Component" class="headerlink" title="@Component"></a>@Component</h4><p>组件不好归类时，使用这个注解</p>
+<h4 id="Repository"><a href="#Repository" class="headerlink" title="@Repository"></a>@Repository</h4><p>用于注解dao层，在daoImpl类上面注解</p>
+<h4 id="Service"><a href="#Service" class="headerlink" title="@Service"></a>@Service</h4><p>用于标注业务层组件</p>
+<h2 id="第二类"><a href="#第二类" class="headerlink" title="第二类"></a>第二类</h2><h4 id="ResponseBody"><a href="#ResponseBody" class="headerlink" title="@ResponseBody"></a>@ResponseBody</h4><p>异步请求，通常用于ajax调用，一般时返回json或xml，而不是html页面</p>
+<h4 id="RequestMapping"><a href="#RequestMapping" class="headerlink" title="@RequestMapping"></a>@RequestMapping</h4><p>用于处理请求地址映射的注解，可用在类或方法上</p>
+<h4 id="Autowired"><a href="#Autowired" class="headerlink" title="@Autowired"></a>@Autowired</h4><p>可对类成员变量，方法，构造函数标注，完成自动装配的工作，通过@Autowired消除set，get方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> Person person;</span><br><span class="line"><span class="comment">//等价于</span></span><br><span class="line"><span class="keyword">private</span> Person person;</span><br><span class="line"><span class="function"><span class="keyword">public</span> Person <span class="title">getPerson</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> person;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPerson</span><span class="params">(Person person)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.person = person;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h4 id="PathVariable"><a href="#PathVariable" class="headerlink" title="@PathVariable"></a>@PathVariable</h4><h4 id="RequestParam"><a href="#RequestParam" class="headerlink" title="@RequestParam"></a>@RequestParam</h4><ol>
+<li><h4 id="Autowired-1"><a href="#Autowired-1" class="headerlink" title="@Autowired"></a>@Autowired</h4><p>自动导入对象到类中，被注入进的类同样要被 Spring 容器管理比如：Service 类注入到 Controller 类中。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line">  ......</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/users&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span> </span>&#123;</span><br><span class="line">   <span class="meta">@Autowired</span></span><br><span class="line">   <span class="keyword">private</span> UserService userService;</span><br><span class="line">   ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li><h4 id="Component-Repository-Service-Controller"><a href="#Component-Repository-Service-Controller" class="headerlink" title="@Component,@Repository,@Service, @Controller"></a>@Component,@Repository,@Service, @Controller</h4></li>
 <li><h4 id="RestControler"><a href="#RestControler" class="headerlink" title="@RestControler"></a>@RestControler</h4></li>
 <li><h4 id="Scope"><a href="#Scope" class="headerlink" title="@Scope"></a>@Scope</h4></li>
+<li></li>
 </ol>
 
     </div>
@@ -313,7 +331,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-SrpingBootApplication"><span class="nav-number">1.</span> <span class="nav-text">1.@SrpingBootApplication</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Spring-Bean%E7%9B%B8%E5%85%B3"><span class="nav-number">2.</span> <span class="nav-text">2.Spring Bean相关</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Autowired"><span class="nav-number">2.0.1.</span> <span class="nav-text">@Autowired</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Component-Repository-Service-Controller"><span class="nav-number">2.0.2.</span> <span class="nav-text">@Component,@Repository,@Service, @Controller</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RestControler"><span class="nav-number">2.0.3.</span> <span class="nav-text">@RestControler</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Scope"><span class="nav-number">2.0.4.</span> <span class="nav-text">@Scope</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-SrpingBootApplication"><span class="nav-number">1.</span> <span class="nav-text">1.@SrpingBootApplication</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Spring-Bean%E7%9B%B8%E5%85%B3"><span class="nav-number">2.</span> <span class="nav-text">2.Spring Bean相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%B1%BB"><span class="nav-number">2.1.</span> <span class="nav-text">第一类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Controller"><span class="nav-number">2.1.1.</span> <span class="nav-text">@Controller</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RestController"><span class="nav-number">2.1.2.</span> <span class="nav-text">@RestController</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Component"><span class="nav-number">2.1.3.</span> <span class="nav-text">@Component</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Repository"><span class="nav-number">2.1.4.</span> <span class="nav-text">@Repository</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Service"><span class="nav-number">2.1.5.</span> <span class="nav-text">@Service</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%B1%BB"><span class="nav-number">3.</span> <span class="nav-text">第二类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ResponseBody"><span class="nav-number">3.0.1.</span> <span class="nav-text">@ResponseBody</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RequestMapping"><span class="nav-number">3.0.2.</span> <span class="nav-text">@RequestMapping</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Autowired"><span class="nav-number">3.0.3.</span> <span class="nav-text">@Autowired</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PathVariable"><span class="nav-number">3.0.4.</span> <span class="nav-text">@PathVariable</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RequestParam"><span class="nav-number">3.0.5.</span> <span class="nav-text">@RequestParam</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Autowired-1"><span class="nav-number">3.0.6.</span> <span class="nav-text">@Autowired</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Component-Repository-Service-Controller"><span class="nav-number">3.0.7.</span> <span class="nav-text">@Component,@Repository,@Service, @Controller</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RestControler"><span class="nav-number">3.0.8.</span> <span class="nav-text">@RestControler</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Scope"><span class="nav-number">3.0.9.</span> <span class="nav-text">@Scope</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -329,14 +347,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories">
           
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
