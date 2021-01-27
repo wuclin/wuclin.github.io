@@ -36,7 +36,7 @@
 <meta property="og:image" content="http://yoursite.com/2021/01/20/spring/60679444.jpg">
 <meta property="og:image" content="http://yoursite.com/2021/01/20/spring/49790288.jpg">
 <meta property="article:published_time" content="2021-01-20T03:29:42.000Z">
-<meta property="article:modified_time" content="2021-01-26T09:55:46.287Z">
+<meta property="article:modified_time" content="2021-01-27T02:20:26.629Z">
 <meta property="article:author" content="wudelic">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://yoursite.com/2021/01/20/spring/171292e6b5744861">
@@ -208,7 +208,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-26 17:55:46" itemprop="dateModified" datetime="2021-01-26T17:55:46+08:00">2021-01-26</time>
+                <time title="Modified: 2021-01-27 10:20:26" itemprop="dateModified" datetime="2021-01-27T10:20:26+08:00">2021-01-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -313,6 +313,23 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//等同于</span></span><br><span class="line"><span class="meta">@RestController</span></span><br></pre></td></tr></table></figure>
 <h2 id="Spring-IOC-amp-AOP"><a href="#Spring-IOC-amp-AOP" class="headerlink" title="Spring IOC &amp; AOP"></a>Spring IOC &amp; AOP</h2><h4 id="IOC"><a href="#IOC" class="headerlink" title="IOC"></a>IOC</h4><p>将对象之间的相互依赖关系交给 IoC 容器来管理，并由 IoC 容器完成对象的注入。如果利用 IoC 的话，你只需要配置好，然后在需要的地方引用就行了，这大大增加了项目的可维护性且降低了开发难度。</p>
 <p>IoC（Inverse of Control:控制反转）是一种<strong>设计思想</strong>，就是 <strong>将原本在程序中手动创建对象的控制权，交由Spring框架来管理。</strong> <strong>IoC 容器是 Spring 用来实现 IoC 的载体， IoC 容器实际上就是个Map（key，value）,Map 中存放的是各种对象。</strong></p>
+<p>控制反转通过依赖注入（DI）方式<strong>实现对象之间的松耦合关系</strong>。IoC就是<strong>一个对象定义其依赖关系而不创建它们的过程</strong>。</p>
+<p>有两个点：</p>
+<p><strong>第1点：使用私有属性保存依赖对象，并且只能通过构造函数参数传入，</strong></p>
+<p>构造函数的参数可以是<strong>工厂方法</strong>、<strong>保存类对象的属性</strong>、或者是<strong>工厂方法返回值</strong>。</p>
+<p>假设我们有一个<code>Computer</code>类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Computer</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String cpu;     <span class="comment">// CPU型号</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> ram;        <span class="comment">// RAM大小，单位GB</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Computer</span><span class="params">(String cpu, <span class="keyword">int</span> ram)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.cpu = cpu;</span><br><span class="line">        <span class="keyword">this</span>.ram = ram;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们有另一个<code>Person</code>类依赖于<code>Computer</code>类，符合IoC的做法是这样：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Computer computer;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(Computer computer)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.computer = computer;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>不符合IoC的做法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 直接在Person里实例化Computer类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Computer computer = <span class="keyword">new</span> Computer(<span class="string">&quot;AMD&quot;</span>, <span class="number">3</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通过【非构造函数】传入依赖</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Computer computer;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(Computer computer)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.computer = computer;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p><strong>第2点： 让Spring控制类构建过程</strong></p>
+<p>即<strong>不用</strong><code>new</code><strong>，让Spring控制</strong><code>new</code><strong>过程。</strong></p>
+<p>在Spring中，我们基本不需要 <code>new</code> 一个类，这些都是让 Spring 去做的。</p>
+<p>Spring 启动时会把所需的类实例化成对象，如果需要依赖，则先实例化依赖，然后实例化当前类。</p>
+<p>因为依赖必须通过构建函数传入，所以实例化时，当前类就会接收并保存所有依赖的对象。</p>
+<p>这一步也就是所谓的<strong>依赖注入</strong>。</p>
+<p>实质的控制权已经交由程序管理，而不是程序员管理，所以叫做控制反转。</p>
 <h4 id="依赖注入"><a href="#依赖注入" class="headerlink" title="依赖注入"></a>依赖注入</h4><p>某个类中需要依赖其它类的方法时，通常是new一个依赖类再调用类实例的方法，<strong>spring提出了依赖注入的思想，即依赖类不由程序员实例化，而是通过spring容器帮我们new指定实例并且将实例注入到需要该对象的类中</strong>。</p>
 <h5 id="依赖注入的方式"><a href="#依赖注入的方式" class="headerlink" title="依赖注入的方式"></a>依赖注入的方式</h5><p>依赖注入有3种方式：构造器注入、set注入和注解注入。</p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Jason-Xiang/p/5345342.html">Spring学习笔记1—依赖注入（构造器注入、set注入和注解注入） - 大象踢足球 - 博客园 (cnblogs.com)</a></p>
