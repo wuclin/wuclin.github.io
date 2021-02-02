@@ -27,11 +27,15 @@
 <meta property="og:site_name" content="fufu">
 <meta property="og:description" content="hexo部分命令12345678hexo n &quot;TitleName&quot;  #新建文件，并命名为TitleNamehexo server #启动服务器，可在上传之前查看是否有问题，默认情况下访问地址为http:&#x2F;&#x2F;localhost:4000&#x2F;hexo d -g #可将文件上传到github上，即生成静态文件再部署文件hexo clean #清除缓存文件和已生成的静态文件，在某些情">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2020/03/11/hexo%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/image-20210202120453391.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/11/hexo%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/image-20210202120555606.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/11/hexo%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/image-20210202120710120.png">
 <meta property="article:published_time" content="2020-03-11T01:59:51.297Z">
-<meta property="article:modified_time" content="2021-01-19T06:09:51.823Z">
+<meta property="article:modified_time" content="2021-02-02T04:07:13.125Z">
 <meta property="article:author" content="wudelic">
 <meta property="article:tag" content="hexo命令说明">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/03/11/hexo%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/image-20210202120453391.png">
 
 <link rel="canonical" href="http://yoursite.com/2020/03/11/hexo%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/">
 
@@ -200,7 +204,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-19 14:09:51" itemprop="dateModified" datetime="2021-01-19T14:09:51+08:00">2021-01-19</time>
+                <time title="Modified: 2021-02-02 12:07:13" itemprop="dateModified" datetime="2021-02-02T12:07:13+08:00">2021-02-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -256,7 +260,18 @@
 </blockquote>
 <p><strong>此时的文件，会按照design.md的内容建立文章</strong></p>
 <p><strong>由于新建文章默认为post，所以可以修改post.md文件，把tags和categories加上去，这样以后新建的文件都会带这两个变量</strong></p>
-
+<h1 id="绑定域名"><a href="#绑定域名" class="headerlink" title="绑定域名"></a>绑定域名</h1><p>首先要有域名，这些就都不说了。域名备案好了之后，先在控制台解析，可以用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ping xx.github.io <span class="comment">#这样的方法找到网页的ip地址</span></span><br></pre></td></tr></table></figure>
+<p>把上面得到的ip地址和域名绑定。</p>
+<p>之后有两个方法：</p>
+<ol>
+<li><p>通过在Custom domain直接绑定，之后需要clone到本地<img src="/2020/03/11/hexo%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/image-20210202120453391.png" class title="image-20210202120453391"></p>
+</li>
+<li><p>通过在本地该路径下新建CNAME文件，在文件中输入域名保存，上传就可以了。<img src="/2020/03/11/hexo%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/image-20210202120555606.png" class title="image-20210202120555606"></p>
+</li>
+</ol>
+<p>文件内容：</p>
+<img src="/2020/03/11/hexo%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/image-20210202120710120.png" class title="image-20210202120710120">
     </div>
 
     
@@ -337,7 +352,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#hexo%E9%83%A8%E5%88%86%E5%91%BD%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">hexo部分命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">其他功能实现方法</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#hexo%E9%83%A8%E5%88%86%E5%91%BD%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">hexo部分命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">其他功能实现方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D"><span class="nav-number">3.</span> <span class="nav-text">绑定域名</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
