@@ -28,7 +28,7 @@
 <meta property="og:description" content="注意关于代码分层事项： 之前一直把业务逻辑代码都写到Controller中，其实是不对的。最好是一个Controller对应一个Service，不要把业务放在Controller中。  开发假设： 我有一个注册接口，controller写了一个@RequestMapping(“&#x2F;register”)之后，有这些东西:①验证验证码和重复密码是否正确②到数据库查找用户名和邮箱是不是已经存在③上面验证都">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-01-25T17:06:43.000Z">
-<meta property="article:modified_time" content="2021-02-03T16:12:50.044Z">
+<meta property="article:modified_time" content="2021-02-04T08:57:03.590Z">
 <meta property="article:author" content="wudelic">
 <meta name="twitter:card" content="summary">
 
@@ -199,7 +199,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-02-04 00:12:50" itemprop="dateModified" datetime="2021-02-04T00:12:50+08:00">2021-02-04</time>
+                <time title="Modified: 2021-02-04 16:57:03" itemprop="dateModified" datetime="2021-02-04T16:57:03+08:00">2021-02-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -241,7 +241,117 @@
 <h3 id="表现层"><a href="#表现层" class="headerlink" title="表现层"></a>表现层</h3><p>Controller层，负责流程控制。</p>
 <h3 id="对象调用的流程"><a href="#对象调用的流程" class="headerlink" title="对象调用的流程"></a>对象调用的流程</h3><p>前端，controller，service，dao，数据库</p>
 <p>controller调用service，service调用dao</p>
-<h1 id="Request，Session"><a href="#Request，Session" class="headerlink" title="Request，Session"></a>Request，Session</h1>
+<h1 id="JavaWeb"><a href="#JavaWeb" class="headerlink" title="JavaWeb"></a>JavaWeb</h1><h4 id="Servlet"><a href="#Servlet" class="headerlink" title="Servlet"></a>Servlet</h4><p>在Java Web程序中，<strong>Servlet</strong>主要负责接收用户请求 <code>HttpServletRequest</code>,在<code>doGet()</code>,<code>doPost()</code>中做相应的处理，并将回应<code>HttpServletResponse</code>反馈给用户。一个Servlet类只会有一个实例，在它初始化时调用<code>init()</code>方法，销毁时调用<code>destroy()</code>方法<strong>。</strong>一个Servlet可以设置多个URL访问<strong>。</strong>Servlet不是线程安全，因此要谨慎使用类变量。</p>
+<p>Servlet能直接和Web服务器交互,Servlet还能在各个程序之间共享数据，使数据库连接池之类的功能很容易实现。只需要启动一个操作系统进程以及加载一个JVM.</p>
+<h4 id="Servlet生命周期和方法"><a href="#Servlet生命周期和方法" class="headerlink" title="Servlet生命周期和方法"></a>Servlet生命周期和方法</h4><p>Servlet接口定义了5个方法，其中<strong>前三个方法与Servlet生命周期相关</strong>：</p>
+<ul>
+<li><code>void init(ServletConfig config) throws ServletException</code></li>
+<li><code>void service(ServletRequest req, ServletResponse resp) throws ServletException, java.io.IOException</code></li>
+<li><code>void destroy()</code></li>
+<li><code>java.lang.String getServletInfo()</code></li>
+<li><code>ServletConfig getServletConfig()</code></li>
+</ul>
+<p><strong>生命周期：</strong> <strong>Web容器加载Servlet并将其实例化后，Servlet生命周期开始</strong>，容器运行其<strong>init()方法</strong>进行Servlet的初始化；请求到达时调用Servlet的<strong>service()方法</strong>，service()方法会根据需要调用与请求对应的<strong>doGet或doPost</strong>等方法；当服务器关闭或项目被卸载时服务器会将Servlet实例销毁，此时会调用Servlet的<strong>destroy()方法</strong>。<strong>init方法和destroy方法只会执行一次，service方法客户端每次请求Servlet都会执行</strong>。Servlet中有时会用到一些需要初始化与销毁的资源，因此可以把初始化资源的代码放入init方法中，销毁资源的代码放入destroy方法中，这样就不需要每次处理客户端的请求都要初始化与销毁资源。</p>
+<h4 id="post和get请求的区别"><a href="#post和get请求的区别" class="headerlink" title="post和get请求的区别"></a>post和get请求的区别</h4><p>浏览器用GET请求来获取一个html页面/图片/css/js等资源；用POST来提交一个<form>表单，并得到一个结果的网页</form></p>
+<p>GET:</p>
+<p>“读取“一个资源。比如Get到一个html文件。反复读取不应该对访问的数据有副作用。比如”GET一下，用户就下单了，返回订单已受理“，这是不可接受的。没有副作用被称为“幂等“（Idempotent)。</p>
+<p>做缓存。这个缓存可以做到浏览器本身上（彻底避免浏览器发请求），也可以做到代理上（如nginx），或者做到server端（用Etag，至少可以减少带宽消耗）</p>
+<p>POST:</p>
+<p>在页面里<form> 标签会定义一个表单。点击其中的submit元素会发出一个POST请求让服务器做一件事。这件事往往是有副作用的，不幂等的。</form></p>
+<p>不幂等也就意味着不能随意多次执行。因此也就不能缓存。比如通过POST下一个单，服务器创建了新的订单，然后返回订单成功的界面。这个页面不能被缓存。试想一下，如果POST请求被浏览器缓存了，那么下单请求就可以不向服务器发请求，而直接返回本地缓存的“下单成功界面”，却又没有真的在服务器下单。那是一件多么滑稽的事情。</p>
+<p>因为POST可能有副作用，所以浏览器实现为不能把POST请求保存为书签。想想，如果点一下书签就下一个单，是不是很恐怖？。</p>
+<p>此外如果尝试重新执行POST请求，浏览器也会弹一个框提示下这个刷新可能会有副作用，询问要不要继续。</p>
+<p>GET和POST携带数据的格式也有区别。当浏览器发出一个GET请求时，就意味着要么是用户自己在浏览器的地址栏输入，要不就是点击了html里a标签的href中的url。所以其实并不是GET只能用url，而是浏览器直接发出的GET只能由一个url触发。所以没办法，GET上要在url之外带一些参数就只能依靠url上附带querystring。但是HTTP协议本身并没有这个限制。</p>
+<p>浏览器的POST请求都来自表单提交。每次提交，表单的数据被浏览器用编码到HTTP请求的body里。浏览器发出的POST请求的body主要有有两种格式，一种是application/x-www-form-urlencoded用来传输简单的数据，大概就是”key1=value1&amp;key2=value2”这样的格式。另外一种是传文件，会采用multipart/form-data格式。采用后者是因为application/x-www-form-urlencoded的编码方式对于文件这种二进制的数据非常低效。</p>
+<p>浏览器在POST一个表单时，url上也可以带参数，只要<form action="url">里的url带querystring就行。只不过表单里面的那些用<input> 等标签经过用户操作产生的数据都在会在body里。</form></p>
+<p>因此我们一般会<strong>泛泛的说</strong>“GET请求没有body，只有url，请求数据放在url的querystring中；POST请求的数据在body中“。但这种情况仅限于浏览器发请求的场景。</p>
+<h4 id="什么时候用doGet，doPost"><a href="#什么时候用doGet，doPost" class="headerlink" title="什么时候用doGet，doPost"></a>什么时候用doGet，doPost</h4><p>Form标签里的method的属性为get时调用doGet()，为post时调用doPost()。</p>
+<h4 id="转发和重定向"><a href="#转发和重定向" class="headerlink" title="转发和重定向"></a>转发和重定向</h4><p><strong>转发是服务器行为，重定向是客户端行为。</strong></p>
+<p><strong>转发（Forward）</strong> 通过RequestDispatcher对象的forward（HttpServletRequest request,HttpServletResponse response）方法实现的。RequestDispatcher可以通过HttpServletRequest 的getRequestDispatcher()方法获得。例如下面的代码就是跳转到login_success.jsp页面。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">request.getRequestDispatcher(<span class="string">&quot;login_success.jsp&quot;</span>).forward(request, response);Copy to clipboardErrorCopied</span><br></pre></td></tr></table></figure>
+<p><strong>重定向（Redirect）</strong> 是利用服务器返回的状态码来实现的。客户端浏览器请求服务器的时候，服务器会返回一个状态码。服务器通过 <code>HttpServletResponse</code> 的 <code>setStatus(int status)</code> 方法设置状态码。如果服务器返回301或者302，则浏览器会到新的网址重新请求该资源。</p>
+<ol>
+<li><strong>从地址栏显示来说</strong></li>
+</ol>
+<p>forward是服务器请求资源,服务器直接访问目标地址的URL,把那个URL的响应内容读取过来,然后把这些内容再发给浏览器.浏览器根本不知道服务器发送的内容从哪里来的,所以它的地址栏还是原来的地址. redirect是服务端根据逻辑,发送一个状态码,告诉浏览器重新去请求那个地址.所以地址栏显示的是新的URL.</p>
+<ol>
+<li><strong>从数据共享来说</strong></li>
+</ol>
+<p>forward:转发页面和转发到的页面可以共享request里面的数据. redirect:不能共享数据.</p>
+<ol>
+<li><strong>从运用地方来说</strong></li>
+</ol>
+<p>forward:一般用于用户登陆的时候,根据角色转发到相应的模块. redirect:一般用于用户注销登陆时返回主页面和跳转到其它的网站等</p>
+<ol>
+<li>从效率来说</li>
+</ol>
+<p>forward:高. redirect:低.</p>
+<h4 id="JSP和Servlet"><a href="#JSP和Servlet" class="headerlink" title="JSP和Servlet"></a>JSP和Servlet</h4><p>Servlet是一个特殊的Java程序，它运行于服务器的JVM中，能够依靠服务器的支持向浏览器提供显示内容。JSP本质上是Servlet的一种简易形式，JSP会被服务器处理成一个类似于Servlet的Java程序，可以简化页面内容的生成。Servlet和JSP最主要的不同点在于，Servlet的应用逻辑是在Java文件中，并且完全从表示层中的HTML分离开来。而JSP的情况是Java和HTML可以组合成一个扩展名为.jsp的文件。有人说，Servlet就是在Java中写HTML，而JSP就是在HTML中写Java代码，当然这个说法是很片面且不够准确的。JSP侧重于视图，Servlet更侧重于控制逻辑，在MVC架构模式中，JSP适合充当视图（view）而Servlet适合充当控制器（controller）。</p>
+<h4 id="JSP工作原理"><a href="#JSP工作原理" class="headerlink" title="JSP工作原理"></a>JSP工作原理</h4><p>JSP是一种Servlet，但是与HttpServlet的工作方式不太一样。HttpServlet是先由源代码编译为class文件后部署到服务器下，为先编译后部署。而JSP则是先部署后编译。JSP会在客户端第一次请求JSP文件时被编译为HttpJspPage类（接口Servlet的一个子类）。该类会被服务器临时存放在服务器工作目录里面。下面通过实例给大家介绍。 工程JspLoginDemo下有一个名为login.jsp的Jsp文件，把工程第一次部署到服务器上后访问这个Jsp文件，我们发现这个目录下多了下图这两个东东。 .class文件便是JSP对应的Servlet。编译完毕后再运行class文件来响应客户端请求。以后客户端访问login.jsp的时候，Tomcat将不再重新编译JSP文件，而是直接调用class文件来响应客户端请求。</p>
+<p>由于JSP只会在客户端第一次请求的时候被编译 ，因此第一次请求JSP时会感觉比较慢，之后就会感觉快很多。如果把服务器保存的class文件删除，服务器也会重新编译JSP。</p>
+<p>开发Web程序时经常需要修改JSP。Tomcat能够自动检测到JSP程序的改动。如果检测到JSP源代码发生了改动。Tomcat会在下次客户端请求JSP时重新编译JSP，而不需要重启Tomcat。这种自动检测功能是默认开启的，检测改动会消耗少量的时间，在部署Web应用的时候可以在web.xml中将它关掉。</p>
+<h4 id="JSP内置对象"><a href="#JSP内置对象" class="headerlink" title="JSP内置对象"></a>JSP内置对象</h4><p>JSP有9个内置对象：</p>
+<ul>
+<li>request：封装客户端的请求，其中包含来自GET或POST请求的参数；</li>
+<li>response：封装服务器对客户端的响应；</li>
+<li>pageContext：通过该对象可以获取其他对象；</li>
+<li>session：封装用户会话的对象；</li>
+<li>application：封装服务器运行环境的对象；</li>
+<li>out：输出服务器响应的输出流对象；</li>
+<li>config：Web应用的配置对象；</li>
+<li>page：JSP页面本身（相当于Java程序中的this）；</li>
+<li>exception：封装页面抛出异常的对象。</li>
+</ul>
+<h4 id="Request对象主要方法"><a href="#Request对象主要方法" class="headerlink" title="Request对象主要方法"></a>Request对象主要方法</h4><ul>
+<li>setAttribute(String name,Object)：设置名字为name的request 的参数值</li>
+<li>getAttribute(String name)：返回由name指定的属性值</li>
+<li>getAttributeNames()：返回request 对象所有属性的名字集合，结果是一个枚举的实例</li>
+<li>getCookies()：返回客户端的所有 Cookie 对象，结果是一个Cookie 数组</li>
+<li>getCharacterEncoding() ：返回请求中的字符编码方式 = getContentLength() ：返回请求的 Body的长度</li>
+<li>getHeader(String name) ：获得HTTP协议定义的文件头信息</li>
+<li>getHeaders(String name) ：返回指定名字的request Header 的所有值，结果是一个枚举的实例</li>
+<li>getHeaderNames() ：返回所以request Header 的名字，结果是一个枚举的实例</li>
+<li>getInputStream() ：返回请求的输入流，用于获得请求中的数据</li>
+<li>getMethod() ：获得客户端向服务器端传送数据的方法</li>
+<li>getParameter(String name) ：获得客户端传送给服务器端的有 name指定的参数值</li>
+<li>getParameterNames() ：获得客户端传送给服务器端的所有参数的名字，结果是一个枚举的实例</li>
+<li>getParameterValues(String name)：获得有name指定的参数的所有值</li>
+<li>getProtocol()：获取客户端向服务器端传送数据所依据的协议名称</li>
+<li>getQueryString() ：获得查询字符串</li>
+<li>getRequestURI() ：获取发出请求字符串的客户端地址</li>
+<li>getRemoteAddr()：获取客户端的 IP 地址</li>
+<li>getRemoteHost() ：获取客户端的名字</li>
+<li>getSession([Boolean create]) ：返回和请求相关 Session</li>
+<li>getServerName() ：获取服务器的名字</li>
+<li>getServletPath()：获取客户端所请求的脚本文件的路径</li>
+<li>getServerPort()：获取服务器的端口号</li>
+<li>removeAttribute(String name)：删除请求中的一个属性</li>
+</ul>
+<h4 id="request-getAttribute-和-request-getParameter-有何区别"><a href="#request-getAttribute-和-request-getParameter-有何区别" class="headerlink" title="request.getAttribute()和 request.getParameter()有何区别"></a>request.getAttribute()和 request.getParameter()有何区别</h4><p><strong>从获取方向来看：</strong></p>
+<p><code>getParameter()</code>是获取 POST/GET 传递的参数值；</p>
+<p><code>getAttribute()</code>是获取对象容器中的数据值；</p>
+<p><strong>从用途来看：</strong></p>
+<p><code>getParameter()</code>用于客户端重定向时，即点击了链接或提交按扭时传值用，即用于在用表单或url重定向传值时接收数据用。</p>
+<p><code>getAttribute()</code> 用于服务器端重定向时，即在 sevlet 中使用了 forward 函数,或 struts 中使用了 mapping.findForward。 getAttribute 只能收到程序用 setAttribute 传过来的值。</p>
+<p>另外，可以用 <code>setAttribute()</code>,<code>getAttribute()</code> 发送接收对象.而 <code>getParameter()</code> 显然只能传字符串。 <code>setAttribute()</code> 是应用服务器把这个对象放在该页面所对应的一块内存中去，当你的页面服务器重定向到另一个页面时，应用服务器会把这块内存拷贝另一个页面所对应的内存中。这样<code>getAttribute()</code>就能取得你所设下的值，当然这种方法可以传对象。session也一样，只是对象在内存中的生命周期不一样而已。<code>getParameter()</code>只是应用服务器在分析你送上来的 request页面的文本时，取得你设在表单或 url 重定向时的值。</p>
+<p><strong>总结：</strong></p>
+<p><code>getParameter()</code>返回的是String,用于读取提交的表单中的值;（获取之后会根据实际需要转换为自己需要的相应类型，比如整型，日期类型啊等等）</p>
+<p><code>getAttribute()</code>返回的是Object，需进行转换,可用<code>setAttribute()</code>设置成任意对象，使用很灵活，可随时用</p>
+<h4 id="JSP作用域"><a href="#JSP作用域" class="headerlink" title="JSP作用域"></a>JSP作用域</h4><p>JSP中的四种作用域包括page、request、session和application，具体来说：</p>
+<ul>
+<li><strong>page</strong>代表与一个页面相关的对象和属性。</li>
+<li><strong>request</strong>代表与Web客户机发出的一个请求相关的对象和属性。一个请求可能跨越多个页面，涉及多个Web组件；需要在页面显示的临时数据可以置于此作用域。</li>
+<li><strong>session</strong>代表与某个用户与服务器建立的一次会话相关的对象和属性。跟某个用户相关的数据应该放在用户自己的session中。</li>
+<li><strong>application</strong>代表与整个Web应用程序相关的对象和属性，它实质上是跨越整个Web应用程序，包括多个页面、请求和会话的一个全局作用域。</li>
+</ul>
+<h4 id="实现会话跟踪"><a href="#实现会话跟踪" class="headerlink" title="实现会话跟踪"></a>实现会话跟踪</h4><h5 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h5><p><strong>优点:</strong> 数据可以持久保存，不需要服务器资源，简单，基于文本的Key-Value</p>
+<p><strong>缺点:</strong> 大小受到限制，用户可以禁用Cookie功能，由于保存在本地，有一定的安全风险。</p>
+<h5 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h5><p>当一个用户第一次访问某个网站时会自动创建 HttpSession，每个用户可以访问他自己的HttpSession。可以通过HttpServletRequest对象的getSession方 法获得HttpSession，通过HttpSession的setAttribute方法可以将一个值放在HttpSession中，通过调用 HttpSession对象的getAttribute方法，同时传入属性名就可以获取保存在HttpSession中的对象。与上面三种方式不同的 是，HttpSession放在服务器的内存中，因此不要将过大的对象放在里面，即使目前的Servlet容器可以在内存将满时将HttpSession 中的对象移到其他存储设备中，但是这样势必影响性能。添加到HttpSession中的值可以是任意Java对象，这个对象最好实现了 Serializable接口，这样Servlet容器在必要的时候可以将其序列化到文件中，否则在序列化时就会出现异常。</p>
+<h5 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h5><p>Cookie 和 Session都是用来跟踪浏览器用户身份的会话方式，但是两者的应用场景不太一样。</p>
+<p><strong>Cookie 一般用来保存用户信息</strong> 比如①我们在 Cookie 中保存已经登录过得用户信息，下次访问网站的时候页面可以自动帮你登录的一些基本信息给填了；②一般的网站都会有保持登录也就是说下次你再访问网站的时候就不需要重新登录了，这是因为用户登录的时候我们可以存放了一个 Token 在 Cookie 中，下次登录的时候只需要根据 Token 值来查找用户即可(为了安全考虑，重新登录一般要将 Token 重写)；③登录一次网站后访问网站其他页面不需要重新登录。<strong>Session 的主要作用就是通过服务端记录用户的状态。</strong> 典型的场景是购物车，当你要添加商品到购物车的时候，系统不知道是哪个用户操作的，因为 HTTP 协议是无状态的。服务端给特定的用户创建特定的 Session 之后就可以标识这个用户并且跟踪这个用户了。</p>
+<p>Cookie 数据保存在客户端(浏览器端)，Session 数据保存在服务器端。</p>
+<p>Cookie 存储在客户端中，而Session存储在服务器上，相对来说 Session 安全性更高。如果使用 Cookie 的一些敏感信息不要写入 Cookie 中，最好能将 Cookie 信息加密然后使用到的时候再去服务器端解密。</p>
+
     </div>
 
     
@@ -322,7 +432,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F"><span class="nav-number">1.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E5%B1%82"><span class="nav-number">2.</span> <span class="nav-text">分层</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pojo%E5%B1%82"><span class="nav-number">2.0.1.</span> <span class="nav-text">pojo层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%81%E4%B9%85%E5%B1%82"><span class="nav-number">2.0.2.</span> <span class="nav-text">持久层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%B1%82"><span class="nav-number">2.0.3.</span> <span class="nav-text">服务层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A8%E7%8E%B0%E5%B1%82"><span class="nav-number">2.0.4.</span> <span class="nav-text">表现层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E8%B0%83%E7%94%A8%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="nav-number">2.0.5.</span> <span class="nav-text">对象调用的流程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Request%EF%BC%8CSession"><span class="nav-number">3.</span> <span class="nav-text">Request，Session</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F"><span class="nav-number">1.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E5%B1%82"><span class="nav-number">2.</span> <span class="nav-text">分层</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pojo%E5%B1%82"><span class="nav-number">2.0.1.</span> <span class="nav-text">pojo层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%81%E4%B9%85%E5%B1%82"><span class="nav-number">2.0.2.</span> <span class="nav-text">持久层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%B1%82"><span class="nav-number">2.0.3.</span> <span class="nav-text">服务层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A8%E7%8E%B0%E5%B1%82"><span class="nav-number">2.0.4.</span> <span class="nav-text">表现层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E8%B0%83%E7%94%A8%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="nav-number">2.0.5.</span> <span class="nav-text">对象调用的流程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaWeb"><span class="nav-number">3.</span> <span class="nav-text">JavaWeb</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Servlet"><span class="nav-number">3.0.0.1.</span> <span class="nav-text">Servlet</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Servlet%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E6%96%B9%E6%B3%95"><span class="nav-number">3.0.0.2.</span> <span class="nav-text">Servlet生命周期和方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#post%E5%92%8Cget%E8%AF%B7%E6%B1%82%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">3.0.0.3.</span> <span class="nav-text">post和get请求的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E7%94%A8doGet%EF%BC%8CdoPost"><span class="nav-number">3.0.0.4.</span> <span class="nav-text">什么时候用doGet，doPost</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BD%AC%E5%8F%91%E5%92%8C%E9%87%8D%E5%AE%9A%E5%90%91"><span class="nav-number">3.0.0.5.</span> <span class="nav-text">转发和重定向</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSP%E5%92%8CServlet"><span class="nav-number">3.0.0.6.</span> <span class="nav-text">JSP和Servlet</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSP%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">3.0.0.7.</span> <span class="nav-text">JSP工作原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSP%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1"><span class="nav-number">3.0.0.8.</span> <span class="nav-text">JSP内置对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Request%E5%AF%B9%E8%B1%A1%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95"><span class="nav-number">3.0.0.9.</span> <span class="nav-text">Request对象主要方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#request-getAttribute-%E5%92%8C-request-getParameter-%E6%9C%89%E4%BD%95%E5%8C%BA%E5%88%AB"><span class="nav-number">3.0.0.10.</span> <span class="nav-text">request.getAttribute()和 request.getParameter()有何区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSP%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="nav-number">3.0.0.11.</span> <span class="nav-text">JSP作用域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E4%BC%9A%E8%AF%9D%E8%B7%9F%E8%B8%AA"><span class="nav-number">3.0.0.12.</span> <span class="nav-text">实现会话跟踪</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Cookie"><span class="nav-number">3.0.0.12.1.</span> <span class="nav-text">Cookie</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Session"><span class="nav-number">3.0.0.12.2.</span> <span class="nav-text">Session</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8C%BA%E5%88%AB"><span class="nav-number">3.0.0.12.3.</span> <span class="nav-text">区别</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

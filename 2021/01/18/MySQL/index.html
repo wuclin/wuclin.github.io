@@ -28,7 +28,7 @@
 <meta property="og:description" content="MySQL关系型数据库，默认端口3306 1mysql&gt; show engines; 注意只有InnoDB支持事务。 MyISAM和InnoDB区别">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-01-17T17:23:06.000Z">
-<meta property="article:modified_time" content="2021-01-28T00:57:08.629Z">
+<meta property="article:modified_time" content="2021-02-04T08:59:00.082Z">
 <meta property="article:author" content="wudelic">
 <meta name="twitter:card" content="summary">
 
@@ -199,7 +199,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-28 08:57:08" itemprop="dateModified" datetime="2021-01-28T08:57:08+08:00">2021-01-28</time>
+                <time title="Modified: 2021-02-04 16:59:00" itemprop="dateModified" datetime="2021-02-04T16:59:00+08:00">2021-02-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -227,12 +227,53 @@
 <p>注意只有InnoDB支持事务。</p>
 <h3 id="MyISAM和InnoDB区别"><a href="#MyISAM和InnoDB区别" class="headerlink" title="MyISAM和InnoDB区别"></a>MyISAM和InnoDB区别</h3><p>MyISAM是MySQL的默认数据库引擎（5.5版之前）。虽然性能极佳，而且提供了大量的特性，包括全文索引、压缩、空间函数等，但MyISAM不支持事务和行级锁，而且最大的缺陷就是崩溃后无法安全恢复。不过，5.5版本之后，MySQL引入了InnoDB（事务性数据库引擎），MySQL 5.5版本后默认的存储引擎为InnoDB，也就是说现在安装的MySQL都是InnoDB存储引擎。</p>
 <p>由于崩溃后的有安全恢复问题的话，一般不选用MyISAM</p>
-<h3 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h3><p>MySQL索引使用的数据结构主要有<strong>BTree索引</strong> 和 <strong>哈希索引</strong> 。对于哈希索引来说，底层的数据结构就是哈希表，因此在绝大多数需求为单条记录查询的时候，可以选择哈希索引，查询性能最快；其余大部分场景，建议选择BTree索引。</p>
+<h3 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h3><p><strong>索引是一种用于快速查询和检索数据的数据结构。常见的索引结构有: B 树， B+树和 Hash。</strong></p>
+<p>MySQL索引使用的数据结构主要有<strong>BTree索引</strong> 和 <strong>哈希索引</strong> 。</p>
+<p>对于哈希索引来说，底层的数据结构就是哈希表，因此在绝大多数需求为单条记录查询的时候，可以选择哈希索引，查询性能最快；其余大部分场景，建议选择BTree索引。</p>
 <p>MySQL的BTree索引使用的是B树中的B+Tree，但对于主要的两种存储引擎的实现方式是不同的。MySQL的BTree索引使用的是B树中的B+Tree，但对于主要的两种存储引擎的实现方式是不同的。</p>
 <ul>
 <li><strong>MyISAM:</strong> B+Tree叶节点的data域存放的是数据记录的地址。在索引检索的时候，首先按照B+Tree搜索算法搜索索引，如果指定的Key存在，则取出其 data 域的值，然后以 data 域的值为地址读取相应的数据记录。这被称为“非聚簇索引”。</li>
 <li><strong>InnoDB:</strong> 其数据文件本身就是索引文件。相比MyISAM，索引文件和数据文件是分离的，其表数据文件本身就是按B+Tree组织的一个索引结构，树的叶节点data域保存了完整的数据记录。这个索引的key是数据表的主键，因此InnoDB表数据文件本身就是主索引。这被称为“聚簇索引（或聚集索引）”。而其余的索引都作为辅助索引，辅助索引的data域存储相应记录主键的值而不是地址，这也是和MyISAM不同的地方。<strong>在根据主索引搜索时，直接找到key所在的节点即可取出数据；在根据辅助索引查找时，则需要先取出主键的值，再走一遍主索引。</strong> <strong>因此，在设计表的时候，不建议使用过长的字段作为主键，也不建议使用非单调的字段作为主键，这样会造成主索引频繁分裂。</strong></li>
 </ul>
+<h4 id="为什么要创建索引"><a href="#为什么要创建索引" class="headerlink" title="为什么要创建索引"></a>为什么要创建索引</h4><ol>
+<li>通过创建唯一性索引，可以保证数据库表中每一行数据的唯一性。</li>
+<li>可以大大加快 数据的检索速度（大大减少的检索的数据量）, 这也是创建索引的最主要的原因。</li>
+<li>帮助服务器避免排序和临时表。</li>
+<li>将随机IO变为顺序IO</li>
+<li>可以加速表和表之间的连接，特别是在实现数据的参考完整性方面特别有意义。</li>
+</ol>
+<h4 id="为什么不对每个表都创建索引"><a href="#为什么不对每个表都创建索引" class="headerlink" title="为什么不对每个表都创建索引"></a>为什么不对每个表都创建索引</h4><ol>
+<li>当对表中的数据进行增加、删除和修改的时候，索引也要动态的维护，这样就降低了数据的维护速度。</li>
+<li>索引需要占物理空间，除了数据表占数据空间之外，每一个索引还要占一定的物理空间，如果要建立聚簇索引，那么需要的空间就会更大。</li>
+<li>创建索引和维护索引要耗费时间，这种时间随着数据量的增加而增加。</li>
+</ol>
+<h4 id="使用索引注意事项"><a href="#使用索引注意事项" class="headerlink" title="使用索引注意事项"></a>使用索引注意事项</h4><ol>
+<li><p>在经常需要搜索的列上，可以加快搜索的速度；</p>
+</li>
+<li><p>在经常使用在WHERE子句中的列上面创建索引，加快条件的判断速度。</p>
+</li>
+<li><p>在经常需要排序的列上创 建索引，因为索引已经排序，这样查询可以利用索引的排序，加快排序查询时间；</p>
+</li>
+<li><p>对于中到大型表索引都是非常有效的，但是特大型表的话维护开销会很大，不适合建索引</p>
+</li>
+<li><p>在经常用在连接的列上，这 些列主要是一些外键，可以加快连接的速度；</p>
+</li>
+<li><p>避免 where 子句中对字段施加函数，这会造成无法命中索引。</p>
+</li>
+<li><p>在使用InnoDB时使用与业务无关的自增主键作为主键，即使用逻辑主键，而不要使用业务主键8</p>
+</li>
+<li><p>删除长期未使用的索引，不用的索引的存在会造成不必要的性能损耗 MySQL 5.7 可以通过查询 sys 库的 chema_unused_indexes 视图来查询哪些索引从未被使用</p>
+</li>
+<li><p>在使用 limit offset 查询缓慢时，可以借助索引来提高性能</p>
+</li>
+</ol>
+<h4 id="索引覆盖"><a href="#索引覆盖" class="headerlink" title="索引覆盖"></a>索引覆盖</h4><p>如果一个索引包含（或者说覆盖）所有需要查询的字段的值，我们就称之为“覆盖索引”。</p>
+<p>InnoDB存储引擎中，如果不是主键索引，叶子节点存储的是主键+列值。最终还是要“回表”，也就是要通过主键再查找一次。这样就会比较慢覆盖索引就是把要查询出的列和索引是对应的，不做回表操作！</p>
+<p>覆盖索引使用实例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> username , age <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> username <span class="operator">=</span> <span class="string">&#x27;Java&#x27;</span> <span class="keyword">and</span> age <span class="operator">=</span> <span class="number">22</span></span><br></pre></td></tr></table></figure>
+<p>在查询数据的时候：要查询出的列在叶子节点都存在！所以，就不用回表。</p>
+<h4 id="为什么索引会变快"><a href="#为什么索引会变快" class="headerlink" title="为什么索引会变快"></a>为什么索引会变快</h4><p>不用索引是遍历单链表，用了索引之后像B+树一样</p>
+<p>大多数情况下，索引查询都是比全表扫描要快的。但是如果数据库的数据量不大，那么使用索引也不一定能够带来很大提升。</p>
 <h3 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h3><p><strong>事务是逻辑上的一组操作，要么都执行，要么都不执行。</strong></p>
 <p>事务最经典也经常被拿出来说例子就是转账了。假如小明要给小红转账1000元，这个转账会涉及到两个关键操作就是：将小明的余额减少1000元，将小红的余额增加1000元。万一在这两个操作之间突然出现错误比如银行系统崩溃，导致小明余额减少而小红的余额没有增加，这样就不对了。事务就是保证这两个关键操作要么都成功，要么都要失败。</p>
 <p>事务的四大特性（ACID）</p>
@@ -312,7 +353,9 @@
 <h1 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DELETE FROM celebs </span><br><span class="line">WHERE twitter_handle IS NULL;</span><br></pre></td></tr></table></figure>
 
 
-<h1 id="常用"><a href="#常用" class="headerlink" title="常用"></a>常用</h1>
+<h1 id="常用"><a href="#常用" class="headerlink" title="常用"></a>常用</h1><h5 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h5><p>Mybatis分页：</p>
+<p>MySQL分页：</p>
+
     </div>
 
     
@@ -393,7 +436,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL"><span class="nav-number">1.</span> <span class="nav-text">MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MyISAM%E5%92%8CInnoDB%E5%8C%BA%E5%88%AB"><span class="nav-number">1.0.1.</span> <span class="nav-text">MyISAM和InnoDB区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95"><span class="nav-number">1.0.2.</span> <span class="nav-text">索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1"><span class="nav-number">1.0.3.</span> <span class="nav-text">事务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E4%BA%8B%E5%8A%A1%E5%B8%A6%E6%9D%A5%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">并发事务带来的问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%81%E6%9C%BA%E5%88%B6%E4%B8%8EInnoDB%E9%94%81%E7%AE%97%E6%B3%95"><span class="nav-number">1.0.4.</span> <span class="nav-text">锁机制与InnoDB锁算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%A7%A6%E5%8F%91%E5%99%A8"><span class="nav-number">1.0.5.</span> <span class="nav-text">什么是触发器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CREATE"><span class="nav-number">2.</span> <span class="nav-text">CREATE</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#INSERT"><span class="nav-number">3.</span> <span class="nav-text">INSERT</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SELECT"><span class="nav-number">4.</span> <span class="nav-text">SELECT</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#WHERE"><span class="nav-number">4.0.0.1.</span> <span class="nav-text">WHERE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AND-amp-OR"><span class="nav-number">4.0.0.2.</span> <span class="nav-text">AND &amp; OR</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LIMIT"><span class="nav-number">4.0.0.3.</span> <span class="nav-text">LIMIT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ORDER-BY-%E9%BB%98%E8%AE%A4%E5%8D%87%E5%BA%8F-amp-DESC%EF%BC%88%E9%99%8D%E5%BA%8F%EF%BC%89"><span class="nav-number">4.0.0.4.</span> <span class="nav-text">ORDER BY(默认升序)  &amp; DESC（降序）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DISTINCT"><span class="nav-number">4.0.0.5.</span> <span class="nav-text">DISTINCT</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ALTER"><span class="nav-number">5.</span> <span class="nav-text">ALTER</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UPDATE"><span class="nav-number">6.</span> <span class="nav-text">UPDATE</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DELETE"><span class="nav-number">7.</span> <span class="nav-text">DELETE</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8"><span class="nav-number">8.</span> <span class="nav-text">常用</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL"><span class="nav-number">1.</span> <span class="nav-text">MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MyISAM%E5%92%8CInnoDB%E5%8C%BA%E5%88%AB"><span class="nav-number">1.0.1.</span> <span class="nav-text">MyISAM和InnoDB区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95"><span class="nav-number">1.0.2.</span> <span class="nav-text">索引</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">为什么要创建索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E5%AF%B9%E6%AF%8F%E4%B8%AA%E8%A1%A8%E9%83%BD%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">为什么不对每个表都创建索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%B4%A2%E5%BC%95%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">使用索引注意事项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E8%A6%86%E7%9B%96"><span class="nav-number">1.0.2.4.</span> <span class="nav-text">索引覆盖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E7%B4%A2%E5%BC%95%E4%BC%9A%E5%8F%98%E5%BF%AB"><span class="nav-number">1.0.2.5.</span> <span class="nav-text">为什么索引会变快</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1"><span class="nav-number">1.0.3.</span> <span class="nav-text">事务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E4%BA%8B%E5%8A%A1%E5%B8%A6%E6%9D%A5%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">并发事务带来的问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%81%E6%9C%BA%E5%88%B6%E4%B8%8EInnoDB%E9%94%81%E7%AE%97%E6%B3%95"><span class="nav-number">1.0.4.</span> <span class="nav-text">锁机制与InnoDB锁算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%A7%A6%E5%8F%91%E5%99%A8"><span class="nav-number">1.0.5.</span> <span class="nav-text">什么是触发器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CREATE"><span class="nav-number">2.</span> <span class="nav-text">CREATE</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#INSERT"><span class="nav-number">3.</span> <span class="nav-text">INSERT</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SELECT"><span class="nav-number">4.</span> <span class="nav-text">SELECT</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#WHERE"><span class="nav-number">4.0.0.1.</span> <span class="nav-text">WHERE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AND-amp-OR"><span class="nav-number">4.0.0.2.</span> <span class="nav-text">AND &amp; OR</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LIMIT"><span class="nav-number">4.0.0.3.</span> <span class="nav-text">LIMIT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ORDER-BY-%E9%BB%98%E8%AE%A4%E5%8D%87%E5%BA%8F-amp-DESC%EF%BC%88%E9%99%8D%E5%BA%8F%EF%BC%89"><span class="nav-number">4.0.0.4.</span> <span class="nav-text">ORDER BY(默认升序)  &amp; DESC（降序）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DISTINCT"><span class="nav-number">4.0.0.5.</span> <span class="nav-text">DISTINCT</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ALTER"><span class="nav-number">5.</span> <span class="nav-text">ALTER</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UPDATE"><span class="nav-number">6.</span> <span class="nav-text">UPDATE</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DELETE"><span class="nav-number">7.</span> <span class="nav-text">DELETE</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8"><span class="nav-number">8.</span> <span class="nav-text">常用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%86%E9%A1%B5"><span class="nav-number">8.0.0.0.1.</span> <span class="nav-text">分页</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
