@@ -28,7 +28,7 @@
 <meta property="og:description" content="MySQL关系型数据库，默认端口3306 1mysql&gt; show engines; 注意只有InnoDB支持事务。 MyISAM和InnoDB区别">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-01-17T17:23:06.000Z">
-<meta property="article:modified_time" content="2021-02-04T08:59:00.082Z">
+<meta property="article:modified_time" content="2021-02-05T05:35:31.125Z">
 <meta property="article:author" content="wudelic">
 <meta name="twitter:card" content="summary">
 
@@ -199,7 +199,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-02-04 16:59:00" itemprop="dateModified" datetime="2021-02-04T16:59:00+08:00">2021-02-04</time>
+                <time title="Modified: 2021-02-05 13:35:31" itemprop="dateModified" datetime="2021-02-05T13:35:31+08:00">2021-02-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -227,6 +227,8 @@
 <p>注意只有InnoDB支持事务。</p>
 <h3 id="MyISAM和InnoDB区别"><a href="#MyISAM和InnoDB区别" class="headerlink" title="MyISAM和InnoDB区别"></a>MyISAM和InnoDB区别</h3><p>MyISAM是MySQL的默认数据库引擎（5.5版之前）。虽然性能极佳，而且提供了大量的特性，包括全文索引、压缩、空间函数等，但MyISAM不支持事务和行级锁，而且最大的缺陷就是崩溃后无法安全恢复。不过，5.5版本之后，MySQL引入了InnoDB（事务性数据库引擎），MySQL 5.5版本后默认的存储引擎为InnoDB，也就是说现在安装的MySQL都是InnoDB存储引擎。</p>
 <p>由于崩溃后的有安全恢复问题的话，一般不选用MyISAM</p>
+<p>MyISAM是表锁，查数据要把整个表锁起来，在高并发下不好</p>
+<p>InnoDB是行锁</p>
 <h3 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h3><p><strong>索引是一种用于快速查询和检索数据的数据结构。常见的索引结构有: B 树， B+树和 Hash。</strong></p>
 <p>MySQL索引使用的数据结构主要有<strong>BTree索引</strong> 和 <strong>哈希索引</strong> 。</p>
 <p>对于哈希索引来说，底层的数据结构就是哈希表，因此在绝大多数需求为单条记录查询的时候，可以选择哈希索引，查询性能最快；其余大部分场景，建议选择BTree索引。</p>
@@ -452,14 +454,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">

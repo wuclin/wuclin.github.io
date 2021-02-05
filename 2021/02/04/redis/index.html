@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.7.2","exturl":false,"sidebar":{"position":"hide","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="NoSQL为什么用NoSQL数据量大，变化快，MySQL类关系型数据库力不从心 目前的企业架构：（凑合看一下）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis">
+<meta property="og:url" content="http://yoursite.com/2021/02/04/redis/index.html">
+<meta property="og:site_name" content="fufu">
+<meta property="og:description" content="NoSQL为什么用NoSQL数据量大，变化快，MySQL类关系型数据库力不从心 目前的企业架构：（凑合看一下）">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2021/02/04/redis/image-20210205121408352.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/04/redis/image-20210205141702671.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/04/redis/image-20210205141751373.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/04/redis/image-20210205154914180.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/04/redis/image-20210205154926569.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/04/redis/image-20210205155102188.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/04/redis/image-20210205160622385.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/04/redis/image-20210205160851649.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/04/redis/image-20210205161047944.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/04/redis/image-20210205161457780.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/04/redis/image-20210205161656101.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/04/redis/image-20210205161846215.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/04/redis/image-20210205161832171.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/04/redis/image-20210205171642857.png">
+<meta property="article:published_time" content="2021-02-04T15:18:35.000Z">
+<meta property="article:modified_time" content="2021-02-05T15:47:05.483Z">
+<meta property="article:author" content="wudelic">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2021/02/04/redis/image-20210205121408352.png">
+
+<link rel="canonical" href="http://yoursite.com/2021/02/04/redis/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>redis | fufu</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">fufu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">记录一下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-fw fa-calendar"></i>Schedule</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/04/redis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.png">
+      <meta itemprop="name" content="wudelic">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fufu">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          redis
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-02-04 23:18:35" itemprop="dateCreated datePublished" datetime="2021-02-04T23:18:35+08:00">2021-02-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-02-05 23:47:05" itemprop="dateModified" datetime="2021-02-05T23:47:05+08:00">2021-02-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/redis/" itemprop="url" rel="index"><span itemprop="name">redis</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="NoSQL"><a href="#NoSQL" class="headerlink" title="NoSQL"></a>NoSQL</h1><h3 id="为什么用NoSQL"><a href="#为什么用NoSQL" class="headerlink" title="为什么用NoSQL"></a>为什么用NoSQL</h3><p>数据量大，变化快，MySQL类关系型数据库力不从心</p>
+<p>目前的企业架构：（凑合看一下）</p>
+<img src="/2021/02/04/redis/image-20210205121408352.png" class title="image-20210205121408352">
+
+<p>用于社交网络，地理位置，用户日志，等信息爆发式增长的情况</p>
+<h3 id="什么是NoSQL"><a href="#什么是NoSQL" class="headerlink" title="什么是NoSQL"></a>什么是NoSQL</h3><p>关系型数据库：表格，行列</p>
+<p>现在数据量太大咯</p>
+<p>很多数据类型不需要固定格式，因此用map&lt;String,Object&gt;十分的好。</p>
+<p>优点：方便扩展，大数据高性能，数据类型多样，不需要事先设计数据库</p>
+<p>与传统的比较：没有固定的查询语言，键值对存储，高可用，高可扩展，CAP定理，最终一致性</p>
+<p>一般是搭配使用。</p>
+<h3 id="NoSQL数据库的四大分类表格分析"><a href="#NoSQL数据库的四大分类表格分析" class="headerlink" title="NoSQL数据库的四大分类表格分析"></a>NoSQL数据库的四大分类表格分析</h3><table>
+<thead>
+<tr>
+<th align="center"><strong>分类</strong></th>
+<th align="center"><strong>Examples举例</strong></th>
+<th align="center">典型应用场景</th>
+<th align="center">数据模型</th>
+<th align="center">优点</th>
+<th align="center">缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>键值（key-value）[3]</strong></td>
+<td align="center">Tokyo Cabinet/Tyrant, Redis, Voldemort, Oracle BDB</td>
+<td align="center">内容缓存，主要用于处理大量数据的高访问负载，也用于一些日志系统等等。[3]</td>
+<td align="center">Key 指向 Value 的键值对，通常用hash table来实现[3]</td>
+<td align="center">查找速度快</td>
+<td align="center">数据无结构化，通常只被当作字符串或者二进制数据[3]</td>
+</tr>
+<tr>
+<td align="center"><strong>列存储数据库[3]</strong></td>
+<td align="center">Cassandra, HBase, Riak</td>
+<td align="center">分布式的文件系统</td>
+<td align="center">以列簇式存储，将同一列数据存在一起</td>
+<td align="center">查找速度快，可扩展性强，更容易进行分布式扩展</td>
+<td align="center">功能相对局限</td>
+</tr>
+<tr>
+<td align="center"><strong>文档型数据库[3]</strong></td>
+<td align="center">CouchDB, MongoDb</td>
+<td align="center">Web应用（与Key-Value类似，Value是结构化的，不同的是数据库能够了解Value的内容）</td>
+<td align="center">Key-Value对应的键值对，Value为结构化数据</td>
+<td align="center">数据结构要求不严格，表结构可变，不需要像关系型数据库一样需要预先定义表结构</td>
+<td align="center">查询性能不高，而且缺乏统一的查询语法。</td>
+</tr>
+<tr>
+<td align="center"><strong>图形(Graph)数据库[3]</strong></td>
+<td align="center">Neo4J, InfoGrid, Infinite Graph</td>
+<td align="center">社交网络，推荐系统等。专注于构建关系图谱</td>
+<td align="center">图结构</td>
+<td align="center">利用图结构相关算法。比如最短路径寻址，N度关系查找等</td>
+<td align="center">很多时候需要对整个图做计算才能得出需要的信息，而且这种结构不太好做分布式的集群方案。[3]</td>
+</tr>
+</tbody></table>
+<h1 id="Redis入门"><a href="#Redis入门" class="headerlink" title="Redis入门"></a>Redis入门</h1><p>Redis（Remote Dictionary Server）远程字典服务</p>
+<h3 id="用处"><a href="#用处" class="headerlink" title="用处"></a>用处</h3><p>数据持久化，效率高，发布订阅系统，集群，事务</p>
+<h3 id="window下使用"><a href="#window下使用" class="headerlink" title="window下使用"></a>window下使用</h3><p>直接去github找，不过版本比较老了</p>
+<p>打开server就打开redis了</p>
+<img src="/2021/02/04/redis/image-20210205141702671.png" class title="image-20210205141702671">
+
+<p>客户端下这样表示连接上了</p>
+<img src="/2021/02/04/redis/image-20210205141751373.png" class title="image-20210205141751373">
+
+<p><strong>一般在Linux下使用</strong></p>
+<h3 id="Linux下使用"><a href="#Linux下使用" class="headerlink" title="Linux下使用"></a>Linux下使用</h3><ol>
+<li>下载安装包 redis.tar.gz</li>
+<li>一般把软件放在opt下</li>
+</ol>
+<img src="/2021/02/04/redis/image-20210205154914180.png" class title="image-20210205154914180">
+
+<p>解压完成即可<img src="/2021/02/04/redis/image-20210205154926569.png" class title="image-20210205154926569"></p>
+<ol start="3">
+<li>进到目录</li>
+</ol>
+<img src="/2021/02/04/redis/image-20210205155102188.png" class title="image-20210205155102188">
+
+<ol start="4">
+<li>环境安装</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">yum install gcc-c++</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#这里要注意自 redis 6.0.0 之后，编译 redis 需要支持 C11 特性，C11 特性在 4.9 中被引入。</span></span><br><span class="line"><span class="comment">#Centos7 默认 gcc 版本为 4.8.5，所以需要升级gcc版本。</span></span><br><span class="line"><span class="comment">#不然在make的时候会报错</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#yum -y install gcc gcc-c++ make tcl</span></span><br><span class="line"><span class="comment">#yum -y install centos-release-scl</span></span><br><span class="line"><span class="comment">#yum -y install devtoolset-9-gcc devtoolset-9-gcc-c++ devtoolset-9-binutils</span></span><br><span class="line"><span class="comment">#scl enable devtoolset-9 bash</span></span><br><span class="line"><span class="comment">#执行以上命令升级后 再make就不会报错了</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li><p>默认安装路径  /usr/local/bin</p>
+<img src="/2021/02/04/redis/image-20210205160622385.png" class title="image-20210205160622385">
+</li>
+<li><p>用备份配置文件</p>
+</li>
+</ol>
+<img src="/2021/02/04/redis/image-20210205160851649.png" class title="image-20210205160851649">
+
+<ol start="7">
+<li><p>修改配置文件，默认后台启动</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim redis.conf</span><br></pre></td></tr></table></figure>
+<img src="/2021/02/04/redis/image-20210205161047944.png" class title="image-20210205161047944">
+
+</li>
+</ol>
+<p>改成yes表示默认后台启动</p>
+<ol start="8">
+<li>启动redis</li>
+</ol>
+<img src="/2021/02/04/redis/image-20210205161457780.png" class title="image-20210205161457780">
+
+<p>这样表示连接成功</p>
+<ol start="9">
+<li><p>查看进程是否开启<img src="/2021/02/04/redis/image-20210205161656101.png" class title="image-20210205161656101"></p>
+</li>
+<li><p>怎么退出<img src="/2021/02/04/redis/image-20210205161846215.png" alt="image-20210205161846215" style="zoom:50%;"><img src="/2021/02/04/redis/image-20210205161832171.png" class title="image-20210205161832171"></p>
+</li>
+</ol>
+<h3 id="测试性能"><a href="#测试性能" class="headerlink" title="测试性能"></a>测试性能</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-benchmark -h localhost -p 6379 -c 100 -n 100000</span><br></pre></td></tr></table></figure>
+<h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><p>默认有16个数据库。</p>
+<img src="/2021/02/04/redis/image-20210205171642857.png" class title="image-20210205171642857">
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">select index <span class="comment">#切换数据库 0~15</span></span><br><span class="line">DBSIZE <span class="comment">#查看大小，只针对当前数据库</span></span><br><span class="line">keys * <span class="comment">#查看所有key</span></span><br><span class="line">flushdb <span class="comment">#清除当前数据库</span></span><br><span class="line">flushall <span class="comment">#清空全部数据库</span></span><br></pre></td></tr></table></figure>
+<h4 id="Redis是单线程的"><a href="#Redis是单线程的" class="headerlink" title="Redis是单线程的"></a>Redis是单线程的</h4><p>Redis是基于内存操作的，cpu不是性能瓶颈，瓶颈是机器的内存和网络带宽</p>
+<p>因为直接和内存交互，所以比多线程块，多线程需要进行上下文切换</p>
+<h1 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">keys * <span class="comment">#查看所有key</span></span><br><span class="line"><span class="built_in">set</span> key value <span class="comment"># 存值</span></span><br><span class="line">EXISTS key <span class="comment">#查看当前key是否在	</span></span><br><span class="line">move key db <span class="comment">#从db数据库中移除key</span></span><br><span class="line">EXPIRE key time <span class="comment">#在time时间内移除key， 可用于单点登录</span></span><br><span class="line">ttl key <span class="comment">#可以查看剩余移除时间</span></span><br><span class="line"><span class="built_in">type</span> key <span class="comment">#查看当前key的类型</span></span><br></pre></td></tr></table></figure>
+<h4 id="String"><a href="#String" class="headerlink" title="String"></a>String</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">incr key  <span class="comment">#可以使key的值加1</span></span><br><span class="line">decr key  <span class="comment">#使key的值减1</span></span><br><span class="line">incrby key num <span class="comment">#使key的值增加num</span></span><br><span class="line">decrby key num <span class="comment">#使key的值减少num</span></span><br><span class="line"><span class="comment">#################################</span></span><br><span class="line"><span class="comment">#字符串范围 range</span></span><br><span class="line">GETRANGE key num1 num2 <span class="comment">#得到num1到num2的字符串，0，-1表示全部</span></span><br><span class="line">SETRANGE key num1 word <span class="comment">#设置num1开始的值为word</span></span><br><span class="line"><span class="comment">#################################</span></span><br><span class="line">setex key time word <span class="comment">#设置key的值为word，且在time时间后清除</span></span><br><span class="line">setnx key word      <span class="comment">#设置key的值为word，如果存在不存在才设置，存在则不操作，用于分布式锁方便</span></span><br><span class="line"><span class="comment">#################################</span></span><br><span class="line">mset key1 value1 key2 value2 <span class="comment">#批量设置</span></span><br><span class="line">mget key1 key2               <span class="comment">#批量取址</span></span><br><span class="line"><span class="comment">#注意,可以使用msetex或msetnx   #原子性操作，要么都成功要么都失败</span></span><br><span class="line"><span class="comment">#################################</span></span><br><span class="line">getset key value            <span class="comment">#先get后set，返回旧值，设置新值</span></span><br></pre></td></tr></table></figure>
+<h4 id="List"><a href="#List" class="headerlink" title="List"></a>List</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">LPUSH key value  <span class="comment">#可以对同一个key，push多个值，L表示从左边进</span></span><br><span class="line">LPOP key         <span class="comment">#移除第一个元素</span></span><br><span class="line">RPOP key         <span class="comment">#移除最后一个元素</span></span><br><span class="line">Llen key         <span class="comment">#返回列标长度</span></span><br><span class="line">LREM key num value <span class="comment">#移除num个value在list中</span></span><br><span class="line">LTRIM key num1 num2 <span class="comment"># 截取出指定位置的值</span></span><br><span class="line">rpoplpush key1 key2 <span class="comment">#移除列表的最后一个元素，添加到新表上</span></span><br><span class="line">lset key num value  <span class="comment">#更新key中num位置的值</span></span><br></pre></td></tr></table></figure>
+<p>实际上是列表</p>
+<h4 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">sadd key value <span class="comment">#存值</span></span><br><span class="line">smembers key   <span class="comment">#展示全部set的值</span></span><br><span class="line">sismember key value <span class="comment">#value是否在key中</span></span><br><span class="line">scard key      <span class="comment">#获取set中元素个数</span></span><br><span class="line">srem key value <span class="comment">#移除set中指定元素</span></span><br><span class="line">srandmember key <span class="comment">#随机从set中取出一个元素</span></span><br><span class="line">srandmember key num <span class="comment">#随机从set中取出num个元素</span></span><br><span class="line">spop key        <span class="comment">#随机移除元素</span></span><br><span class="line">smove <span class="comment">#移动元素到别的集合</span></span><br><span class="line"><span class="comment">########################################</span></span><br><span class="line">SDIFF key1 key2   <span class="comment">#差集</span></span><br><span class="line">SINTER key1 key2  <span class="comment">#交集</span></span><br><span class="line">SUNION key1 key2  <span class="comment">#并集</span></span><br></pre></td></tr></table></figure>
+<h4 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h4><p>相当于value为map</p>
+<p>hash适合用于对象，String适合用于字符串</p>
+<h4 id="Zset（有序集合）"><a href="#Zset（有序集合）" class="headerlink" title="Zset（有序集合）"></a>Zset（有序集合）</h4><p>在set的基础上，加上了排序，添加时可以按照给定的顺序添加</p>
+<h1 id="特殊数据类型"><a href="#特殊数据类型" class="headerlink" title="特殊数据类型"></a>特殊数据类型</h1><h4 id="geospatial-地理位置"><a href="#geospatial-地理位置" class="headerlink" title="geospatial 地理位置"></a>geospatial 地理位置</h4><p>使用的是zset，看文档就好了，主要是将一些地理位置存进去，然后可以计算距离</p>
+<h4 id="hyperloglog-基数统计"><a href="#hyperloglog-基数统计" class="headerlink" title="hyperloglog 基数统计"></a>hyperloglog 基数统计</h4><p>基数统计：集合中不重复数的数量</p>
+<h4 id="bitmaps"><a href="#bitmaps" class="headerlink" title="bitmaps"></a>bitmaps</h4>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/02/01/JVM/" rel="prev" title="JVM">
+      <i class="fa fa-chevron-left"></i> JVM
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#NoSQL"><span class="nav-number">1.</span> <span class="nav-text">NoSQL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E7%94%A8NoSQL"><span class="nav-number">1.0.1.</span> <span class="nav-text">为什么用NoSQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFNoSQL"><span class="nav-number">1.0.2.</span> <span class="nav-text">什么是NoSQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NoSQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%9B%9B%E5%A4%A7%E5%88%86%E7%B1%BB%E8%A1%A8%E6%A0%BC%E5%88%86%E6%9E%90"><span class="nav-number">1.0.3.</span> <span class="nav-text">NoSQL数据库的四大分类表格分析</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis%E5%85%A5%E9%97%A8"><span class="nav-number">2.</span> <span class="nav-text">Redis入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E5%A4%84"><span class="nav-number">2.0.1.</span> <span class="nav-text">用处</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#window%E4%B8%8B%E4%BD%BF%E7%94%A8"><span class="nav-number">2.0.2.</span> <span class="nav-text">window下使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux%E4%B8%8B%E4%BD%BF%E7%94%A8"><span class="nav-number">2.0.3.</span> <span class="nav-text">Linux下使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E6%80%A7%E8%83%BD"><span class="nav-number">2.0.4.</span> <span class="nav-text">测试性能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">2.0.5.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis%E6%98%AF%E5%8D%95%E7%BA%BF%E7%A8%8B%E7%9A%84"><span class="nav-number">2.0.5.1.</span> <span class="nav-text">Redis是单线程的</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">基本数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#String"><span class="nav-number">3.0.0.1.</span> <span class="nav-text">String</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#List"><span class="nav-number">3.0.0.2.</span> <span class="nav-text">List</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Set"><span class="nav-number">3.0.0.3.</span> <span class="nav-text">Set</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hash"><span class="nav-number">3.0.0.4.</span> <span class="nav-text">Hash</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Zset%EF%BC%88%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88%EF%BC%89"><span class="nav-number">3.0.0.5.</span> <span class="nav-text">Zset（有序集合）</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%89%B9%E6%AE%8A%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.</span> <span class="nav-text">特殊数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#geospatial-%E5%9C%B0%E7%90%86%E4%BD%8D%E7%BD%AE"><span class="nav-number">4.0.0.1.</span> <span class="nav-text">geospatial 地理位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hyperloglog-%E5%9F%BA%E6%95%B0%E7%BB%9F%E8%AE%A1"><span class="nav-number">4.0.0.2.</span> <span class="nav-text">hyperloglog 基数统计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bitmaps"><span class="nav-number">4.0.0.3.</span> <span class="nav-text">bitmaps</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="wudelic"
+      src="/uploads/avatar.png">
+  <p class="site-author-name" itemprop="name">wudelic</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wudelic</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v5.3.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
