@@ -30,8 +30,12 @@
 <meta property="og:image" content="http://yoursite.com/2021/02/15/SpringCloud/image-20210215162115146.png">
 <meta property="og:image" content="http://yoursite.com/2021/02/15/SpringCloud/image-20210216162152956.png">
 <meta property="og:image" content="http://yoursite.com/2021/02/15/SpringCloud/image-20210216162241465.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/15/SpringCloud/nginx-vs-ribbon1.jpg">
+<meta property="og:image" content="http://yoursite.com/2021/02/15/SpringCloud/nginx-vs-ribbon2.jpg">
+<meta property="og:image" content="http://yoursite.com/2021/02/15/SpringCloud/Hystrix1.jpg">
+<meta property="og:image" content="http://yoursite.com/2021/02/15/SpringCloud/zuul-sj22o93nfdsjkdsf2312.jpg">
 <meta property="article:published_time" content="2021-02-15T07:40:19.000Z">
-<meta property="article:modified_time" content="2021-02-16T08:48:52.611Z">
+<meta property="article:modified_time" content="2021-02-18T16:00:32.711Z">
 <meta property="article:author" content="wudelic">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://yoursite.com/2021/02/15/SpringCloud/image-20210215162115146.png">
@@ -203,7 +207,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-02-16 16:48:52" itemprop="dateModified" datetime="2021-02-16T16:48:52+08:00">2021-02-16</time>
+                <time title="Modified: 2021-02-19 00:00:32" itemprop="dateModified" datetime="2021-02-19T00:00:32+08:00">2021-02-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -241,6 +245,40 @@
 
 <p><strong>最大区别：SpringCloud抛弃了Dubbo的RPC通信，采用的是基于HTTP的REST方式</strong></p>
 <p>Dubbo的定位是RPC框架，SpringCloud的是微架构服务的一站式解决方案</p>
+<p>Dubbo主要用于分布式，SpringCloud主要用于微服务了。</p>
+<h2 id="Nginx和Ribbon"><a href="#Nginx和Ribbon" class="headerlink" title="Nginx和Ribbon"></a>Nginx和Ribbon</h2><p>Nginx是一种<strong>集中式</strong>的负载均衡器。简单理解就是 <strong>将所有请求都集中起来，然后再进行负载均衡</strong>。</p>
+<img src="/2021/02/15/SpringCloud/nginx-vs-ribbon1.jpg" class title="img">
+
+<p>而对于 <code>Ribbon</code> 来说它是在消费者端进行的负载均衡。</p>
+<img src="/2021/02/15/SpringCloud/nginx-vs-ribbon2.jpg" class title="img">
+
+<p><strong>在 <code>Nginx</code> 中请求是先进入负载均衡器，而在 <code>Ribbon</code> 中是先在客户端进行负载均衡才进行请求的。</strong></p>
+<h2 id="Hystrix-（熔断和降级）"><a href="#Hystrix-（熔断和降级）" class="headerlink" title="Hystrix （熔断和降级）"></a>Hystrix （熔断和降级）</h2><p>在分布式环境中，不可避免地会有许多服务依赖项中的某些失败。Hystrix是一个库，可通过添加等待时间容限和容错逻辑来帮助您控制这些分布式服务之间的交互。Hystrix通过隔离服务之间的访问点，停止服务之间的级联故障并提供后备选项来实现此目的，所有这些都可以提高系统的整体弹性。</p>
+<p>例子：</p>
+<p>整个微服务系统是这样的。服务A调用了服务B，服务B再调用了服务C，但是因为某些原因，服务C顶不住了，这个时候大量请求会在服务C阻塞。</p>
+<img src="/2021/02/15/SpringCloud/Hystrix1.jpg" class title="img">
+
+<p>服务C阻塞了还好，毕竟只是一个系统崩溃了。但是请注意这个时候因为服务C不能返回响应，那么服务B调用服务C的的请求就会阻塞，同理服务B阻塞了，那么服务A也会阻塞崩溃。<strong>造成服务雪崩</strong></p>
+<p>所谓 <strong>熔断</strong> 就是服务雪崩的一种有效解决方案。当指定时间窗内的请求失败率达到设定阈值时，系统将通过 <strong>断路器</strong> 直接将此请求链路断开。</p>
+<p>也就是我们上面服务B调用服务C在指定时间窗内，调用的失败率到达了一定的值，那么 <code>Hystrix</code> 则会自动将 服务B与C 之间的请求都断了，以免导致服务雪崩现象。</p>
+<p>其实这里所讲的 <strong>熔断</strong> 就是指的 <code>Hystrix</code> 中的 <strong>断路器模式</strong> ，你可以使用简单的 <code>@HystrixCommand</code> 注解来标注某个方法，这样 <code>Hystrix</code> 就会使用 <strong>断路器</strong> 来“包装”这个方法，每当调用时间超过指定时间时(默认为1000ms)，断路器将会中断对这个方法的调用。</p>
+<h2 id="微服务网关–Zuul"><a href="#微服务网关–Zuul" class="headerlink" title="微服务网关–Zuul"></a>微服务网关–Zuul</h2><p>ZUUL 是从设备和 web 站点到 Netflix 流应用后端的所有请求的前门。作为边界服务应用，ZUUL 是为了实现动态路由、监视、弹性和安全性而构建的。它还具有根据情况将请求路由到多个 Amazon Auto Scaling Groups（亚马逊自动缩放组，亚马逊的一种云计算方式） 的能力</p>
+<p>在上面我们学习了 <code>Eureka</code> 之后我们知道了 <em>服务提供者</em> 是 <em>消费者</em> 通过 <code>Eureka Server</code> 进行访问的，即 <code>Eureka Server</code> 是 <em>服务提供者</em> 的统一入口。那么整个应用中存在那么多 <em>消费者</em> 需要用户进行调用，这个时候用户该怎样访问这些 <em>消费者工程</em> 呢？当然可以像之前那样直接访问这些工程。但这种方式没有统一的消费者工程调用入口，不便于访问与管理，而 Zuul 就是这样的一个对于 <em>消费者</em> 的统一入口。</p>
+<img src="/2021/02/15/SpringCloud/zuul-sj22o93nfdsjkdsf2312.jpg" class title="img">
+
+
+
+
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li><code>Eureka</code> 服务发现框架</li>
+<li><code>Ribbon</code> 进程内负载均衡器</li>
+<li><code>Open Feign</code> 服务调用映射</li>
+<li><code>Hystrix</code> 服务降级熔断器</li>
+<li><code>Zuul</code> 微服务网关</li>
+<li><code>Config</code> 微服务统一配置中心</li>
+<li><code>Bus</code> 消息总线</li>
+</ul>
 
     </div>
 
@@ -322,7 +360,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.</span> <span class="nav-text">微服务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SpringCloud"><span class="nav-number">2.</span> <span class="nav-text">SpringCloud</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SpringCloud%E5%92%8CSpringBoot%E5%85%B3%E7%B3%BB"><span class="nav-number">3.</span> <span class="nav-text">SpringCloud和SpringBoot关系</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dubbo%E5%92%8CSpringCloud%E5%AF%B9%E6%AF%94"><span class="nav-number">4.</span> <span class="nav-text">Dubbo和SpringCloud对比</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.</span> <span class="nav-text">微服务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SpringCloud"><span class="nav-number">2.</span> <span class="nav-text">SpringCloud</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SpringCloud%E5%92%8CSpringBoot%E5%85%B3%E7%B3%BB"><span class="nav-number">3.</span> <span class="nav-text">SpringCloud和SpringBoot关系</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dubbo%E5%92%8CSpringCloud%E5%AF%B9%E6%AF%94"><span class="nav-number">4.</span> <span class="nav-text">Dubbo和SpringCloud对比</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx%E5%92%8CRibbon"><span class="nav-number">4.1.</span> <span class="nav-text">Nginx和Ribbon</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hystrix-%EF%BC%88%E7%86%94%E6%96%AD%E5%92%8C%E9%99%8D%E7%BA%A7%EF%BC%89"><span class="nav-number">4.2.</span> <span class="nav-text">Hystrix （熔断和降级）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3%E2%80%93Zuul"><span class="nav-number">4.3.</span> <span class="nav-text">微服务网关–Zuul</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
