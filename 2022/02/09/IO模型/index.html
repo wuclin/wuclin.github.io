@@ -20,19 +20,21 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.7.2","exturl":false,"sidebar":{"position":"hide","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="java里windowClosed()与windowClosing()这两个方法有什么区别？123456789windowClosing - 窗口正在关闭windowClosed - 窗口已关闭void windowClosed(WindowEvent e)因对窗口调用 dispose 而将其关闭时调用。void windowClosing(WindowEvent e)用户试图从窗口的系统菜单中关">
+  <meta name="description" content="IO模型读写时有两个阶段，一个是等待数据的阶段，一个是真正读写的阶段 1.应用程序作为一个文件保存在磁盘中，只有加载到内存成为一个进程后才能运行，即应用程序运行在内存中，运行中就会涉及到IO操作，比如读写磁盘文件，访问数据库等 2.为了确保操作系统的安全，操作系统将内存分为内核空间和用户空间，我们的应用程序运行在用户空间，用户空间无法操作内核空间，即用户空间的程序不能直接访问内核管理的IO，所以用">
 <meta property="og:type" content="article">
-<meta property="og:title" content="一些小问题记录">
-<meta property="og:url" content="http://yoursite.com/2021/01/23/%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:title" content="fufu">
+<meta property="og:url" content="http://yoursite.com/2022/02/09/IO%E6%A8%A1%E5%9E%8B/index.html">
 <meta property="og:site_name" content="fufu">
-<meta property="og:description" content="java里windowClosed()与windowClosing()这两个方法有什么区别？123456789windowClosing - 窗口正在关闭windowClosed - 窗口已关闭void windowClosed(WindowEvent e)因对窗口调用 dispose 而将其关闭时调用。void windowClosing(WindowEvent e)用户试图从窗口的系统菜单中关">
+<meta property="og:description" content="IO模型读写时有两个阶段，一个是等待数据的阶段，一个是真正读写的阶段 1.应用程序作为一个文件保存在磁盘中，只有加载到内存成为一个进程后才能运行，即应用程序运行在内存中，运行中就会涉及到IO操作，比如读写磁盘文件，访问数据库等 2.为了确保操作系统的安全，操作系统将内存分为内核空间和用户空间，我们的应用程序运行在用户空间，用户空间无法操作内核空间，即用户空间的程序不能直接访问内核管理的IO，所以用">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-01-23T04:31:19.000Z">
-<meta property="article:modified_time" content="2022-02-09T08:31:16.797Z">
+<meta property="og:image" content="http://yoursite.com/2022/02/09/IO%E6%A8%A1%E5%9E%8B/D:%5CHexo-blog%5CHexo%5Csource_posts%5CIO%E6%A8%A1%E5%9E%8B%5C2022-02-06-02-21-42-image.png">
+<meta property="article:published_time" content="2022-02-09T08:31:38.893Z">
+<meta property="article:modified_time" content="2022-02-09T08:35:21.960Z">
 <meta property="article:author" content="wudelic">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2022/02/09/IO%E6%A8%A1%E5%9E%8B/D:%5CHexo-blog%5CHexo%5Csource_posts%5CIO%E6%A8%A1%E5%9E%8B%5C2022-02-06-02-21-42-image.png">
 
-<link rel="canonical" href="http://yoursite.com/2021/01/23/%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">
+<link rel="canonical" href="http://yoursite.com/2022/02/09/IO%E6%A8%A1%E5%9E%8B/">
 
 
 <script id="page-configurations">
@@ -44,7 +46,7 @@
   };
 </script>
 
-  <title>一些小问题记录 | fufu</title>
+  <title> | fufu</title>
   
 
 
@@ -169,7 +171,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/23/%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/02/09/IO%E6%A8%A1%E5%9E%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.png">
@@ -182,7 +184,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          一些小问题记录
+          
         </h1>
 
         <div class="post-meta">
@@ -191,24 +193,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2021-01-23 12:31:19" itemprop="dateCreated datePublished" datetime="2021-01-23T12:31:19+08:00">2021-01-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-09 16:31:16" itemprop="dateModified" datetime="2022-02-09T16:31:16+08:00">2022-02-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/other/" itemprop="url" rel="index"><span itemprop="name">other</span></a>
-                </span>
+              <time title="Created: 2022-02-09 16:31:38 / Modified: 16:35:21" itemprop="dateCreated datePublished" datetime="2022-02-09T16:31:38+08:00">2022-02-09</time>
             </span>
 
           
@@ -222,18 +209,37 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="java里windowClosed-与windowClosing-这两个方法有什么区别？"><a href="#java里windowClosed-与windowClosing-这两个方法有什么区别？" class="headerlink" title="java里windowClosed()与windowClosing()这两个方法有什么区别？"></a>java里windowClosed()与windowClosing()这两个方法有什么区别？</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">windowClosing - 窗口正在关闭</span><br><span class="line">windowClosed - 窗口已关闭</span><br><span class="line">void windowClosed(WindowEvent e)</span><br><span class="line">因对窗口调用 dispose 而将其关闭时调用。</span><br><span class="line">void windowClosing(WindowEvent e)用户试图从窗口的系统菜单中关闭窗口时调用。</span><br><span class="line">在做图形用户界面开发的时候，窗口右上角的关闭按钮要实现它的功能，是要实现一个监听器的。</span><br><span class="line">重写下面这个方法，就会实现单击关闭按钮结束这个程序，而假如把System.exit(0)放入windowClosed发放中，单击关闭按钮是没有反应的，</span><br><span class="line">因为windowClosed的意思是窗口关闭以后，将发生的事情，比如在这个方法里实现弹出一个对话框，则当你结束这个程序后，这个对话框将弹出。</span><br><span class="line">public void windowClosing(WindowEvent e)&#123;System.exit(0);&#125;当单击窗口右上方的关闭图标时,监视器调用windowClosing方法,假如在该方法中使用System.exit(0);退出程序的运行,那么监视器就没有机会再调用windowClosed方法</span><br></pre></td></tr></table></figure>
-<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>Spring，SpringMVC，和SpringBoot的区别</p>
-<p>为什么SpringBoot免去配置</p>
-<p>单例模式一般用在什么地方</p>
-<p>反射一般用在什么场合</p>
-<p>分页</p>
-<h1 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h1><p>指的是浏览器不能执行其他网站的脚本，由浏览器的同源策略造成，是浏览器对js施加的安全限制。</p>
-<p>主域名不同，子域名不同，端口号不同，协议不同都算跨域。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;www.123.com:9001&#x2F;index.html</span><br><span class="line">协议：http</span><br><span class="line">主域名：123</span><br><span class="line">子域名：www</span><br><span class="line">端口号：9001</span><br></pre></td></tr></table></figure>
-<p>解决方法：</p>
-<p>代理：</p>
-<p>例如<a target="_blank" rel="noopener" href="http://www.123.com/index.html需要调用www.456.com/server.php，可以写一个接口www.123.com/server.php，由这个接口在后端去调用www.456.com/server.php并拿到返回值，然后再返回给index.html，这就是一个代理的模式。相当于绕过了浏览器端，自然就不存在跨域问题。">www.123.com/index.html需要调用www.456.com/server.php，可以写一个接口www.123.com/server.php，由这个接口在后端去调用www.456.com/server.php并拿到返回值，然后再返回给index.html，这就是一个代理的模式。相当于绕过了浏览器端，自然就不存在跨域问题。</a></p>
+        <h1 id="IO模型"><a href="#IO模型" class="headerlink" title="IO模型"></a>IO模型</h1><p>读写时有两个阶段，一个是等待数据的阶段，一个是真正读写的阶段</p>
+<p>1.应用程序作为一个文件保存在磁盘中，只有加载到内存成为一个进程后才能运行，即应用程序运行在内存中，运行中就会涉及到IO操作，比如读写磁盘文件，访问数据库等</p>
+<p>2.为了确保操作系统的安全，操作系统将内存分为内核空间和用户空间，我们的应用程序运行在用户空间，用户空间无法操作内核空间，即用户空间的程序不能直接访问内核管理的IO，所以用户要访问内核管理的IO，必须通过调用内核通过的系统调用进行访问，因此应用程序发起一次IO实际包含两个阶段：</p>
+<pre><code>（进程发起）1.IO调用阶段：应用程序进程向内核发起系统调用
+
+（操作系统）2.IO执行阶段：内核执行IO操作并返回
+
+                           2.1.准备数据阶段：内核等待IO设备准备好数据
+
+                           2.2.拷贝数据阶段：将数据从内核缓冲区拷贝到用户空间缓冲区</code></pre><p><img src="/2022/02/09/IO%E6%A8%A1%E5%9E%8B/D:%5CHexo-blog%5CHexo%5Csource_posts%5CIO%E6%A8%A1%E5%9E%8B%5C2022-02-06-02-21-42-image.png" alt></p>
+<h2 id="关于缓冲区"><a href="#关于缓冲区" class="headerlink" title="关于缓冲区"></a>关于缓冲区</h2><p>用户进程缓冲区：</p>
+<p>用户进程通过系统调用访问系统资源时，需要切换到内核态，系统调用结束后又会切回用户模式，这个切换耗时较大，采用缓冲区的方法，程序都从缓冲区获取数据，当缓冲区使用完后在进行下一次调用，填充缓冲区，用户缓冲区的目的是为了减少系统调用次数，减低操作系统在用户态和核心态切换所耗费的时间</p>
+<p>内核缓冲区：</p>
+<p>用户进程要从磁盘获取数据时，内核一般不直接读取磁盘，而是将内核缓冲区中的数据复制到进程缓冲区中。如果内核缓冲区内没有数据，就会把请求的进程挂起，等到数据已经读取到内核缓冲区时，把内核缓冲区中的数据读取到用户进程中，才通知进程。</p>
+<h2 id="阻塞和非阻塞"><a href="#阻塞和非阻塞" class="headerlink" title="阻塞和非阻塞"></a>阻塞和非阻塞</h2><p>如果操作系统IO处于未就就绪状态，当前线程如果一直等待直到其就绪，这种IO方式就是阻塞IO；如果不一直等待其就绪，而是可以做其他的事情，就是非阻塞IO。</p>
+<p>（如果进程发起了读取数据的IO调用，操作系统需要将外部数据拷贝到进程缓冲区，在有数据拷贝到进程缓冲区前，进程缓冲区处于不可读状态，也就是操作系统IO未就绪）</p>
+<h2 id="异步和同步"><a href="#异步和同步" class="headerlink" title="异步和同步"></a>异步和同步</h2><p>针对于进程或者线程来说，发起IO调用之后，是否挂起等待操作系统的IO执行完成。</p>
+<h2 id="5种IO模型"><a href="#5种IO模型" class="headerlink" title="5种IO模型"></a>5种IO模型</h2><p>1.阻塞IO(JAVA BIO)</p>
+<p>进程发起IO系统调用，进程被阻塞，在内核将数据准备好之前，进程会一直持有cpu，直到IO处理完毕后返回进程</p>
+<p>2.非阻塞IO</p>
+<p>在内核数据准备好之前，系统会一直访问内核是否准备好数据，如果没有准备好，不会阻塞程序，内核会直接返回数据未准备就绪的信号，在这个过程中虽然不会一直持有cpu，但是会一直调用cpu，即轮询</p>
+<p>3.IO复用模型(JAVA NIO)</p>
+<p>引入了新的系统调用（linux2.6前select，poll，linux2.6后epoll，这些函数是阻塞的），查询IO的就绪状态。通过该系统调用，一个进程可以监视多个fd（文件描述符），某个fd就绪，内核就能将就绪状态返回给应用程序，应用程序再次发起IO系统调用进行读写                                                                                               </p>
+<p>本质上，系统调用时还是阻塞的。</p>
+<p>select：最大连接数为1024，存在连接数限制；需要通过遍历fdset的方式找到就绪的fd，因为只知道有IO事件发送，不知道是那几个流，所以需要遍历所有流</p>
+<p>poll：解决了连接数限制的问题，还是存在需要遍历的问题</p>
+<p>epoll：使用监听事件回调的机制代替了遍历fd的机制</p>
+<p>4.信号驱动IO</p>
+<p>向内核发送一个SIGIO信号，此时用户进程就可以去做别的事情，内核数据准备好后，再通过SIGIO信号通知应用进程，应用进程收到信号之后就去读取数据，不过在数据从内核复制到应用缓冲区的时候是还是阻塞的</p>
+<p>5.异步IO(JAVA AIO)</p>
+<p>应用进程发起系统调用后，立即返回，不会阻塞等待，等内核数据准备好，将数据拷贝到用户进程缓冲区，发送信号通知用户进程IO操作执行完毕</p>
 
     </div>
 
@@ -249,12 +255,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/01/22/git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/" rel="prev" title="git基本命令">
-      <i class="fa fa-chevron-left"></i> git基本命令
+    <a href="/2021/02/17/Dubbo/" rel="prev" title="Dubbo">
+      <i class="fa fa-chevron-left"></i> Dubbo
     </a></div>
       <div class="post-nav-item">
-    <a href="/2021/01/25/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" rel="next" title="单例模式">
-      单例模式 <i class="fa fa-chevron-right"></i>
+    <a href="/2022/02/09/newjvm/" rel="next" title="">
+       <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -315,7 +321,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#java%E9%87%8CwindowClosed-%E4%B8%8EwindowClosing-%E8%BF%99%E4%B8%A4%E4%B8%AA%E6%96%B9%E6%B3%95%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">java里windowClosed()与windowClosing()这两个方法有什么区别？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B7%A8%E5%9F%9F"><span class="nav-number">3.</span> <span class="nav-text">跨域</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#IO%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">IO模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E7%BC%93%E5%86%B2%E5%8C%BA"><span class="nav-number">1.1.</span> <span class="nav-text">关于缓冲区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%98%BB%E5%A1%9E%E5%92%8C%E9%9D%9E%E9%98%BB%E5%A1%9E"><span class="nav-number">1.2.</span> <span class="nav-text">阻塞和非阻塞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5%E5%92%8C%E5%90%8C%E6%AD%A5"><span class="nav-number">1.3.</span> <span class="nav-text">异步和同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5%E7%A7%8DIO%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.4.</span> <span class="nav-text">5种IO模型</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

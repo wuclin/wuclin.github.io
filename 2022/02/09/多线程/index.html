@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.7.2","exturl":false,"sidebar":{"position":"hide","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="线程部分线程状态NEW（初始状态）：新创建一个线程对象，没有调用start方法时的状态 Runnable（运行状态）：Ready（就绪）和Running（运行中）两种状态都是Runnable。线程位于可运行线程池中，等待被线程调度选中，获取CPU使用权的状态就是Ready；Ready的线程在获取CPU后变成Running Blocked（阻塞）：线程被锁阻塞">
+<meta property="og:type" content="article">
+<meta property="og:title" content="fufu">
+<meta property="og:url" content="http://yoursite.com/2022/02/09/%E5%A4%9A%E7%BA%BF%E7%A8%8B/index.html">
+<meta property="og:site_name" content="fufu">
+<meta property="og:description" content="线程部分线程状态NEW（初始状态）：新创建一个线程对象，没有调用start方法时的状态 Runnable（运行状态）：Ready（就绪）和Running（运行中）两种状态都是Runnable。线程位于可运行线程池中，等待被线程调度选中，获取CPU使用权的状态就是Ready；Ready的线程在获取CPU后变成Running Blocked（阻塞）：线程被锁阻塞">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181120173640764.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3BhbmdlMTk5MQ==,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2022-02-09T08:35:52.170Z">
+<meta property="article:modified_time" content="2022-02-09T08:29:56.740Z">
+<meta property="article:author" content="wudelic">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20181120173640764.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3BhbmdlMTk5MQ==,size_16,color_FFFFFF,t_70">
+
+<link rel="canonical" href="http://yoursite.com/2022/02/09/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title> | fufu</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">fufu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">记录一下</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-fw fa-calendar"></i>Schedule</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/02/09/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.png">
+      <meta itemprop="name" content="wudelic">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fufu">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-02-09 16:35:52 / Modified: 16:29:56" itemprop="dateCreated datePublished" datetime="2022-02-09T16:35:52+08:00">2022-02-09</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="线程部分"><a href="#线程部分" class="headerlink" title="线程部分"></a>线程部分</h1><h2 id="线程状态"><a href="#线程状态" class="headerlink" title="线程状态"></a>线程状态</h2><p>NEW（初始状态）：新创建一个线程对象，没有调用start方法时的状态</p>
+<p>Runnable（运行状态）：Ready（就绪）和Running（运行中）两种状态都是Runnable。线程位于可运行线程池中，等待被线程调度选中，获取CPU使用权的状态就是Ready；Ready的线程在获取CPU后变成Running</p>
+<p>Blocked（阻塞）：线程被锁阻塞</p>
+<p>Waiting（等待）：该状态的线程需要等待其他线程的唤醒或中断，否则会一直等待</p>
+<p>Timed_Waiting（超时等待）：可以在指定的时间后自行返回</p>
+<p>Terminated（终止）：线程run方法完成，或主线程的main方法完成，线程就终止了</p>
+<p><img src="https://img-blog.csdnimg.cn/20181120173640764.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3BhbmdlMTk5MQ==,size_16,color_FFFFFF,t_70" alt="线程状态图"></p>
+<h2 id="线程方法"><a href="#线程方法" class="headerlink" title="线程方法"></a>线程方法</h2><p>sleep(long millis)方法：当前线程调用，不释放锁，线程进入Timed_Waiting状态</p>
+<p>yield()方法：当前线程调用，不释放锁，让出获取的cpu时间片，由运行状态变成就绪状态，让OS再次选择线程，实际上不能达到让步目的，可能让步的线程再次被选中，无法指定暂停的时间</p>
+<p>join()/join(long mills)方法：基于wait方法实现，当前线程调用其他线程的join方法，进入waiting/time_waiting状态，直到其他线程执行完毕或者到时间，当前线程就会进入runnable状态或者blocked状态</p>
+<p>wait方法：当前线程调用，释放对象锁，进入等待队列。依靠notify/notifyAll唤醒或者wait方法指定的时间自动唤醒</p>
+<p>notify方法：唤醒在该对象监视器上等待的单个线程，无法指定唤起哪个线程</p>
+<p>notifyAll方法：唤醒在该对象监视器上等待的所有线程</p>
+<p>interrupe方法：</p>
+<h2 id="线程池和线程组"><a href="#线程池和线程组" class="headerlink" title="线程池和线程组"></a>线程池和线程组</h2><h1 id="锁部分"><a href="#锁部分" class="headerlink" title="锁部分"></a>锁部分</h1><p>主要是synchronized是java底层支持的，lock锁是jdk实现</p>
+<h2 id="悲观锁"><a href="#悲观锁" class="headerlink" title="悲观锁"></a>悲观锁</h2><p>操作数据时，认为数据会被别人同时修改，因此操作数据时会直接对数据加锁，直到操作完成后才会释放锁。具体实现方式时通过加锁，一种是直接使用synchronized，一种是使用lock</p>
+<h2 id="synchronized底层实现与升级"><a href="#synchronized底层实现与升级" class="headerlink" title="synchronized底层实现与升级"></a>synchronized底层实现与升级</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//以下写法是无效的：</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">synchronized</span>(Person.class)&#123;</span><br><span class="line"> <span class="comment">// 操作count</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">synchronized</span>(person)&#123;</span><br><span class="line"> <span class="comment">// 操作count</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span></span>&#123;</span><br><span class="line"> <span class="comment">// 操作count</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span></span>&#123;</span><br><span class="line"> <span class="comment">// 操作count</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>底层是依赖于操作系统的Mutex Lock，java6之后进行了锁升级，引入了无锁，偏向锁，轻量级锁（自旋锁），重量级锁</p>
+<p>无锁：就是一个对象刚new出来的状态，不存在锁竞争</p>
+<p>偏向锁：是针对一个线程而言的，线程获得锁之后就不会再有解锁等操作了，省下开销，适用于一个线程访问同步块的情况</p>
+<p>锁膨胀：出现线程竞争锁时，偏向锁升级成轻量级锁</p>
+<p>锁撤销：偏向锁失效后，要撤销偏向锁</p>
+<p>轻量级锁：也就是自旋锁，线程竞争锁时，会原地循环等待（消耗CPU，相当于执行没有内容的for循环），而不是把线程阻塞</p>
+<p>重量级锁：依赖对象内部的moniotr锁来实现，而monitor又依赖于os的mutex lock（互斥锁）来实现，也叫做互斥锁，java6之前synchronized就是这种锁</p>
+<p>（锁的升级是不可逆的）</p>
+<h2 id="lock锁底层"><a href="#lock锁底层" class="headerlink" title="lock锁底层"></a>lock锁底层</h2><p>lock底层基于AQS和CAS，AQS是是一个抽象的队列同步器，由CLH队列锁实现，会将暂时获取不到锁的线程加入到队列中（CLH队列是一个虚拟的双向队列，即不存在队列实例，只是存在节点之间的关联关系，由双向链表组成，每个节点代表一个线程，节点有一个表示状态的数据waitStatus，用于实现锁的分配）</p>
+<h4 id="lock方法"><a href="#lock方法" class="headerlink" title="lock方法"></a>lock方法</h4><p>对于lock的获取锁方法可以看到，是先使用CAS去更新waitStatus的值然后获取锁，如果没有获取到的话会通过else分支里面的acquire方法通过CAS再次获取一次锁，同时将当前线程加入到等待队列中，在队列中通过自旋的方式获取锁</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">final</span> <span class="keyword">void</span> <span class="title">lock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (compareAndSetState(<span class="number">0</span>, <span class="number">1</span>))  <span class="comment">//CAS获取锁</span></span><br><span class="line">                setExclusiveOwnerThread(Thread.currentThread());</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                acquire(<span class="number">1</span>);                <span class="comment">//再次尝试</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">tryAcquire</span><span class="params">(<span class="keyword">int</span> acquires)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> nonfairTryAcquire(acquires);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">acquire</span><span class="params">(<span class="keyword">int</span> arg)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!tryAcquire(arg) &amp;&amp;       <span class="comment">//CAS再次尝试获取锁</span></span><br><span class="line">            acquireQueued(addWaiter(Node.EXCLUSIVE), arg)) <span class="comment">//加入等待队列自旋获取锁</span></span><br><span class="line">            selfInterrupt();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="unlock方法"><a href="#unlock方法" class="headerlink" title="unlock方法"></a>unlock方法</h4><p>释放锁是调用了release方法，底层还是通过修改AQS里面的waitStatus的值来释放锁，同时更新下一个线程等待节点</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unlock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        sync.release(<span class="number">1</span>);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">release</span><span class="params">(<span class="keyword">int</span> arg)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (tryRelease(arg)) &#123;</span><br><span class="line">            Node h = head;</span><br><span class="line">            <span class="keyword">if</span> (h != <span class="keyword">null</span> &amp;&amp; h.waitStatus != <span class="number">0</span>)</span><br><span class="line">                unparkSuccessor(h);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">tryRelease</span><span class="params">(<span class="keyword">int</span> releases)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">int</span> c = getState() - releases;</span><br><span class="line">            <span class="keyword">if</span> (Thread.currentThread() != getExclusiveOwnerThread())</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> IllegalMonitorStateException();</span><br><span class="line">            <span class="keyword">boolean</span> free = <span class="keyword">false</span>;</span><br><span class="line">            <span class="keyword">if</span> (c == <span class="number">0</span>) &#123;</span><br><span class="line">                free = <span class="keyword">true</span>;</span><br><span class="line">                setExclusiveOwnerThread(<span class="keyword">null</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            setState(c);</span><br><span class="line">            <span class="keyword">return</span> free;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="synchronized和lock"><a href="#synchronized和lock" class="headerlink" title="synchronized和lock"></a>synchronized和lock</h2><p>在对synchronized锁进行锁升级之后，性能不再是选择lock或synchronized的原因，主要选择原因要看使用场景：</p>
+<p>1.lock锁可以实现请求锁中断(tryLock方法)</p>
+<p>2.lock锁可以选择使用公平锁和非公平锁，synchronized只能为非公平锁</p>
+<p>3.lock锁需要手动释放锁</p>
+<p>4.lock锁可以通过绑定condition实现指定线程的唤醒，synchronized只能随机唤醒线程</p>
+<p>5.synchronized锁的是对象，lock锁的是进程</p>
+<h2 id="乐观锁"><a href="#乐观锁" class="headerlink" title="乐观锁"></a>乐观锁</h2><p>操作数据时，认为数据不会被别人同时修改，因此不会加锁，只是在执行更新的时候会判断在此期间数据是否被修改，如果被修改过就会放弃更新操作，否则执行更新操作。具体实现方式有CAS机制和使用版本号</p>
+<h3 id="CAS机制："><a href="#CAS机制：" class="headerlink" title="CAS机制："></a>CAS机制：</h3><p>CAS操作逻辑：如果内存位置V的值对于预期的值，则将该位置更新为新的值B，否则就不进行操作</p>
+<p>CAS的操作是自旋的，原子性是在硬件层面保证的，java中的原子类就是使用了CAS保证了原子性</p>
+<p>是用CAS会出现BAB问题，就是一个线程读取数据A，另一个线程修改数据A为数据B，然后再修改成数据A，此时线程对数据A进行CAS操作，会操作成功，实际上该数据已经被修改过了。在栈顶问题中，一个栈的栈顶结果多次变化又恢复了原值，栈可能已经出现了变化</p>
+<p>可以使用版本号的方式解决问题</p>
+<h3 id="版本号机制"><a href="#版本号机制" class="headerlink" title="版本号机制"></a>版本号机制</h3><p>内存中的值发生变化，版本号加1，在进行CAS操作时，不仅比较内存的值也比较版本号，只有都没有变化时，CAS才执行成功。</p>
+<p>单独使用版本号作为乐观锁时，可以采用在数据中加入版本号字段，或者也可以使用时间戳来作为版本号</p>
+<h2 id="volatile底层实现和可见性"><a href="#volatile底层实现和可见性" class="headerlink" title="volatile底层实现和可见性"></a>volatile底层实现和可见性</h2><p>volatile是一个关键字，只能用在变量上，主要作用是</p>
+<p>1.提供可见性：使变量在多个线程见可见。每个线程都会有自己的寄存器存放变量的值，使用volatile修饰后的变量，相当于告诉线程该变量的值需要去主存中读取，这样可以保证该变量如果被修改了，所有的线程都可以得到最新的值。</p>
+<p>2.禁止指令重排：但是并不保证原子性，比如对于i++这种操作还是存在线程不安全的问题，可以使用CAS的方式来保证原子性，比如juc包中的原子操作类</p>
+<p>volatile是通过硬件实现的，在程序运行过程中，数据会从主存中复制一份到CPU的缓存中，CPU进行计算时就可以直接从缓存读写数据了，在运算结束之后，再将缓存中的数据刷新到主存中（数据是放在主存中的，cpu执行速度很快，而从主存读写数据的速度相比要慢很多，因此在cpu中就有了高速缓存），在多线程情况下会出现缓存不一致的问题，针对这个问题的解决方法有：</p>
+<p>1.在总线加lock锁，由于在总线加锁会阻塞到其他cpu对其他部件的访问所以使用方法2</p>
+<p>2.缓存一致协议，当cpu写数据时，如果发现操作的变量时共享变量，即在其他cpu中也存在该变量的副本，就会发出信号通知其他cpu将该变量的缓存设置为无效的，当其他cpu需要读取这个变量时，发现缓存中的变量是无效的就会从内存重新读取变量</p>
+<p>volatile只保证了可见性和有序性，不保证原子性</p>
+<p>synchronized，lock保证了可见性，有序性，原子性</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/yinbucheng/article/details/71305951?spm=1001.2101.3001.6650.8&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ELandingCtr%7EHighlightScore-8.queryctrv2&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ELandingCtr%7EHighlightScore-8.queryctrv2&utm_relevant_index=15">(13条消息) java中voliate的讲解_yinbucheng的博客-CSDN博客_voliate</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zqz_zqz/article/details/70233767?spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1.pc_relevant_default&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1.pc_relevant_default&utm_relevant_index=2">java 中的锁 – 偏向锁、轻量级锁、自旋锁、重量级锁_zqz_zqz的博客-CSDN博客_偏向锁 轻量级锁 重量级锁</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/02/09/newjvm/" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E9%83%A8%E5%88%86"><span class="nav-number">1.</span> <span class="nav-text">线程部分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81"><span class="nav-number">1.1.</span> <span class="nav-text">线程状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">线程方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%92%8C%E7%BA%BF%E7%A8%8B%E7%BB%84"><span class="nav-number">1.3.</span> <span class="nav-text">线程池和线程组</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%94%81%E9%83%A8%E5%88%86"><span class="nav-number">2.</span> <span class="nav-text">锁部分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%82%B2%E8%A7%82%E9%94%81"><span class="nav-number">2.1.</span> <span class="nav-text">悲观锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronized%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0%E4%B8%8E%E5%8D%87%E7%BA%A7"><span class="nav-number">2.2.</span> <span class="nav-text">synchronized底层实现与升级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lock%E9%94%81%E5%BA%95%E5%B1%82"><span class="nav-number">2.3.</span> <span class="nav-text">lock锁底层</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#lock%E6%96%B9%E6%B3%95"><span class="nav-number">2.3.0.1.</span> <span class="nav-text">lock方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#unlock%E6%96%B9%E6%B3%95"><span class="nav-number">2.3.0.2.</span> <span class="nav-text">unlock方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronized%E5%92%8Clock"><span class="nav-number">2.4.</span> <span class="nav-text">synchronized和lock</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%90%E8%A7%82%E9%94%81"><span class="nav-number">2.5.</span> <span class="nav-text">乐观锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CAS%E6%9C%BA%E5%88%B6%EF%BC%9A"><span class="nav-number">2.5.1.</span> <span class="nav-text">CAS机制：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%88%E6%9C%AC%E5%8F%B7%E6%9C%BA%E5%88%B6"><span class="nav-number">2.5.2.</span> <span class="nav-text">版本号机制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volatile%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0%E5%92%8C%E5%8F%AF%E8%A7%81%E6%80%A7"><span class="nav-number">2.6.</span> <span class="nav-text">volatile底层实现和可见性</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="wudelic"
+      src="/uploads/avatar.png">
+  <p class="site-author-name" itemprop="name">wudelic</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wudelic</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v5.3.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

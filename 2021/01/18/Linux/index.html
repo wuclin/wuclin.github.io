@@ -53,7 +53,7 @@
 <meta property="og:image" content="http://yoursite.com/2021/01/18/Linux/image-20210105171356712-1610904055093.png">
 <meta property="og:image" content="http://yoursite.com/2021/01/18/Linux/image-20210105171554973-1610904055093.png">
 <meta property="article:published_time" content="2021-01-17T17:19:28.000Z">
-<meta property="article:modified_time" content="2021-01-17T17:23:36.677Z">
+<meta property="article:modified_time" content="2021-11-30T12:01:28.598Z">
 <meta property="article:author" content="wudelic">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://yoursite.com/2021/01/18/Linux/image-20210104194152027-1610904055085.png">
@@ -217,10 +217,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-01-18 01:19:28 / Modified: 01:23:36" itemprop="dateCreated datePublished" datetime="2021-01-18T01:19:28+08:00">2021-01-18</time>
+              <time title="Created: 2021-01-18 01:19:28" itemprop="dateCreated datePublished" datetime="2021-01-18T01:19:28+08:00">2021-01-18</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-30 20:01:28" itemprop="dateModified" datetime="2021-11-30T20:01:28+08:00">2021-11-30</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -454,6 +460,53 @@
 
 <p>说明安装成功</p>
 <img src="/2021/01/18/Linux/image-20210105171554973-1610904055093.png" class title="image-20210105171554973">第一次会去官网下载
+
+
+
+<h1 id="Linux安装软件"><a href="#Linux安装软件" class="headerlink" title="Linux安装软件"></a>Linux安装软件</h1><p>一.rpm包安装方式：</p>
+<p>1、找到相应的软件包，比如soft.version.rpm，下载到本机某个目录； </p>
+<p>2、打开一个终端，su -成root用户； </p>
+<p>3、cd soft.version.rpm所在的目录； </p>
+<p>4、输入rpm -ivh soft.version.rpm</p>
+<p>rpm参数 参数说明<br>　　-i 安装软件<br>　　-t 测试安装，不是真的安装<br>　　-p 显示安装进度<br>　　-f 忽略任何错误<br>　　-U 升级安装<br>　　-v 检测套件是否正确安装<br>　　这些参数可以同时采用</p>
+<p>对应的卸载方法：</p>
+<p>rpm -e 软件名（不是软件包）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#install</span></span><br><span class="line">rpm -ivh software-1.2.3-1.rpm</span><br><span class="line"><span class="comment">#uninstall</span></span><br><span class="line">rpm -e software</span><br></pre></td></tr></table></figure>
+<p>二.deb包安装方式</p>
+<p> 这是Debian Linux提供的一个包管理器，它与RPM十分类似。 但由于RPM出现得更早，所以在各种版本的Linux都常见到。而debian的包管理器dpkg则只出现在Debina Linux中，其它Linux版本一般都没有。</p>
+<p>三.tar.gz源代码安装方式：</p>
+<p>1、找到相应的软件包，比如soft.tar.gz，下载到本机某个目录； </p>
+<p>2、打开一个终端，su -成root用户； </p>
+<p>3、cd soft.tar.gz所在的目录； </p>
+<p>4、tar -xzvf soft.tar.gz //一般会生成一个soft目录 </p>
+<p>5、cd soft </p>
+<p>6、./configure </p>
+<p>7、make </p>
+<p>8、make install</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">整个安装过程可以分为以下几步：</span><br><span class="line">　　1） 取得应用软件：通过下载、购买光盘的方法获得；</span><br><span class="line">　　2）解压缩文件：一般tar包，都会再做一次压缩，如gzip、bz2等，所以你需要先解压。如果是最常见的gz格式，则可以执行：“tar –xvzf 软件包名”，就可以一步完成解压与解包工作。如果不是，则先用解压软件，再执行“tar –xvf 解压后的tar包”进行解包；</span><br><span class="line">　　3） 阅读附带的INSTALL文件、README文件；</span><br><span class="line">　　4） 执行“.&#x2F;configure”命令为编译做好准备；</span><br><span class="line">　　5） 执行“make”命令进行软件编译；</span><br><span class="line">　　6） 执行“make install”完成安装；</span><br><span class="line">　　7） 执行“make clean”删除安装时产生的临时文件。</span><br><span class="line">　　一般来说， Linux的应用软件的可执行文件会存放在&#x2F;usr&#x2F;local&#x2F;bin目录下</span><br></pre></td></tr></table></figure>
+<p>四、apt方式</p>
+<p>1、打开一个终端，su -成root用户； </p>
+<p>2、apt-cache search soft 注：soft是你要找的软件的名称或相关信息 </p>
+<p>3、如果2中找到了软件soft.version，则用apt-get install soft.version命令安装软件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">注：只要你可以上网，只需要用apt-cache search查找软件，用apt-get install软件 </span><br><span class="line">apt-get是debian，ubuntu发行版的包管理工具，与红帽中的yum工具非常类似。</span><br><span class="line"></span><br><span class="line">apt-get命令一般需要root权限执行，所以一般跟着sudo命令例sudo apt-get xxxx</span><br><span class="line">apt-get install packagename——安装一个新软件包（参见下文的aptitude）</span><br><span class="line">apt-get remove packagename——卸载一个已安装的软件包（保留配置文件）</span><br><span class="line">apt-get --purge remove packagename——卸载一个已安装的软件包（删除配置文件）</span><br><span class="line">dpkg --force-all --purge packagename ——有些软件很难卸载，而且还阻止了别的软件的应用，就可以用这个，不过有点冒险。</span><br><span class="line">apt-get autoremove——因为apt会把已装或已卸的软件都备份在硬盘上，所以如果需要空间的话，可以让这个命令来删除你已经删掉的软件。</span><br><span class="line">apt-get autoclean——定期运行这个命令来清除那些已经卸载的软件包的.deb文件。通过这种方式，可以释放大量的磁盘空间。如果需求十分迫切，可以使用apt-get clean以释放更多空间。这个命令会将已安装软件包裹的.deb文件一并删除。</span><br><span class="line">apt-get clean——这个命令会把安装的软件的备份也删除，不过这样不会影响软件的使用的。</span><br><span class="line">apt-get upgrade——更新所有已安装的软件包</span><br><span class="line">apt-get dist-upgrade——将系统升级到新版本</span><br><span class="line">apt-cache search string——在软件包列表中搜索字符串</span><br><span class="line">apt-cache showpkg pkgs——显示软件包信息。</span><br><span class="line">apt-cache stats——查看库里有多少软件</span><br><span class="line">apt-cache dumpavail——打印可用软件包列表。</span><br><span class="line">apt-cache show pkgs——显示软件包记录，类似于dpkg –print-avail。</span><br><span class="line">apt-cache pkgnames——打印软件包列表中所有软件包的名称</span><br><span class="line">（需要定期运行这一命令以确保您的软件包列表是最新的）</span><br><span class="line">简单的说： dpkg只能安装已经下载到本地机器上的deb包. apt-get能在线下载并安装deb包,能更新系统,</span><br><span class="line">且还能自动处理包与包之间的依赖问题,这个是dpkg工具所不具备的。</span><br></pre></td></tr></table></figure>
+<p>五、yum方式安装：(安装rpm包)</p>
+<p>rpm 是linux的一种软件包名称，以.rmp结尾，安装的时候语法为：rpm -ivh。<br>rpm包的安装有个很大的缺点就是文件的关联性太大，有时装一个软件要安装很多其他的软件包，很麻烦。<br>所以为此RedHat小红帽开发了yum安装方法，他可以彻底解决这个关联性的问题，很方便，只要配置两个文件即可安装，安装方法是：yum -y install 。<br>yum并不是一中包，而是安装包的软件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">简单的说： rpm 只能安装已经下载到本地机器上的rpm 包. yum能在线下载并安装rpm包,能更新系统,</span><br><span class="line">且还能自动处理包与包之间的依赖问题,这个是rpm 工具所不具备的。</span><br></pre></td></tr></table></figure>
+
+
+
+
+<h1 id="解压缩打包"><a href="#解压缩打包" class="headerlink" title="解压缩打包"></a>解压缩打包</h1><h1 id="RPM-YUM"><a href="#RPM-YUM" class="headerlink" title="RPM,YUM"></a>RPM,YUM</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">			 |	    |  使用指令    | 线上升级机制</span><br><span class="line">Red Hat       | RPM  | rpm,rpmbuild | yum</span><br><span class="line">Debian&#x2F;Ubuntu | DPKG | dpkg		    |apt(apt-get)</span><br></pre></td></tr></table></figure>
+<p>rpm使用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#安装好的软件相关信息会被写入 /var/lib/rpm/</span></span><br><span class="line">rpm -ivh xxx.rpm <span class="comment">#只要是带有rpm后缀的就可以用这种方法安装</span></span><br><span class="line">rpm -q xxx   	 <span class="comment">#查找是否安装了这个软件</span></span><br></pre></td></tr></table></figure>
+<p>yum使用(架构在rpm之上)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install softname</span><br><span class="line">yum remove softname</span><br></pre></td></tr></table></figure>
+<p>一般服务流程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">0.检查是否安装了：rpm -q softname</span><br><span class="line">1.安装：yum install softname</span><br><span class="line">2.启动：systemctl start softname</span><br><span class="line">3.开机启动：systemctl enable softname</span><br><span class="line">4.防火墙：firewall-cmd --add-service&#x3D;&quot;your service&quot;;firewall-cmd --permanent --add-service&#x3D;&quot;&quot;</span><br><span class="line">5.测试：</span><br></pre></td></tr></table></figure>
+<h1 id="文件查找"><a href="#文件查找" class="headerlink" title="文件查找"></a>文件查找</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">find / -name passwd      <span class="comment">#查找文件名为passwd的文件</span></span><br><span class="line">find / -name <span class="string">&quot;*passwd*&quot;</span>	 <span class="comment">#查找文件名包含passwd的文件</span></span><br><span class="line">find /etc -name passwd   <span class="comment">#在etc目录下查找文件名为passwd的文件</span></span><br></pre></td></tr></table></figure>
+<h1 id="程序管理"><a href="#程序管理" class="headerlink" title="程序管理"></a>程序管理</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#当远程了解服务器时，有时会离线，这时候有些脚本就不会再运行了,可以使用以下命令继续执行</span></span><br><span class="line">nohup 指令与参数 &amp;</span><br><span class="line"><span class="comment">#查看进程</span></span><br><span class="line">ps aux<span class="comment">#查看所有进程</span></span><br><span class="line">ps aux | grep sqldb 	 <span class="comment">#有关sqldb的进程，可以查找PID</span></span><br><span class="line"><span class="built_in">kill</span> -9 PID		   		<span class="comment">#结束指定进程</span></span><br><span class="line">netstat -ano | grep 22	 <span class="comment">#查看关于22端口号</span></span><br><span class="line">lsof -i:端口号			  <span class="comment">#查看端口号</span></span><br></pre></td></tr></table></figure>
+<h1 id="关于服务"><a href="#关于服务" class="headerlink" title="关于服务"></a>关于服务</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[wudelic@localhost ~]$ systemctl status atd.service</span><br><span class="line">● atd.service - Job spooling tools</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/atd.service; enabled; vendor preset: enabled)</span><br><span class="line">   Active: active (running) since Tue 2021-07-27 23:32:24 CST; 21h ago</span><br><span class="line"> Main PID: 1005 (atd)</span><br><span class="line">    Tasks: 1</span><br><span class="line">   CGroup: /system.slice/atd.service</span><br><span class="line">           └─1005 /usr/sbin/atd -f</span><br><span class="line"><span class="comment">#systemctl status 服务  可以查看服务状态 （enabled表示开机启动）(active表示正在启动)</span></span><br><span class="line"><span class="comment">#systemctl start unit 开启服务 </span></span><br><span class="line"><span class="comment">#systemctl stop unit  关闭服务</span></span><br><span class="line"><span class="comment">#如果使用kill关闭的话，systemctl会无法继续监控该服务</span></span><br><span class="line">systemctl list-units --<span class="built_in">type</span>=service --all <span class="comment">#查看所有.service服务</span></span><br></pre></td></tr></table></figure>
+
     </div>
 
     
@@ -534,7 +587,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux%E2%80%94%E7%BA%A2%E5%B8%BD%E5%B7%A5%E7%A8%8B%E5%B8%88"><span class="nav-number">1.</span> <span class="nav-text">Linux—红帽工程师</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">1.1.</span> <span class="nav-text">1.云服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">1.2.</span> <span class="nav-text">2.常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E7%AE%A1%E7%90%86"><span class="nav-number">1.2.1.</span> <span class="nav-text">目录管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%B1%9E%E6%80%A7"><span class="nav-number">1.2.2.</span> <span class="nav-text">基本属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%E6%9F%A5%E7%9C%8B"><span class="nav-number">1.2.3.</span> <span class="nav-text">文件内容查看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E9%93%BE%E6%8E%A5%E5%92%8C%E7%A1%AC%E9%93%BE%E6%8E%A5"><span class="nav-number">1.2.4.</span> <span class="nav-text">软链接和硬链接</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-VIM%E7%BC%96%E8%BE%91%E5%99%A8"><span class="nav-number">1.3.</span> <span class="nav-text">3.VIM编辑器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E8%B4%A6%E5%8F%B7%E7%AE%A1%E7%90%86"><span class="nav-number">1.4.</span> <span class="nav-text">4.账号管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E7%94%A8%E6%88%B7%E7%BB%84%E7%AE%A1%E7%90%86"><span class="nav-number">1.5.</span> <span class="nav-text">5.用户组管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86"><span class="nav-number">1.6.</span> <span class="nav-text">6.磁盘管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="nav-number">1.7.</span> <span class="nav-text">7.进程管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85"><span class="nav-number">1.8.</span> <span class="nav-text">8.环境安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#jdk%E5%AE%89%E8%A3%85-%EF%BC%88%E4%BD%BF%E7%94%A8rpm%E5%AE%89%E8%A3%85-%E5%8F%AF%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8%EF%BC%89"><span class="nav-number">1.8.1.</span> <span class="nav-text">jdk安装 （使用rpm安装 可直接使用）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tomcat%E5%AE%89%E8%A3%85"><span class="nav-number">1.8.2.</span> <span class="nav-text">Tomcat安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker%E5%AE%89%E8%A3%85"><span class="nav-number">1.8.3.</span> <span class="nav-text">Docker安装</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux%E2%80%94%E7%BA%A2%E5%B8%BD%E5%B7%A5%E7%A8%8B%E5%B8%88"><span class="nav-number">1.</span> <span class="nav-text">Linux—红帽工程师</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">1.1.</span> <span class="nav-text">1.云服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">1.2.</span> <span class="nav-text">2.常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E7%AE%A1%E7%90%86"><span class="nav-number">1.2.1.</span> <span class="nav-text">目录管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%B1%9E%E6%80%A7"><span class="nav-number">1.2.2.</span> <span class="nav-text">基本属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%E6%9F%A5%E7%9C%8B"><span class="nav-number">1.2.3.</span> <span class="nav-text">文件内容查看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E9%93%BE%E6%8E%A5%E5%92%8C%E7%A1%AC%E9%93%BE%E6%8E%A5"><span class="nav-number">1.2.4.</span> <span class="nav-text">软链接和硬链接</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-VIM%E7%BC%96%E8%BE%91%E5%99%A8"><span class="nav-number">1.3.</span> <span class="nav-text">3.VIM编辑器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E8%B4%A6%E5%8F%B7%E7%AE%A1%E7%90%86"><span class="nav-number">1.4.</span> <span class="nav-text">4.账号管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E7%94%A8%E6%88%B7%E7%BB%84%E7%AE%A1%E7%90%86"><span class="nav-number">1.5.</span> <span class="nav-text">5.用户组管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86"><span class="nav-number">1.6.</span> <span class="nav-text">6.磁盘管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="nav-number">1.7.</span> <span class="nav-text">7.进程管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85"><span class="nav-number">1.8.</span> <span class="nav-text">8.环境安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#jdk%E5%AE%89%E8%A3%85-%EF%BC%88%E4%BD%BF%E7%94%A8rpm%E5%AE%89%E8%A3%85-%E5%8F%AF%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8%EF%BC%89"><span class="nav-number">1.8.1.</span> <span class="nav-text">jdk安装 （使用rpm安装 可直接使用）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tomcat%E5%AE%89%E8%A3%85"><span class="nav-number">1.8.2.</span> <span class="nav-text">Tomcat安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker%E5%AE%89%E8%A3%85"><span class="nav-number">1.8.3.</span> <span class="nav-text">Docker安装</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">Linux安装软件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E5%8E%8B%E7%BC%A9%E6%89%93%E5%8C%85"><span class="nav-number">3.</span> <span class="nav-text">解压缩打包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RPM-YUM"><span class="nav-number">4.</span> <span class="nav-text">RPM,YUM</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%9F%A5%E6%89%BE"><span class="nav-number">5.</span> <span class="nav-text">文件查找</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E7%AE%A1%E7%90%86"><span class="nav-number">6.</span> <span class="nav-text">程序管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E6%9C%8D%E5%8A%A1"><span class="nav-number">7.</span> <span class="nav-text">关于服务</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -550,7 +603,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -588,7 +641,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
