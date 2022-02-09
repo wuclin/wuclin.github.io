@@ -20,19 +20,19 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.7.2","exturl":false,"sidebar":{"position":"hide","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="JVM内存模型程序计数器：通过改变计数器的值来选取下一条需要执行的指令，如果是java方法记录的是正在执行的字节码指令地址，如果是native方法，则计数器值为空 虚拟机栈：描述java方法执行的内存模型，每一个方法被执行都会创建一个栈帧，一个方法从被调用直至执行完成的过程，对应一个栈帧入栈到出栈的过程，栈帧用于存储局部变量表，方法出口等信息 本地方法栈：和虚拟机栈一样，不过对应的是本地方法">
+  <meta name="description" content="IO模型读写时有两个阶段，一个是等待数据的阶段，一个是真正读写的阶段 1.应用程序作为一个文件保存在磁盘中，只有加载到内存成为一个进程后才能运行，即应用程序运行在内存中，运行中就会涉及到IO操作，比如读写磁盘文件，访问数据库等 2.为了确保操作系统的安全，操作系统将内存分为内核空间和用户空间，我们的应用程序运行在用户空间，用户空间无法操作内核空间，即用户空间的程序不能直接访问内核管理的IO，所以用">
 <meta property="og:type" content="article">
-<meta property="og:title" content="fufu">
-<meta property="og:url" content="http://yoursite.com/2022/02/09/newjvm/index.html">
+<meta property="og:title" content="3">
+<meta property="og:url" content="http://yoursite.com/2022/02/09/3/index.html">
 <meta property="og:site_name" content="fufu">
-<meta property="og:description" content="JVM内存模型程序计数器：通过改变计数器的值来选取下一条需要执行的指令，如果是java方法记录的是正在执行的字节码指令地址，如果是native方法，则计数器值为空 虚拟机栈：描述java方法执行的内存模型，每一个方法被执行都会创建一个栈帧，一个方法从被调用直至执行完成的过程，对应一个栈帧入栈到出栈的过程，栈帧用于存储局部变量表，方法出口等信息 本地方法栈：和虚拟机栈一样，不过对应的是本地方法">
+<meta property="og:description" content="IO模型读写时有两个阶段，一个是等待数据的阶段，一个是真正读写的阶段 1.应用程序作为一个文件保存在磁盘中，只有加载到内存成为一个进程后才能运行，即应用程序运行在内存中，运行中就会涉及到IO操作，比如读写磁盘文件，访问数据库等 2.为了确保操作系统的安全，操作系统将内存分为内核空间和用户空间，我们的应用程序运行在用户空间，用户空间无法操作内核空间，即用户空间的程序不能直接访问内核管理的IO，所以用">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-02-09T08:31:56.611Z">
-<meta property="article:modified_time" content="2022-02-09T08:28:08.719Z">
+<meta property="article:published_time" content="2022-02-09T08:38:55.000Z">
+<meta property="article:modified_time" content="2022-02-09T08:40:33.641Z">
 <meta property="article:author" content="wudelic">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/2022/02/09/newjvm/">
+<link rel="canonical" href="http://yoursite.com/2022/02/09/3/">
 
 
 <script id="page-configurations">
@@ -44,7 +44,7 @@
   };
 </script>
 
-  <title> | fufu</title>
+  <title>3 | fufu</title>
   
 
 
@@ -169,7 +169,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/02/09/newjvm/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/02/09/3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.png">
@@ -182,7 +182,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
+          3
         </h1>
 
         <div class="post-meta">
@@ -193,7 +193,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-02-09 16:31:56 / Modified: 16:28:08" itemprop="dateCreated datePublished" datetime="2022-02-09T16:31:56+08:00">2022-02-09</time>
+              <time title="Created: 2022-02-09 16:38:55 / Modified: 16:40:33" itemprop="dateCreated datePublished" datetime="2022-02-09T16:38:55+08:00">2022-02-09</time>
             </span>
 
           
@@ -207,31 +207,34 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h1><h2 id="内存模型"><a href="#内存模型" class="headerlink" title="内存模型"></a>内存模型</h2><p>程序计数器：通过改变计数器的值来选取下一条需要执行的指令，如果是java方法记录的是正在执行的字节码指令地址，如果是native方法，则计数器值为空</p>
-<p>虚拟机栈：描述java方法执行的内存模型，每一个方法被执行都会创建一个栈帧，一个方法从被调用直至执行完成的过程，对应一个栈帧入栈到出栈的过程，栈帧用于存储局部变量表，方法出口等信息</p>
-<p>本地方法栈：和虚拟机栈一样，不过对应的是本地方法</p>
-<p>堆：所有线程共享的内存区域，也叫GC堆，存放对象实例和数组，垃圾回收的主要区域</p>
-<p>方法区：可以不进行垃圾回收，回收的话主要是针对常量池的回收，存放即时编译后的代码</p>
-<h2 id="堆分代"><a href="#堆分代" class="headerlink" title="堆分代"></a>堆分代</h2><p>为了方便垃圾回收，堆采取了分代，对象优先在Eden分配，需要大量连续内存空间的对象比如很长的字符串或数组会直接在老年代分配，这样可以避免在Eden和两个survivor区来回复制，长期存活的对象会进入老年代。在Eden诞生后，经过第一次minor gc后还存活的对象会被转移到survivor空间，并且设置对象的年龄为1，对象在survivor区每经过一次Minor gc，年龄增加一岁，默认到了15岁就会被放进老年代</p>
-<p>对于Eden区，里面还有两个survivor区，用于解决空间碎片</p>
-<p>如果没有survivor区，经过一次minor gc后，eden的存活对象就会被放到老年代，老年代会很快被装满，容易发生full gc</p>
-<p>只有一个survivor区，经过两次minor gc后，对于Eden和survivor区来说，两个区域都存在需要被回收的对象，会产生空间碎片，会导致提前垃圾回收</p>
-<p>存在两个survivor区，把两个区域的存活对象都复制到一个完全独立的空间，就可以留出一块完全空着的Eden和survivor，可以保证始终有一个survivor的空间是没有碎片的，另一个survivor是空着的</p>
-<h2 id="对象的生命周期"><a href="#对象的生命周期" class="headerlink" title="对象的生命周期"></a>对象的生命周期</h2><p>1.创建阶段：为对象分配空间，开始构造对象，初始化</p>
-<p>2.应用阶段：至少被一个强引用持有 （Object foo = new Object() foo为强引用）</p>
-<p>3.不可见阶段：即使被强引用持有，有时对于程序来说也是不能访问的（比如在方法返回前trycatch变量不能再被访问），非必须经历阶段</p>
-<p>4.不可达阶段：对象不再被gc root的强引用的引用链可达的状态（gc root：虚拟机栈中引用的对象等）</p>
-<p>5.收集阶段：发现对象处于不可达阶段，并且垃圾回收器已经对该对象的内存空间重新分配做好准备。如果该对象已经重写了finalize()方法，并且没有被执行过，则执行该方法的操作。否则直接进入终结阶段。</p>
-<p>6.终结阶段：对象执行完finalize()方法后仍然处于不可达状态时，对象加入终结阶段，等待垃圾回收器回收该对象空间</p>
-<p>7.重新分配阶段：上述工作完成后对象仍不可达，则垃圾回收器对该对象所占有的内存空间进行回收或者再分配</p>
-<h2 id="判断对象是否需要回收，可达性分析"><a href="#判断对象是否需要回收，可达性分析" class="headerlink" title="判断对象是否需要回收，可达性分析"></a>判断对象是否需要回收，可达性分析</h2><p>有两种方法：</p>
-<p>1.引用计数法，不过如果存在相互引用的情况，就没办法判断对象是否需要回收了</p>
-<p>2.根搜索算法，以gc root作为起点，搜索，当一个对象到gc root没有任何引用链时，证明该对象不可用</p>
-<h2 id="minor-gc和full-gc，gc算法"><a href="#minor-gc和full-gc，gc算法" class="headerlink" title="minor gc和full gc，gc算法"></a>minor gc和full gc，gc算法</h2><p>minor gc：eden区发生的gc</p>
-<p>full gc：整个堆发生的gc</p>
-<p>gc算法：标记-清除，标记-复制（Eden），标记-整理（老年代）</p>
-<h2 id="GC垃圾回收器，CMS和G1"><a href="#GC垃圾回收器，CMS和G1" class="headerlink" title="GC垃圾回收器，CMS和G1"></a>GC垃圾回收器，CMS和G1</h2><p>CMS：以获取最短回收停顿时间为目标的收集器，基于标记清理实现，只作用于老年代收集，支持并发收集，由于使用标记清理回收算法会产生大量的内存碎片</p>
-<p>C1：内存结构和cms不一样，将堆内存划分成多个分区，这样在进行收集时不必在全堆范围内进行</p>
+        <h1 id="IO模型"><a href="#IO模型" class="headerlink" title="IO模型"></a>IO模型</h1><p>读写时有两个阶段，一个是等待数据的阶段，一个是真正读写的阶段</p>
+<p>1.应用程序作为一个文件保存在磁盘中，只有加载到内存成为一个进程后才能运行，即应用程序运行在内存中，运行中就会涉及到IO操作，比如读写磁盘文件，访问数据库等</p>
+<p>2.为了确保操作系统的安全，操作系统将内存分为内核空间和用户空间，我们的应用程序运行在用户空间，用户空间无法操作内核空间，即用户空间的程序不能直接访问内核管理的IO，所以用户要访问内核管理的IO，必须通过调用内核通过的系统调用进行访问，因此应用程序发起一次IO实际包含两个阶段：</p>
+<p>（进程发起）1.IO调用阶段：应用程序进程向内核发起系统调用</p>
+<p>（操作系统）2.IO执行阶段：内核执行IO操作并返回</p>
+<p>2.1.准备数据阶段：内核等待IO设备准备好数据</p>
+<p>2.2.拷贝数据阶段：将数据从内核缓冲区拷贝到用户空间缓冲区</p>
+<h2 id="关于缓冲区"><a href="#关于缓冲区" class="headerlink" title="关于缓冲区"></a>关于缓冲区</h2><p>用户进程缓冲区：</p>
+<p>用户进程通过系统调用访问系统资源时，需要切换到内核态，系统调用结束后又会切回用户模式，这个切换耗时较大，采用缓冲区的方法，程序都从缓冲区获取数据，当缓冲区使用完后在进行下一次调用，填充缓冲区，用户缓冲区的目的是为了减少系统调用次数，减低操作系统在用户态和核心态切换所耗费的时间</p>
+<p>内核缓冲区：</p>
+<p>用户进程要从磁盘获取数据时，内核一般不直接读取磁盘，而是将内核缓冲区中的数据复制到进程缓冲区中。如果内核缓冲区内没有数据，就会把请求的进程挂起，等到数据已经读取到内核缓冲区时，把内核缓冲区中的数据读取到用户进程中，才通知进程。</p>
+<h2 id="阻塞和非阻塞"><a href="#阻塞和非阻塞" class="headerlink" title="阻塞和非阻塞"></a>阻塞和非阻塞</h2><p>如果操作系统IO处于未就就绪状态，当前线程如果一直等待直到其就绪，这种IO方式就是阻塞IO；如果不一直等待其就绪，而是可以做其他的事情，就是非阻塞IO。</p>
+<p>（如果进程发起了读取数据的IO调用，操作系统需要将外部数据拷贝到进程缓冲区，在有数据拷贝到进程缓冲区前，进程缓冲区处于不可读状态，也就是操作系统IO未就绪）</p>
+<h2 id="异步和同步"><a href="#异步和同步" class="headerlink" title="异步和同步"></a>异步和同步</h2><p>针对于进程或者线程来说，发起IO调用之后，是否挂起等待操作系统的IO执行完成。</p>
+<h2 id="5种IO模型"><a href="#5种IO模型" class="headerlink" title="5种IO模型"></a>5种IO模型</h2><p>1.阻塞IO(JAVA BIO)</p>
+<p>进程发起IO系统调用，进程被阻塞，在内核将数据准备好之前，进程会一直持有cpu，直到IO处理完毕后返回进程</p>
+<p>2.非阻塞IO</p>
+<p>在内核数据准备好之前，系统会一直访问内核是否准备好数据，如果没有准备好，不会阻塞程序，内核会直接返回数据未准备就绪的信号，在这个过程中虽然不会一直持有cpu，但是会一直调用cpu，即轮询</p>
+<p>3.IO复用模型(JAVA NIO)</p>
+<p>引入了新的系统调用（linux2.6前select，poll，linux2.6后epoll，这些函数是阻塞的），查询IO的就绪状态。通过该系统调用，一个进程可以监视多个fd（文件描述符），某个fd就绪，内核就能将就绪状态返回给应用程序，应用程序再次发起IO系统调用进行读写</p>
+<p>本质上，系统调用时还是阻塞的。</p>
+<p>select：最大连接数为1024，存在连接数限制；需要通过遍历fdset的方式找到就绪的fd，因为只知道有IO事件发送，不知道是那几个流，所以需要遍历所有流</p>
+<p>poll：解决了连接数限制的问题，还是存在需要遍历的问题</p>
+<p>epoll：使用监听事件回调的机制代替了遍历fd的机制</p>
+<p>4.信号驱动IO</p>
+<p>向内核发送一个SIGIO信号，此时用户进程就可以去做别的事情，内核数据准备好后，再通过SIGIO信号通知应用进程，应用进程收到信号之后就去读取数据，不过在数据从内核复制到应用缓冲区的时候是还是阻塞的</p>
+<p>5.异步IO(JAVA AIO)</p>
+<p>应用进程发起系统调用后，立即返回，不会阻塞等待，等内核数据准备好，将数据拷贝到用户进程缓冲区，发送信号通知用户进程IO操作执行完毕</p>
 
     </div>
 
@@ -247,13 +250,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/02/09/IO%E6%A8%A1%E5%9E%8B/" rel="prev" title="">
-      <i class="fa fa-chevron-left"></i> 
+    <a href="/2022/02/09/2/" rel="prev" title="2">
+      <i class="fa fa-chevron-left"></i> 2
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/02/09/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="next" title="">
-       <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -313,7 +313,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JVM"><span class="nav-number">1.</span> <span class="nav-text">JVM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.1.</span> <span class="nav-text">内存模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A0%86%E5%88%86%E4%BB%A3"><span class="nav-number">1.2.</span> <span class="nav-text">堆分代</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">1.3.</span> <span class="nav-text">对象的生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E9%9C%80%E8%A6%81%E5%9B%9E%E6%94%B6%EF%BC%8C%E5%8F%AF%E8%BE%BE%E6%80%A7%E5%88%86%E6%9E%90"><span class="nav-number">1.4.</span> <span class="nav-text">判断对象是否需要回收，可达性分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#minor-gc%E5%92%8Cfull-gc%EF%BC%8Cgc%E7%AE%97%E6%B3%95"><span class="nav-number">1.5.</span> <span class="nav-text">minor gc和full gc，gc算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GC%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8%EF%BC%8CCMS%E5%92%8CG1"><span class="nav-number">1.6.</span> <span class="nav-text">GC垃圾回收器，CMS和G1</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#IO%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">IO模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E7%BC%93%E5%86%B2%E5%8C%BA"><span class="nav-number">1.1.</span> <span class="nav-text">关于缓冲区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%98%BB%E5%A1%9E%E5%92%8C%E9%9D%9E%E9%98%BB%E5%A1%9E"><span class="nav-number">1.2.</span> <span class="nav-text">阻塞和非阻塞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5%E5%92%8C%E5%90%8C%E6%AD%A5"><span class="nav-number">1.3.</span> <span class="nav-text">异步和同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5%E7%A7%8DIO%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.4.</span> <span class="nav-text">5种IO模型</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
