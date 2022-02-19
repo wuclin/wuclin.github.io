@@ -20,21 +20,16 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.7.2","exturl":false,"sidebar":{"position":"hide","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Linux关机前执行 sync同步后在 shutdown 读，写，权限 1.云服务器要注意开启安全组">
+  <meta name="description" content="Linux目录管理cd ： 切换目录 .&#x2F;  ：当前目录 cd .. ： 返回上一级目录">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux">
 <meta property="og:url" content="http://yoursite.com/2021/01/18/Linux/index.html">
 <meta property="og:site_name" content="fufu">
-<meta property="og:description" content="Linux关机前执行 sync同步后在 shutdown 读，写，权限 1.云服务器要注意开启安全组">
+<meta property="og:description" content="Linux目录管理cd ： 切换目录 .&#x2F;  ：当前目录 cd .. ： 返回上一级目录">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://yoursite.com/2021/01/18/Linux/image-20210104194152027-1610904055085.png">
 <meta property="og:image" content="http://yoursite.com/2021/01/18/Linux/image-20210104194352533-1610904055088.png">
 <meta property="og:image" content="http://yoursite.com/2021/01/18/Linux/image-20210104200533956-1610904055089.png">
-<meta property="og:image" content="http://yoursite.com/2021/01/18/Linux/image-20210104204246991-1610904055089.png">
-<meta property="og:image" content="http://yoursite.com/2021/01/18/Linux/image-20210104204220652-1610904055089.png">
-<meta property="og:image" content="http://yoursite.com/2021/01/18/Linux/image-20210104204201384-1610904055089.png">
-<meta property="og:image" content="http://yoursite.com/2021/01/18/Linux/image-20210104210026889-1610904055090.png">
-<meta property="og:image" content="http://yoursite.com/2021/01/18/Linux/image-20210104210314466-1610904055090.png">
 <meta property="og:image" content="http://yoursite.com/2021/01/18/Linux/image-20210105102412297-1610904055090.png">
 <meta property="og:image" content="http://yoursite.com/2021/01/18/Linux/Users/delic/Desktop/2020106/新建文件夹/linux/linux.assets/image-20210105103902219.png">
 <meta property="og:image" content="http://yoursite.com/2021/01/18/Linux/Users/delic/Desktop/2020106/新建文件夹/linux/linux.assets/image-20210105104242168.png">
@@ -53,7 +48,7 @@
 <meta property="og:image" content="http://yoursite.com/2021/01/18/Linux/image-20210105171356712-1610904055093.png">
 <meta property="og:image" content="http://yoursite.com/2021/01/18/Linux/image-20210105171554973-1610904055093.png">
 <meta property="article:published_time" content="2021-01-17T17:19:28.000Z">
-<meta property="article:modified_time" content="2022-02-10T07:58:09.681Z">
+<meta property="article:modified_time" content="2022-02-19T18:10:57.414Z">
 <meta property="article:author" content="wudelic">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://yoursite.com/2021/01/18/Linux/image-20210104194152027-1610904055085.png">
@@ -225,7 +220,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-10 15:58:09" itemprop="dateModified" datetime="2022-02-10T15:58:09+08:00">2022-02-10</time>
+                <time title="Modified: 2022-02-20 02:10:57" itemprop="dateModified" datetime="2022-02-20T02:10:57+08:00">2022-02-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -248,14 +243,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><p>关机前执行 sync同步后在 shutdown</p>
-<p>读，写，权限</p>
-<h2 id="1-云服务器"><a href="#1-云服务器" class="headerlink" title="1.云服务器"></a>1.云服务器</h2><p>要注意开启安全组</p>
-<p>可以用xshell直接操作服务器 </p>
-<h2 id="2-常用命令"><a href="#2-常用命令" class="headerlink" title="2.常用命令"></a>2.常用命令</h2><h3 id="目录管理"><a href="#目录管理" class="headerlink" title="目录管理"></a>目录管理</h3><blockquote>
-<p>绝对路径 相对路径</p>
-</blockquote>
-<p>cd ： 切换目录</p>
+        <h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><h3 id="目录管理"><a href="#目录管理" class="headerlink" title="目录管理"></a>目录管理</h3><p>cd ： 切换目录</p>
 <p>./  ：当前目录</p>
 <p>cd .. ： 返回上一级目录</p>
 <blockquote>
@@ -274,29 +262,21 @@
 <p>pwd 显示当前目录</p>
 </blockquote>
 <blockquote>
-<p>mkdir 创建目录</p>
+<p>mkdir 创建目录 </p>
 </blockquote>
-<p>-p参数 ：创建多级目录</p>
 <blockquote>
 <p>rmdir 删除目录</p>
 </blockquote>
-<p>-p参数 : 删除多级目录</p>
 <blockquote>
-<p>cp(复制文件 或目录)</p>
+<p>cp(复制文件 或目录)  文件 位置</p>
 </blockquote>
-<p>cp  文件  位置</p>
 <blockquote>
-<p>rm (移除文件或者目录)</p>
+<p>rm (移除文件或者目录)  文件或目录</p>
 </blockquote>
-<p>-f 忽略不存在文件，不会出现警告强制删除</p>
-<p>-r 递归删除目录</p>
-<p>-i 互动，删除时询问</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf /  <span class="comment"># 删库跑路</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf /  <span class="comment"># 递归强制删除 -r递归删除 -f强制 -i互动删除</span></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>mv 移动文件或者目录 重命名文件</p>
 </blockquote>
-<p>-f 强制</p>
-<p>-u 只替换已经更新过的文件</p>
 <h3 id="基本属性"><a href="#基本属性" class="headerlink" title="基本属性"></a>基本属性</h3><img src="/2021/01/18/Linux/image-20210104200533956-1610904055089.png" class title="image-20210104200533956">
 
 <p>第一个字符：</p>
@@ -305,9 +285,7 @@
 <p>l ：表示链接文档 （都会有一个箭头指向文件）</p>
 <p>后面的以3个为一组</p>
 <p>r代表可读，w代表可写，x代表可执行</p>
-<p>第一组代表root用户权限</p>
-<p>第二组代表组权限</p>
-<p>第三组代表其他用户权限</p>
+<p>第一组代表root用户权限，第二组代表组权限，第三组代表其他用户权限</p>
 <blockquote>
 <p>修改文件属性</p>
 <p>对应有 owner/group/others 各自拥有 read/write/execute</p>
@@ -325,41 +303,15 @@
 </li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 777 文件名</span><br></pre></td></tr></table></figure>
-<h3 id="文件内容查看"><a href="#文件内容查看" class="headerlink" title="文件内容查看"></a>文件内容查看</h3><ul>
-<li>cat 从第一行开始显示文件</li>
-</ul>
-<img src="/2021/01/18/Linux/image-20210104204246991-1610904055089.png" class title="image-20210104204246991">
-
-<ul>
-<li>tac 从最后一行开始显示文件</li>
-</ul>
-<img src="/2021/01/18/Linux/image-20210104204220652-1610904055089.png" class title="image-20210104204220652">
-
-<ul>
-<li>nl 显示的时候 输出行号</li>
-</ul>
-<img src="/2021/01/18/Linux/image-20210104204201384-1610904055089.png" class title="image-20210104204201384">
-
-<ul>
-<li>more 一页一页的显示内容（空格翻页，enter代表下一行）</li>
-<li>less和more类似，不过可以翻页（q退出， /加查询字符 可向下查询字符串；？加查询字符 可向上查询字符串 n表示向下寻找，N表示向上寻找）</li>
-<li>head 只看头几行 （-n 20 表示头20行）</li>
-<li>tail 只看最后几行</li>
-</ul>
+<h3 id="文件内容查看"><a href="#文件内容查看" class="headerlink" title="文件内容查看"></a>文件内容查看</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">touch book.txt <span class="comment">#创建book.txt文件</span></span><br><span class="line">cat book.txt <span class="comment">#从第一行开始显示文件</span></span><br><span class="line">tac book.txt <span class="comment">#从最后一行开始显示文件</span></span><br><span class="line">nl book.txt <span class="comment">#显示行数</span></span><br><span class="line">more book.txt <span class="comment">#空格翻页，enter代表下一行，q退出</span></span><br><span class="line">less book.txt <span class="comment">#和more一样，/加查询字符可以向下查找字符，？加查询字符可以向上查找字符</span></span><br><span class="line">head -n 20 book.txt <span class="comment">#只看前20行</span></span><br><span class="line">tail -n 20 book.txt <span class="comment">#只看后20行</span></span><br><span class="line">tail </span><br></pre></td></tr></table></figure>
 <h3 id="软链接和硬链接"><a href="#软链接和硬链接" class="headerlink" title="软链接和硬链接"></a>软链接和硬链接</h3><p>软链接：类似快捷方式</p>
 <p>硬链接：可以防止文件误删</p>
 <blockquote>
 <p>touch : 创建文件</p>
 <p>ln :  文件名 文件名（硬）</p>
 <p>​        -s    文件名 文件名（软）</p>
-<p>echo ：写入字符</p>
 </blockquote>
-<img src="/2021/01/18/Linux/image-20210104210026889-1610904055090.png" class title="image-20210104210026889">
-
-<p>若rm f1则f3不可用 ，f2可用</p>
-<img src="/2021/01/18/Linux/image-20210104210314466-1610904055090.png" class title="image-20210104210314466">
-
-<h2 id="3-VIM编辑器"><a href="#3-VIM编辑器" class="headerlink" title="3.VIM编辑器"></a>3.VIM编辑器</h2><img src="/2021/01/18/Linux/image-20210105102412297-1610904055090.png" class title="image-20210105102412297">
+<h2 id="VIM编辑器"><a href="#VIM编辑器" class="headerlink" title="VIM编辑器"></a>VIM编辑器</h2><img src="/2021/01/18/Linux/image-20210105102412297-1610904055090.png" class title="image-20210105102412297">
 
 <p>用vim打开文件（如果文件不存在则新建，存在则修改），开始进入命令模式</p>
 <p>使用i进入输入模式，使用ESC进入命令模式</p>
@@ -376,7 +328,7 @@
 <p><img src="/2021/01/18/Linux/Users/delic/Desktop/2020106/新建文件夹/linux/linux.assets/image-20210105104242168.png" alt="image-20210105104242168" style="zoom:33%;">黄色代表所有，绿色代表当前 使用noh取消搜索</p>
 <img src="/2021/01/18/Linux/image-20210105113722938-1610904055090.png" class title="image-20210105113722938">
 
-<h2 id="4-账号管理"><a href="#4-账号管理" class="headerlink" title="4.账号管理"></a>4.账号管理</h2><blockquote>
+<h2 id="账号管理"><a href="#账号管理" class="headerlink" title="账号管理"></a>账号管理</h2><blockquote>
 <p>useradd 添加用户</p>
 </blockquote>
 <p>-m：自动在home目录下创建用户的主目录</p>
@@ -400,7 +352,7 @@
 <p>锁定账号，这个用户就登录不上系统</p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">passwd -l username</span><br><span class="line">passwd -d username <span class="comment"># 需要输入密码</span></span><br></pre></td></tr></table></figure>
-<h2 id="5-用户组管理"><a href="#5-用户组管理" class="headerlink" title="5.用户组管理"></a>5.用户组管理</h2><blockquote>
+<h2 id="用户组管理"><a href="#用户组管理" class="headerlink" title="用户组管理"></a>用户组管理</h2><blockquote>
 <p>groupadd groupname 新建用户组</p>
 <p>如果用-g 参数 则可以为用户组分配id</p>
 </blockquote>
@@ -412,22 +364,19 @@
 <blockquote>
 <p>group -g id  -n newname name 可修改名字</p>
 </blockquote>
-<h2 id="6-磁盘管理"><a href="#6-磁盘管理" class="headerlink" title="6.磁盘管理"></a>6.磁盘管理</h2><blockquote>
+<h2 id="磁盘管理"><a href="#磁盘管理" class="headerlink" title="磁盘管理"></a>磁盘管理</h2><blockquote>
 <p>df 查看所有 du查看当前</p>
 </blockquote>
 <img src="/2021/01/18/Linux/image-20210105122251891-1610904055091.png" class title="image-20210105122251891">
 
-<h2 id="7-进程管理"><a href="#7-进程管理" class="headerlink" title="7.进程管理"></a>7.进程管理</h2><blockquote>
+<h2 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h2><blockquote>
 <p>ps</p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ps -a <span class="comment"># 当前终端运行的所有进程</span></span><br><span class="line">ps -u <span class="comment"># 用户的信息显示进程</span></span><br><span class="line">ps -x <span class="comment"># 显示后台运行进程的参数</span></span><br><span class="line">ps -aux|grep mysql <span class="comment"># 从所有中查找关于mysql的进程</span></span><br><span class="line"><span class="comment"># | 管道符， A|B 即B使用A的数据</span></span><br><span class="line"><span class="comment"># grep 查找文件中符合条件的字符串</span></span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>pstree -pu 进程树</p>
-</blockquote>
-<blockquote>
 <p>kill -id 结束进程</p>
 </blockquote>
-<h2 id="8-环境安装"><a href="#8-环境安装" class="headerlink" title="8.环境安装"></a>8.环境安装</h2><p>安装方式：rpm，解压缩，yum在线</p>
+<h2 id="环境安装"><a href="#环境安装" class="headerlink" title="环境安装"></a>环境安装</h2><p>安装方式：rpm，解压缩，yum在线</p>
 <h3 id="jdk安装-（使用rpm安装-可直接使用）"><a href="#jdk安装-（使用rpm安装-可直接使用）" class="headerlink" title="jdk安装 （使用rpm安装 可直接使用）"></a>jdk安装 （使用rpm安装 可直接使用）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># rpm -qa|grep jdk  #检测JDK版本信息</span></span><br><span class="line"><span class="comment"># rpm -e --nodeps #卸载jdk</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#rpm -ivh  rpm包  # 安装jdk</span></span><br></pre></td></tr></table></figure>
 <img src="/2021/01/18/Linux/image-20210105155638936-1610904055091.png" class title="image-20210105155638936">
 
@@ -511,8 +460,6 @@
 grep object nohup.out #查找nohup文件里面的object
 
 grep -c object nohup.out #查找nohup文件里面的object的个数</code></pre></li>
-</ol>
-<ol>
 <li><p>cp命令，mv命令</p>
 </li>
 <li><p>rm命令 通常使用rm -rf删除，可以强制删除文件以及递归删除</p>
@@ -533,14 +480,18 @@ grep -c object nohup.out #查找nohup文件里面的object的个数</code></pre>
 查询：tar -jtv -f filename.tar.bz2
 
 解压：tar -jxv -f filename.tar.bz2</code></pre></li>
-</ol>
-<ol>
-<li>cat命令 查看文本内容，可使用管道与more，less一起使用</li>
-<li>tail命令 看文件的后面一页内容，可以使用tail -f200 动态查看文件后面200条内容</li>
-<li>chmod命令 修改文件权限</li>
-<li>vim命令</li>
-<li>time命令 查看命令运行时间</li>
-<li>nohup命令 后台运行脚本配合读取日志 nohup x.sh &amp; ; tail -f notes.log</li>
+<li><p>cat命令 查看文本内容，可使用管道与more，less一起使用</p>
+</li>
+<li><p>tail命令 看文件的后面一页内容，可以使用tail -f200 动态查看文件后面200条内容</p>
+</li>
+<li><p>chmod命令 修改文件权限</p>
+</li>
+<li><p>vim命令</p>
+</li>
+<li><p>time命令 查看命令运行时间</p>
+</li>
+<li><p>nohup命令 后台运行脚本配合读取日志 nohup x.sh &amp; ; tail -f notes.log</p>
+</li>
 </ol>
 
     </div>
@@ -623,7 +574,7 @@ grep -c object nohup.out #查找nohup文件里面的object的个数</code></pre>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux"><span class="nav-number">1.</span> <span class="nav-text">Linux</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">1.1.</span> <span class="nav-text">1.云服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">1.2.</span> <span class="nav-text">2.常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E7%AE%A1%E7%90%86"><span class="nav-number">1.2.1.</span> <span class="nav-text">目录管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%B1%9E%E6%80%A7"><span class="nav-number">1.2.2.</span> <span class="nav-text">基本属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%E6%9F%A5%E7%9C%8B"><span class="nav-number">1.2.3.</span> <span class="nav-text">文件内容查看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E9%93%BE%E6%8E%A5%E5%92%8C%E7%A1%AC%E9%93%BE%E6%8E%A5"><span class="nav-number">1.2.4.</span> <span class="nav-text">软链接和硬链接</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-VIM%E7%BC%96%E8%BE%91%E5%99%A8"><span class="nav-number">1.3.</span> <span class="nav-text">3.VIM编辑器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E8%B4%A6%E5%8F%B7%E7%AE%A1%E7%90%86"><span class="nav-number">1.4.</span> <span class="nav-text">4.账号管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E7%94%A8%E6%88%B7%E7%BB%84%E7%AE%A1%E7%90%86"><span class="nav-number">1.5.</span> <span class="nav-text">5.用户组管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86"><span class="nav-number">1.6.</span> <span class="nav-text">6.磁盘管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="nav-number">1.7.</span> <span class="nav-text">7.进程管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85"><span class="nav-number">1.8.</span> <span class="nav-text">8.环境安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#jdk%E5%AE%89%E8%A3%85-%EF%BC%88%E4%BD%BF%E7%94%A8rpm%E5%AE%89%E8%A3%85-%E5%8F%AF%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8%EF%BC%89"><span class="nav-number">1.8.1.</span> <span class="nav-text">jdk安装 （使用rpm安装 可直接使用）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tomcat%E5%AE%89%E8%A3%85"><span class="nav-number">1.8.2.</span> <span class="nav-text">Tomcat安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker%E5%AE%89%E8%A3%85"><span class="nav-number">1.8.3.</span> <span class="nav-text">Docker安装</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">Linux安装软件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E5%8E%8B%E7%BC%A9%E6%89%93%E5%8C%85"><span class="nav-number">3.</span> <span class="nav-text">解压缩打包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RPM-YUM"><span class="nav-number">4.</span> <span class="nav-text">RPM,YUM</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%9F%A5%E6%89%BE"><span class="nav-number">5.</span> <span class="nav-text">文件查找</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E7%AE%A1%E7%90%86"><span class="nav-number">6.</span> <span class="nav-text">程序管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E6%9C%8D%E5%8A%A1"><span class="nav-number">7.</span> <span class="nav-text">关于服务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">8.</span> <span class="nav-text">常用命令</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux"><span class="nav-number">1.</span> <span class="nav-text">Linux</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E7%AE%A1%E7%90%86"><span class="nav-number">1.0.1.</span> <span class="nav-text">目录管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%B1%9E%E6%80%A7"><span class="nav-number">1.0.2.</span> <span class="nav-text">基本属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%E6%9F%A5%E7%9C%8B"><span class="nav-number">1.0.3.</span> <span class="nav-text">文件内容查看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E9%93%BE%E6%8E%A5%E5%92%8C%E7%A1%AC%E9%93%BE%E6%8E%A5"><span class="nav-number">1.0.4.</span> <span class="nav-text">软链接和硬链接</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VIM%E7%BC%96%E8%BE%91%E5%99%A8"><span class="nav-number">1.1.</span> <span class="nav-text">VIM编辑器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B4%A6%E5%8F%B7%E7%AE%A1%E7%90%86"><span class="nav-number">1.2.</span> <span class="nav-text">账号管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E7%BB%84%E7%AE%A1%E7%90%86"><span class="nav-number">1.3.</span> <span class="nav-text">用户组管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86"><span class="nav-number">1.4.</span> <span class="nav-text">磁盘管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="nav-number">1.5.</span> <span class="nav-text">进程管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85"><span class="nav-number">1.6.</span> <span class="nav-text">环境安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#jdk%E5%AE%89%E8%A3%85-%EF%BC%88%E4%BD%BF%E7%94%A8rpm%E5%AE%89%E8%A3%85-%E5%8F%AF%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8%EF%BC%89"><span class="nav-number">1.6.1.</span> <span class="nav-text">jdk安装 （使用rpm安装 可直接使用）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tomcat%E5%AE%89%E8%A3%85"><span class="nav-number">1.6.2.</span> <span class="nav-text">Tomcat安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker%E5%AE%89%E8%A3%85"><span class="nav-number">1.6.3.</span> <span class="nav-text">Docker安装</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">Linux安装软件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E5%8E%8B%E7%BC%A9%E6%89%93%E5%8C%85"><span class="nav-number">3.</span> <span class="nav-text">解压缩打包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RPM-YUM"><span class="nav-number">4.</span> <span class="nav-text">RPM,YUM</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%9F%A5%E6%89%BE"><span class="nav-number">5.</span> <span class="nav-text">文件查找</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E7%AE%A1%E7%90%86"><span class="nav-number">6.</span> <span class="nav-text">程序管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E6%9C%8D%E5%8A%A1"><span class="nav-number">7.</span> <span class="nav-text">关于服务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">8.</span> <span class="nav-text">常用命令</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -646,7 +597,7 @@ grep -c object nohup.out #查找nohup文件里面的object的个数</code></pre>
       <div class="site-state-item site-state-categories">
             <a href="/categories">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
