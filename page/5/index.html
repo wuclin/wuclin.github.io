@@ -165,7 +165,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/18/Linux/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/25/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.png">
@@ -179,7 +179,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2021/01/18/Linux/" class="post-title-link" itemprop="url">Linux</a>
+            <a href="/2021/01/25/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">单例模式</a>
         </h1>
 
         <div class="post-meta">
@@ -189,14 +189,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2021-01-18 01:19:28" itemprop="dateCreated datePublished" datetime="2021-01-18T01:19:28+08:00">2021-01-18</time>
+              <time title="Created: 2021-01-25 23:29:51" itemprop="dateCreated datePublished" datetime="2021-01-25T23:29:51+08:00">2021-01-25</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-20 02:10:57" itemprop="dateModified" datetime="2022-02-20T02:10:57+08:00">2022-02-20</time>
+                <time title="Modified: 2021-01-27 23:47:06" itemprop="dateModified" datetime="2021-01-27T23:47:06+08:00">2021-01-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -204,7 +204,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
                 </span>
             </span>
 
@@ -219,12 +219,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><h3 id="目录管理"><a href="#目录管理" class="headerlink" title="目录管理"></a>目录管理</h3><p>cd ： 切换目录</p>
-<p>./  ：当前目录</p>
-<p>cd .. ： 返回上一级目录</p>
+          <p><strong>只有一个实例，并且自己负责创建自己的对象,主要是保证在程序中，一个类只有一个实例存在</strong></p>
+<p>核心的代码：构造方法私有化</p>
+<h2 id="饿汉式"><a href="#饿汉式" class="headerlink" title="饿汉式"></a>饿汉式</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EHan</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> EHan instance = <span class="keyword">new</span> EHan();</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">EHan</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> EHan <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实例在初始化的时候就建好了，好处是没有线程安全，坏处是浪费内存空间。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2021/01/18/Linux/#more" rel="contents">
+              <a class="btn" href="/2021/01/25/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -248,7 +249,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/17/%E5%B9%B6%E5%8F%91/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/23/%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.png">
@@ -262,7 +263,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2021/01/17/%E5%B9%B6%E5%8F%91/" class="post-title-link" itemprop="url">并发</a>
+            <a href="/2021/01/23/%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">一些小问题记录</a>
         </h1>
 
         <div class="post-meta">
@@ -272,89 +273,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2021-01-17 09:40:12" itemprop="dateCreated datePublished" datetime="2021-01-17T09:40:12+08:00">2021-01-17</time>
+              <time title="Created: 2021-01-23 12:31:19" itemprop="dateCreated datePublished" datetime="2021-01-23T12:31:19+08:00">2021-01-23</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-02-03 16:58:38" itemprop="dateModified" datetime="2021-02-03T16:58:38+08:00">2021-02-03</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h1><h2 id="JUC"><a href="#JUC" class="headerlink" title="JUC"></a>JUC</h2><p>这几个包</p>
-<img src="/2021/01/17/%E5%B9%B6%E5%8F%91/image-20210202214229618.png" class title="image-20210202214229618">
-
-<h2 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/01/17/%E5%B9%B6%E5%8F%91/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/17/%E9%9B%86%E5%90%88/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.png">
-      <meta itemprop="name" content="wudelic">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="fufu">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/01/17/%E9%9B%86%E5%90%88/" class="post-title-link" itemprop="url">集合</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-01-17 09:40:03" itemprop="dateCreated datePublished" datetime="2021-01-17T09:40:03+08:00">2021-01-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-02-03 14:38:45" itemprop="dateModified" datetime="2021-02-03T14:38:45+08:00">2021-02-03</time>
+                <time title="Modified: 2022-02-09 16:31:16" itemprop="dateModified" datetime="2022-02-09T16:31:16+08:00">2022-02-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -362,7 +288,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                  <a href="/categories/other/" itemprop="url" rel="index"><span itemprop="name">other</span></a>
                 </span>
             </span>
 
@@ -377,14 +303,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h1><img src="/2021/01/17/%E9%9B%86%E5%90%88/image-20210202204518577.png" class title="image-20210202204518577">
-
-<h2 id="集合框架接口图"><a href="#集合框架接口图" class="headerlink" title="集合框架接口图"></a>集合框架接口图</h2><img src="/2021/01/17/%E9%9B%86%E5%90%88/image-20210116130234456-1610848424034.png" class title="image-20210116130234456">
-
-<p>两个基本接口Collection和Map</p>
+          <h1 id="java里windowClosed-与windowClosing-这两个方法有什么区别？"><a href="#java里windowClosed-与windowClosing-这两个方法有什么区别？" class="headerlink" title="java里windowClosed()与windowClosing()这两个方法有什么区别？"></a>java里windowClosed()与windowClosing()这两个方法有什么区别？</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">windowClosing - 窗口正在关闭</span><br><span class="line">windowClosed - 窗口已关闭</span><br><span class="line">void windowClosed(WindowEvent e)</span><br><span class="line">因对窗口调用 dispose 而将其关闭时调用。</span><br><span class="line">void windowClosing(WindowEvent e)用户试图从窗口的系统菜单中关闭窗口时调用。</span><br><span class="line">在做图形用户界面开发的时候，窗口右上角的关闭按钮要实现它的功能，是要实现一个监听器的。</span><br><span class="line">重写下面这个方法，就会实现单击关闭按钮结束这个程序，而假如把System.exit(0)放入windowClosed发放中，单击关闭按钮是没有反应的，</span><br><span class="line">因为windowClosed的意思是窗口关闭以后，将发生的事情，比如在这个方法里实现弹出一个对话框，则当你结束这个程序后，这个对话框将弹出。</span><br><span class="line">public void windowClosing(WindowEvent e)&#123;System.exit(0);&#125;当单击窗口右上方的关闭图标时,监视器调用windowClosing方法,假如在该方法中使用System.exit(0);退出程序的运行,那么监视器就没有机会再调用windowClosed方法</span><br></pre></td></tr></table></figure>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>Spring，SpringMVC，和SpringBoot的区别</p>
+<p>为什么SpringBoot免去配置</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2021/01/17/%E9%9B%86%E5%90%88/#more" rel="contents">
+              <a class="btn" href="/2021/01/23/%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -408,7 +332,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/17/javaSE/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/22/git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.png">
@@ -422,7 +346,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2021/01/17/javaSE/" class="post-title-link" itemprop="url">javaSE</a>
+            <a href="/2021/01/22/git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">git基本命令</a>
         </h1>
 
         <div class="post-meta">
@@ -432,110 +356,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2021-01-17 09:37:06" itemprop="dateCreated datePublished" datetime="2021-01-17T09:37:06+08:00">2021-01-17</time>
+              <time title="Created: 2021-01-22 00:25:20" itemprop="dateCreated datePublished" datetime="2021-01-22T00:25:20+08:00">2021-01-22</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-17 23:36:54" itemprop="dateModified" datetime="2022-02-17T23:36:54+08:00">2022-02-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>面向对象，编译和解释，字节码，单继承，接口</p>
-<h1 id="1-java环境"><a href="#1-java环境" class="headerlink" title="1.java环境"></a>1.java环境</h1><h3 id="1-1-JVM-JDR-JRE"><a href="#1-1-JVM-JDR-JRE" class="headerlink" title="1.1 JVM, JDR,JRE"></a>1.1 JVM, JDR,JRE</h3><blockquote>
-<p>JVM：Java虚拟机，是运行Java字节码（.class后缀）的虚拟机，</p>
-<p>JDK : 编写Java程序使用软件，Java开发工具包（这也是为什么一般都是下载JDK的原因）</p>
-<p>JRE : 运行Java程序使用软件，Java运行时环境（只包含虚拟机）</p>
-<p>SE : 标准版，桌面或简单服务器</p>
-<p>EE : 企业版，复杂服务器</p>
-</blockquote>
-<p>![Java程序运行过程](javaSE/Java 程序运行过程.png)</p>
-<p>在Windows和Linux中要注意配环境变量</p>
-<blockquote>
-<p>使用命令行编译运行Java程序时</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">javac filename.java <span class="comment"># javac程序是一个Java编译器，将文件filename.java编译成filename.class</span></span><br><span class="line">java filename <span class="comment">#java程序启动java虚拟机，虚拟机执行编译器编译到类文件的字节码， 注意不用加.class</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-<h3 id="1-2-Java，编译和解释并存"><a href="#1-2-Java，编译和解释并存" class="headerlink" title="1.2 Java，编译和解释并存"></a>1.2 Java，编译和解释并存</h3><p>编译型语言是指编译器针对特定的操作系统将源代码一次性翻译成可被该平台执行的机器码；解释型语言是指解释器对源程序逐行解释成特定平台的机器码并立即执行。比如，你想阅读一本英文名著，你可以找一个英文翻译人员帮助你阅读， 有两种选择方式，你可以先等翻译人员将全本的英文名著（也就是源码）都翻译成汉语，再去阅读，也可以让翻译人员翻译一段，你在旁边阅读一段，慢慢把书读完。</p>
-<p>Java程序要先经过编译，生成字节码（*.class文件），这种字节码再由Java解释器来解释执行。因此，可以认为Java编译与解释并存。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/01/17/javaSE/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/11/hexo%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.png">
-      <meta itemprop="name" content="wudelic">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="fufu">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/11/hexo%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">部分命令用法</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-03-11 09:59:51" itemprop="dateCreated datePublished" datetime="2020-03-11T09:59:51+08:00">2020-03-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-09 19:08:38" itemprop="dateModified" datetime="2022-02-09T19:08:38+08:00">2022-02-09</time>
+                <time title="Modified: 2021-02-02 14:07:43" itemprop="dateModified" datetime="2021-02-02T14:07:43+08:00">2021-02-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -558,39 +386,196 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="hexo部分命令"><a href="#hexo部分命令" class="headerlink" title="hexo部分命令"></a>hexo部分命令</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">hexo n <span class="string">&quot;TitleName&quot;</span>  <span class="comment">#新建文件，并命名为TitleName</span></span><br><span class="line"></span><br><span class="line">hexo server <span class="comment">#启动服务器，可在上传之前查看是否有问题，默认情况下访问地址为http://localhost:4000/</span></span><br><span class="line"></span><br><span class="line">hexo d -g <span class="comment">#可将文件上传到github上，即生成静态文件再部署文件</span></span><br><span class="line"></span><br><span class="line">hexo clean <span class="comment">#清除缓存文件和已生成的静态文件，在某些情况（尤其是更换主题后），如果发现您对站点的更改无论如              何也不生效，您可能需要运行该命令。</span></span><br><span class="line">hexo version <span class="comment">#查看hexo版本</span></span><br></pre></td></tr></table></figure>
-<h1 id="其他功能实现方法"><a href="#其他功能实现方法" class="headerlink" title="其他功能实现方法"></a>其他功能实现方法</h1><ol>
-<li><p>添加标签（tags）</p>
-<p>1.1生成标签页</p>
-<p>使用git bash，在博客文件夹，执行命令</p>
-<blockquote>
-<p>$hexo new page tags</p>
-</blockquote>
-<p>成功后会提示</p>
-<blockquote>
-<p>INFO  Created: ~/Documents/blog/source/tags/index.md</p>
-</blockquote>
-<p>根据路径找到<strong>index.md</strong>这个文件，打开后默认内容为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 标签</span><br><span class="line">date: 2017-05-27 14:22:08</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-
-<p>之后添加<code>type: &quot;tags&quot;</code>到内容中，添加后是这样的：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 文章分类</span><br><span class="line">date: 2017-05-27 13:47:40</span><br><span class="line">type: &quot;tags&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-
-<p>保存文件即可。</p>
-<p>1.2 给文章添加“tags”属性</p>
-<p>打开文章：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: xx</span><br><span class="line">date: datatime</span><br><span class="line">categories: </span><br><span class="line">- 分类1</span><br><span class="line">tags:</span><br><span class="line">- 标签1</span><br><span class="line">- 标签2</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-
-<p>这样就给文章添加了分类</p>
+          <h1 id="1-如何将本地项目上传到Github"><a href="#1-如何将本地项目上传到Github" class="headerlink" title="1.如何将本地项目上传到Github"></a>1.如何将本地项目上传到Github</h1><p><strong>有三种方法</strong></p>
+<h3 id="1-从github克隆到本地"><a href="#1-从github克隆到本地" class="headerlink" title="1.从github克隆到本地"></a>1.从github克隆到本地</h3><ol>
+<li><p>先在github新建好仓库（repository）</p>
 </li>
-<li><p>添加分类（categories）</p>
-<p>分类的方法和上面的一样，只要把tags改成categories即可。</p>
+<li><p>新建成功后复制仓库地址</p>
+<img src="/2021/01/22/git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/image-20210122004630520.png" class title="image-20210122004630520">
+</li>
+<li><p>在本地项目的文件夹中，右键打开git bash</p>
+</li>
+<li><p>输入以下代码，把上面创建的github的仓库克隆到本地</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://上面复制的仓库地址</span><br></pre></td></tr></table></figure></li>
+<li><p>在本地会多一个文件夹，把项目移入文件夹中</p>
+</li>
+<li><p>按照以下步骤，输入命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&quot;提交信息&quot;</span></span><br><span class="line">git push -u origin master <span class="comment">#此步骤需要输入账号密码</span></span><br></pre></td></tr></table></figure>
+
+
 </li>
 </ol>
-<p><strong>特别：Scaffold文件夹中有三个文件：draft.md; page.md; post.md；</strong></p>
+<h3 id="2-从本地直接上传到github"><a href="#2-从本地直接上传到github" class="headerlink" title="2.从本地直接上传到github"></a>2.从本地直接上传到github</h3>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/03/11/hexo%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/#more" rel="contents">
+              <a class="btn" href="/2021/01/22/git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/20/spring/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.png">
+      <meta itemprop="name" content="wudelic">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fufu">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/20/spring/" class="post-title-link" itemprop="url">spring</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-20 11:29:42" itemprop="dateCreated datePublished" datetime="2021-01-20T11:29:42+08:00">2021-01-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-02-20 02:18:49" itemprop="dateModified" datetime="2022-02-20T02:18:49+08:00">2022-02-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="什么是Spring框架"><a href="#什么是Spring框架" class="headerlink" title="什么是Spring框架"></a>什么是Spring框架</h1><p>Spring 是一种轻量级开发框架，旨在提高开发人员的开发效率以及系统的可维护性。Spring 官网：<a target="_blank" rel="noopener" href="https://spring.io/。">https://spring.io/。</a></p>
+<h2 id="Bean"><a href="#Bean" class="headerlink" title="Bean"></a>Bean</h2><p>首先要了解Bean是什么东西：</p>
+<p>这里把POJO，JavaBean，SpringBean放在一起说：</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/01/20/spring/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/18/MySQL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.png">
+      <meta itemprop="name" content="wudelic">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fufu">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/18/MySQL/" class="post-title-link" itemprop="url">MySQL</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-18 01:23:06" itemprop="dateCreated datePublished" datetime="2021-01-18T01:23:06+08:00">2021-01-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-02-17 23:32:07" itemprop="dateModified" datetime="2022-02-17T23:32:07+08:00">2022-02-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h1><p><strong>关系型数据库，默认端口3306</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> engines;</span><br></pre></td></tr></table></figure>
+<p>注意只有InnoDB支持事务。</p>
+<h3 id="MyISAM和InnoDB区别"><a href="#MyISAM和InnoDB区别" class="headerlink" title="MyISAM和InnoDB区别"></a>MyISAM和InnoDB区别</h3>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/01/18/MySQL/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -614,7 +599,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -682,7 +667,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

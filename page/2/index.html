@@ -165,7 +165,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/02/09/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/02/20/%E5%9B%9E%E6%BA%AF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.png">
@@ -179,7 +179,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2022/02/09/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="post-title-link" itemprop="url">多线程</a>
+            <a href="/2022/02/20/%E5%9B%9E%E6%BA%AF/" class="post-title-link" itemprop="url">Untitled</a>
         </h1>
 
         <div class="post-meta">
@@ -190,7 +190,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-02-09 16:38:49 / Modified: 19:26:22" itemprop="dateCreated datePublished" datetime="2022-02-09T16:38:49+08:00">2022-02-09</time>
+              <time title="Created: 2022-02-20 23:45:04 / Modified: 23:41:40" itemprop="dateCreated datePublished" datetime="2022-02-20T23:45:04+08:00">2022-02-20</time>
             </span>
 
           
@@ -204,12 +204,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="线程部分"><a href="#线程部分" class="headerlink" title="线程部分"></a>线程部分</h1><h2 id="线程状态"><a href="#线程状态" class="headerlink" title="线程状态"></a>线程状态</h2><p>NEW（初始状态）：新创建一个线程对象，没有调用start方法时的状态</p>
-<p>Runnable（运行状态）：Ready（就绪）和Running（运行中）两种状态都是Runnable。线程位于可运行线程池中，等待被线程调度选中，获取CPU使用权的状态就是Ready；Ready的线程在获取CPU后变成Running</p>
-<p>Blocked（阻塞）：线程被锁阻塞</p>
+          <p>框架</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">result = []</span><br><span class="line"><span class="function">def <span class="title">backtrack</span><span class="params">(路径, 选择列表)</span>:</span></span><br><span class="line"><span class="function">    <span class="keyword">if</span> 满足结束条件:</span></span><br><span class="line"><span class="function">        result.<span class="title">add</span><span class="params">(路径)</span></span></span><br><span class="line"><span class="function">        return</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">    <span class="keyword">for</span> 选择 in 选择列表:</span></span><br><span class="line"><span class="function">        做选择</span></span><br><span class="line"><span class="function">        <span class="title">backtrack</span><span class="params">(路径, 选择列表)</span></span></span><br><span class="line"><span class="function">        撤销选择</span></span><br><span class="line"><span class="function"><span class="comment">//其实就是递归前做选择，递归后撤销选择</span></span></span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/permutations">46. 全排列（中等）</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">List&lt;List&lt;Integer&gt;&gt; res = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; permute(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">        LinkedList&lt;Integer&gt; track = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        backtrack(nums, track);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">backtrack</span><span class="params">(<span class="keyword">int</span>[] nums, LinkedList&lt;Integer&gt; track)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (track.size() == nums.length)&#123;</span><br><span class="line">            res.add(<span class="keyword">new</span> LinkedList&lt;&gt;(track));</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++)&#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (track.contains(nums[i]))</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">            track.add(nums[i]);</span><br><span class="line">            backtrack(nums, track);</span><br><span class="line">            track.removeLast();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/n-queens">51. N皇后（困难）</a></p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2022/02/09/%E5%A4%9A%E7%BA%BF%E7%A8%8B/#more" rel="contents">
+              <a class="btn" href="/2022/02/20/%E5%9B%9E%E6%BA%AF/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -233,7 +235,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/02/09/newjvm/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/02/20/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.png">
@@ -247,7 +249,83 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2022/02/09/newjvm/" class="post-title-link" itemprop="url">jvm</a>
+            <a href="/2022/02/20/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" class="post-title-link" itemprop="url">Untitled</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-02-20 23:44:47" itemprop="dateCreated datePublished" datetime="2022-02-20T23:44:47+08:00">2022-02-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-02-18 00:03:43" itemprop="dateModified" datetime="2022-02-18T00:03:43+08:00">2022-02-18</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>动态规划一般是可以从前面的结果推出后面的结果，比如斐波拉且通过前面两项推出后一项</p>
+<p>上面的通过前面两项推出后一项就是状态转移方程</p>
+<p>1.明确dp数组的含义</p>
+<p>2.初始化dp数组</p>
+<p>3.进行状态转移</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/02/20/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/02/19/mybatis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.png">
+      <meta itemprop="name" content="wudelic">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fufu">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/02/19/mybatis/" class="post-title-link" itemprop="url">mybatis</a>
         </h1>
 
         <div class="post-meta">
@@ -258,7 +336,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-02-09 16:38:41 / Modified: 19:23:31" itemprop="dateCreated datePublished" datetime="2022-02-09T16:38:41+08:00">2022-02-09</time>
+              <time title="Created: 2022-02-19 17:27:46 / Modified: 21:44:05" itemprop="dateCreated datePublished" datetime="2022-02-19T17:27:46+08:00">2022-02-19</time>
             </span>
 
           
@@ -272,12 +350,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h1><h2 id="内存模型"><a href="#内存模型" class="headerlink" title="内存模型"></a>内存模型</h2><p>程序计数器：通过改变计数器的值来选取下一条需要执行的指令，如果是java方法记录的是正在执行的字节码指令地址，如果是native方法，则计数器值为空</p>
-<p>虚拟机栈：描述java方法执行的内存模型，每一个方法被执行都会创建一个栈帧，一个方法从被调用直至执行完成的过程，对应一个栈帧入栈到出栈的过程，栈帧用于存储局部变量表，方法出口等信息</p>
-<p>本地方法栈：和虚拟机栈一样，不过对应的是本地方法</p>
+          <h3 id="Mybatis"><a href="#Mybatis" class="headerlink" title="Mybatis"></a>Mybatis</h3><p>持久层框架，本质上是对jdbc的封装，可以使用接口就操作数据库，可以通过mapper配置文件来记载对象和对象之间的映射关系或依赖关系</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>SqlSessionFactoryBuilder通过xml配置文件构建出SqlSessionFactory实例，有了SqlSessionFactory对象后就可以获取获取SqlSession实例，用该实例就可以直接执行映射的sql语句。SqlSessionFactoryBuilder创建完SqlSessionFactory对象之后就不存在了，SqlSessionFactory是一个工厂接口，用于创建SqlSession。SqlSession提供了执行SQL需要的方法，可以通过SqlSession实例直接运行已映射的SQL语句。SqlSession可以通过命名空间+SQLid的方式执行SQL，SqlSession对应一次数据库会话，每次访问数据库都需要创建SqlSession对象。每个线程都有自己的SqlSession实例，不能被共享，也不是线程安全的（映射器就是Mapper对象）</p>
+<h3 id="接口绑定"><a href="#接口绑定" class="headerlink" title="接口绑定"></a>接口绑定</h3>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2022/02/09/newjvm/#more" rel="contents">
+              <a class="btn" href="/2022/02/19/mybatis/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -301,7 +379,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/17/Dubbo/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/02/19/%E6%B3%A8%E8%A7%A3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.png">
@@ -315,7 +393,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2021/02/17/Dubbo/" class="post-title-link" itemprop="url">Dubbo</a>
+            <a href="/2022/02/19/%E6%B3%A8%E8%A7%A3/" class="post-title-link" itemprop="url">注解</a>
         </h1>
 
         <div class="post-meta">
@@ -324,24 +402,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2021-02-17 15:46:12" itemprop="dateCreated datePublished" datetime="2021-02-17T15:46:12+08:00">2021-02-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-02-18 22:11:49" itemprop="dateModified" datetime="2021-02-18T22:11:49+08:00">2021-02-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/" itemprop="url" rel="index"><span itemprop="name">中间件</span></a>
-                </span>
+              <time title="Created: 2022-02-19 15:50:08 / Modified: 17:25:58" itemprop="dateCreated datePublished" datetime="2022-02-19T15:50:08+08:00">2022-02-19</time>
             </span>
 
           
@@ -355,20 +418,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Dubbo"><a href="#Dubbo" class="headerlink" title="Dubbo"></a>Dubbo</h1><p>分布式系统：把一个系统的各个模块分别部署在不同的服务器上，来提供服务。</p>
-<p>Dubbo可以用来协调各个模块之间的应用</p>
-<ol>
-<li>将服务提供者注册到注册中心<ol>
-<li>引入依赖（dubbo，zookeeper客户端（curator））</li>
-<li>配置服务（把服务者的服务接口暴露，让其他地方的消费者可以调用）</li>
-</ol>
-</li>
-<li>让消费者去注册中心订阅</li>
-</ol>
-<p>SOA 面向服务的架构（Service Oriented Architecture），把工程按照业务逻辑拆分成服务层、表现层两个工程。服务层中包含业务逻辑，只需要对外提供服务即可。表现层只需要处理和页面的交互，业务逻辑都是调用服务层的服务来实现。SOA架构中有两个主要角色：服务提供者（Provider）和服务使用者（Consumer）。<img src="/2021/02/17/Dubbo/43050183.jpg" class title="为什么要用 Dubbo"></p>
+          <h3 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h3><h4 id="创建对象的注解"><a href="#创建对象的注解" class="headerlink" title="创建对象的注解"></a>创建对象的注解</h4><p>@Component，@Repository，@Service，@Controller这四个注解相当于在xml中编写了一个<bean>标签</bean></p>
+<h4 id="注入数据的注解："><a href="#注入数据的注解：" class="headerlink" title="注入数据的注解："></a>注入数据的注解：</h4><p>@Autowired：按照类型注入，当有多个类型时会报错，可以和@Qualifier一起使用，变成按照名称注入</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2021/02/17/Dubbo/#more" rel="contents">
+              <a class="btn" href="/2022/02/19/%E6%B3%A8%E8%A7%A3/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -392,7 +446,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/17/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/02/10/newredis/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.png">
@@ -406,7 +460,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2021/02/17/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" class="post-title-link" itemprop="url">消息队列</a>
+            <a href="/2022/02/10/newredis/" class="post-title-link" itemprop="url">newredis</a>
         </h1>
 
         <div class="post-meta">
@@ -416,24 +470,15 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2021-02-17 15:45:26" itemprop="dateCreated datePublished" datetime="2021-02-17T15:45:26+08:00">2021-02-17</time>
+              <time title="Created: 2022-02-10 23:43:26" itemprop="dateCreated datePublished" datetime="2022-02-10T23:43:26+08:00">2022-02-10</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-02-18 16:55:12" itemprop="dateModified" datetime="2021-02-18T16:55:12+08:00">2021-02-18</time>
+                <time title="Modified: 2022-02-11 14:50:02" itemprop="dateModified" datetime="2022-02-11T14:50:02+08:00">2022-02-11</time>
               </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/" itemprop="url" rel="index"><span itemprop="name">中间件</span></a>
-                </span>
-            </span>
 
           
 
@@ -446,117 +491,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="消息队列（异步、解耦、削峰）"><a href="#消息队列（异步、解耦、削峰）" class="headerlink" title="消息队列（异步、解耦、削峰）"></a>消息队列（<strong>异步、解耦、削峰</strong>）</h1><p><strong>可以把消息队列看作是一个存放消息的容器，当我们需要使用消息的时候，直接从容器中取出消息供自己使用即可。</strong></p>
-<p>消息队列是分布式系统中重要的组件之一。使用消息队列主要是为了通过异步处理提高系统性能和削峰、降低系统耦合性。</p>
-<h3 id="为什么要使用消息队列"><a href="#为什么要使用消息队列" class="headerlink" title="为什么要使用消息队列"></a>为什么要使用消息队列</h3><ol>
-<li><p><strong>通过异步处理提高系统性能（减少响应所需时间）。</strong></p>
-<p>将用户的请求数据存储到消息队列之后就立即返回结果。随后，系统再对消息进行消费。</p>
-<p>因为<strong>用户请求数据写入消息队列之后就立即返回给用户了，但是请求数据在后续的业务校验、写数据库等操作中可能失败</strong>。因此使用消息队列进行异步处理之后，需要<strong>适当修改业务流程进行配合</strong>，比如<strong>用户在提交订单之后，订单数据写入消息队列，不能立即返回用户订单提交成功，需要在消息队列的订单消费者进程真正处理完该订单之后，甚至出库后，再通过电子邮件或短信通知用户订单成功</strong>。</p>
-</li>
-<li><p><strong>削峰/限流</strong></p>
-<p><strong>先将短时间高并发产生的事务消息存储在消息队列中，然后后端服务再慢慢根据自己的能力去消费这些消息，这样就避免一下子巨大的服务请求量直接把后端服务打垮掉。</strong></p>
-</li>
-<li><p><strong>降低系统耦合性。</strong></p>
-<p>生产者（客户端）发送消息到消息队列中去，接受者（服务端）处理消息，需要消费的系统直接去消息队列取消息进行消费即可而不需要和其他系统有耦合， 这显然也提高了系统的扩展性。</p>
-<p><strong>消息队列使利用发布-订阅模式工作，消息发送者（生产者）发布消息，一个或多个消息接受者（消费者）订阅消息。</strong> 从上图可以看到<strong>消息发送者（生产者）和消息接受者（消费者）之间没有直接耦合</strong>，消息发送者将消息发送至分布式消息队列即结束对消息的处理，消息接受者从分布式消息队列获取该消息后进行后续处理，并不需要知道该消息从何而来。<strong>对新增业务，只要对该类消息感兴趣，即可订阅该消息，对原有系统和业务没有任何影响，从而实现网站业务的可扩展性设计</strong>。</p>
-<p>消息接受者对消息进行过滤、处理、包装后，构造成一个新的消息类型，将消息继续发送出去，等待其他消息接受者订阅该消息。因此基于事件（消息对象）驱动的业务架构可以是一系列流程。</p>
-<p><strong>另外为了避免消息队列服务器宕机造成消息丢失，会将成功发送到消息队列的消息存储在消息生产者服务器上，等消息真正被消费者服务器处理后才删除消息。在消息队列服务器宕机后，生产者服务器会选择分布式消息队列服务器集群中的其他服务器发布消息。</strong></p>
-<p><strong>除了发布-订阅模式，还有点对点订阅模式（一个消息只有一个消费者），我们比较常用的是发布-订阅模式。</strong></p>
-<h3 id="常见的消息队列对比"><a href="#常见的消息队列对比" class="headerlink" title="常见的消息队列对比"></a>常见的消息队列对比</h3><ul>
-<li>ActiveMQ 的社区算是比较成熟，但是较目前来说，ActiveMQ 的性能比较差，而且版本迭代很慢，不推荐使用。</li>
-<li>RabbitMQ 在吞吐量方面虽然稍逊于 Kafka 和 RocketMQ ，但是由于它基于 erlang 开发，所以并发能力很强，性能极其好，延时很低，达到微秒级。但是也因为 RabbitMQ 基于 erlang 开发，所以国内很少有公司有实力做erlang源码级别的研究和定制。如果业务场景对并发量要求不是太高（十万级、百万级），那这四种消息队列中，RabbitMQ 一定是你的首选。如果是大数据领域的实时计算、日志采集等场景，用 Kafka 是业内标准的，绝对没问题，社区活跃度很高，绝对不会黄，何况几乎是全世界这个领域的事实性规范。</li>
-<li>RocketMQ 阿里出品，Java 系开源项目，源代码我们可以直接阅读，然后可以定制自己公司的MQ，并且 RocketMQ 有阿里巴巴的实际业务场景的实战考验。RocketMQ 社区活跃度相对较为一般，不过也还可以，文档相对来说简单一些，然后接口这块不是按照标准 JMS 规范走的有些系统要迁移需要修改大量代码。还有就是阿里出台的技术，你得做好这个技术万一被抛弃，社区黄掉的风险，那如果你们公司有技术实力我觉得用RocketMQ 挺好的</li>
-<li>Kafka 的特点其实很明显，就是仅仅提供较少的核心功能，但是提供超高的吞吐量，ms 级的延迟，极高的可用性以及可靠性，而且分布式可以任意扩展。同时 kafka 最好是支撑较少的 topic 数量即可，保证其超高吞吐量。kafka 唯一的一点劣势是有可能消息重复消费，那么对数据准确性会造成极其轻微的影响，在大数据领域中以及日志采集中，这点轻微影响可以忽略这个特性天然适合大数据实时计算以及日志收集。</li>
-</ul>
-</li>
-</ol>
+          <h1 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h1><h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><p>String，hash，list，set，zset</p>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><p>分布式锁：</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2021/02/17/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/15/SpringCloud/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.png">
-      <meta itemprop="name" content="wudelic">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="fufu">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/02/15/SpringCloud/" class="post-title-link" itemprop="url">SpringCloud</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-02-15 15:40:19" itemprop="dateCreated datePublished" datetime="2021-02-15T15:40:19+08:00">2021-02-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-20 02:18:36" itemprop="dateModified" datetime="2022-02-20T02:18:36+08:00">2022-02-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="微服务"><a href="#微服务" class="headerlink" title="微服务"></a>微服务</h1><p>划分成独立模块，每个模块拥有独立数据库</p>
-<h1 id="SpringCloud"><a href="#SpringCloud" class="headerlink" title="SpringCloud"></a>SpringCloud</h1><img src="/2021/02/15/SpringCloud/image-20210215162115146.png" class title="image-20210215162115146">
-
-<h1 id="SpringCloud和SpringBoot关系"><a href="#SpringCloud和SpringBoot关系" class="headerlink" title="SpringCloud和SpringBoot关系"></a>SpringCloud和SpringBoot关系</h1>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/02/15/SpringCloud/#more" rel="contents">
+              <a class="btn" href="/2022/02/10/newredis/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -580,7 +519,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -648,7 +587,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
