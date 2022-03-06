@@ -20,19 +20,19 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.7.2","exturl":false,"sidebar":{"position":"hide","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="IO模型读写时有两个阶段，一个是等待数据的阶段，一个是真正读写的阶段 1.应用程序作为一个文件保存在磁盘中，只有加载到内存成为一个进程后才能运行，即应用程序运行在内存中，运行中就会涉及到IO操作，比如读写磁盘文件，访问数据库等 2.为了确保操作系统的安全，操作系统将内存分为内核空间和用户空间，我们的应用程序运行在用户空间，用户空间无法操作内核空间，即用户空间的程序不能直接访问内核管理的IO，所以用">
+  <meta name="description" content="Maven方便于管理和构建java项目的工具 在一个java项目中，需要引入依赖包时，需要手动加入classpath并且手动将该包的依赖包也放入classpath，此外还需要配置环境，jdk版本，当前代码版本号，确定项目的目录结构，如：src目录存放java源码，resource目录存放配置文件，bin目录存放编译生成的.class文件而Maven提供了标准化的项目结构：使用Maven创建项目会自">
 <meta property="og:type" content="article">
-<meta property="og:title" content="IO模型">
-<meta property="og:url" content="http://yoursite.com/2022/02/09/IO%E6%A8%A1%E5%9E%8B/index.html">
+<meta property="og:title" content="Maven">
+<meta property="og:url" content="http://yoursite.com/2022/03/05/Maven/index.html">
 <meta property="og:site_name" content="fufu">
-<meta property="og:description" content="IO模型读写时有两个阶段，一个是等待数据的阶段，一个是真正读写的阶段 1.应用程序作为一个文件保存在磁盘中，只有加载到内存成为一个进程后才能运行，即应用程序运行在内存中，运行中就会涉及到IO操作，比如读写磁盘文件，访问数据库等 2.为了确保操作系统的安全，操作系统将内存分为内核空间和用户空间，我们的应用程序运行在用户空间，用户空间无法操作内核空间，即用户空间的程序不能直接访问内核管理的IO，所以用">
+<meta property="og:description" content="Maven方便于管理和构建java项目的工具 在一个java项目中，需要引入依赖包时，需要手动加入classpath并且手动将该包的依赖包也放入classpath，此外还需要配置环境，jdk版本，当前代码版本号，确定项目的目录结构，如：src目录存放java源码，resource目录存放配置文件，bin目录存放编译生成的.class文件而Maven提供了标准化的项目结构：使用Maven创建项目会自">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-02-09T08:38:55.000Z">
-<meta property="article:modified_time" content="2022-03-03T14:02:26.250Z">
+<meta property="article:published_time" content="2022-03-05T07:58:26.000Z">
+<meta property="article:modified_time" content="2022-03-06T14:31:02.026Z">
 <meta property="article:author" content="wuwu">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/2022/02/09/IO%E6%A8%A1%E5%9E%8B/">
+<link rel="canonical" href="http://yoursite.com/2022/03/05/Maven/">
 
 
 <script id="page-configurations">
@@ -44,7 +44,7 @@
   };
 </script>
 
-  <title>IO模型 | fufu</title>
+  <title>Maven | fufu</title>
   
 
 
@@ -168,7 +168,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/02/09/IO%E6%A8%A1%E5%9E%8B/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/03/05/Maven/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.png">
@@ -181,7 +181,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          IO模型
+          Maven
         </h1>
 
         <div class="post-meta">
@@ -191,14 +191,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2022-02-09 16:38:55" itemprop="dateCreated datePublished" datetime="2022-02-09T16:38:55+08:00">2022-02-09</time>
+              <time title="Created: 2022-03-05 15:58:26" itemprop="dateCreated datePublished" datetime="2022-03-05T15:58:26+08:00">2022-03-05</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-03 22:02:26" itemprop="dateModified" datetime="2022-03-03T22:02:26+08:00">2022-03-03</time>
+                <time title="Modified: 2022-03-06 22:31:02" itemprop="dateModified" datetime="2022-03-06T22:31:02+08:00">2022-03-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -206,7 +206,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/IO/" itemprop="url" rel="index"><span itemprop="name">IO</span></a>
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
                 </span>
             </span>
 
@@ -221,34 +221,23 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="IO模型"><a href="#IO模型" class="headerlink" title="IO模型"></a>IO模型</h1><p>读写时有两个阶段，一个是等待数据的阶段，一个是真正读写的阶段</p>
-<p>1.应用程序作为一个文件保存在磁盘中，只有加载到内存成为一个进程后才能运行，即应用程序运行在内存中，运行中就会涉及到IO操作，比如读写磁盘文件，访问数据库等</p>
-<p>2.为了确保操作系统的安全，操作系统将内存分为内核空间和用户空间，我们的应用程序运行在用户空间，用户空间无法操作内核空间，即用户空间的程序不能直接访问内核管理的IO，所以用户要访问内核管理的IO，必须通过调用内核通过的系统调用进行访问，因此应用程序发起一次IO实际包含两个阶段：</p>
-<p>（进程发起）1.IO调用阶段：应用程序进程向内核发起系统调用</p>
-<p>（操作系统）2.IO执行阶段：内核执行IO操作并返回</p>
-<p>2.1.准备数据阶段：内核等待IO设备准备好数据</p>
-<p>2.2.拷贝数据阶段：将数据从内核缓冲区拷贝到用户空间缓冲区</p>
-<h2 id="关于缓冲区"><a href="#关于缓冲区" class="headerlink" title="关于缓冲区"></a>关于缓冲区</h2><p>用户进程缓冲区：</p>
-<p>用户进程通过系统调用访问系统资源时，需要切换到内核态，系统调用结束后又会切回用户模式，这个切换耗时较大，采用缓冲区的方法，程序都从缓冲区获取数据，当缓冲区使用完后在进行下一次调用，填充缓冲区，用户缓冲区的目的是为了减少系统调用次数，减低操作系统在用户态和核心态切换所耗费的时间</p>
-<p>内核缓冲区：</p>
-<p>用户进程要从磁盘获取数据时，内核一般不直接读取磁盘，而是将内核缓冲区中的数据复制到进程缓冲区中。如果内核缓冲区内没有数据，就会把请求的进程挂起，等到数据已经读取到内核缓冲区时，把内核缓冲区中的数据读取到用户进程中，才通知进程。</p>
-<h2 id="阻塞和非阻塞"><a href="#阻塞和非阻塞" class="headerlink" title="阻塞和非阻塞"></a>阻塞和非阻塞</h2><p>如果操作系统IO处于未就就绪状态，当前线程如果一直等待直到其就绪，这种IO方式就是阻塞IO；如果不一直等待其就绪，而是可以做其他的事情，就是非阻塞IO。</p>
-<p>（如果进程发起了读取数据的IO调用，操作系统需要将外部数据拷贝到进程缓冲区，在有数据拷贝到进程缓冲区前，进程缓冲区处于不可读状态，也就是操作系统IO未就绪）</p>
-<h2 id="异步和同步"><a href="#异步和同步" class="headerlink" title="异步和同步"></a>异步和同步</h2><p>针对于进程或者线程来说，发起IO调用之后，是否挂起等待操作系统的IO执行完成。</p>
-<h2 id="5种IO模型"><a href="#5种IO模型" class="headerlink" title="5种IO模型"></a>5种IO模型</h2><p>1.阻塞IO(JAVA BIO)</p>
-<p>进程发起IO系统调用，进程被阻塞，在内核将数据准备好之前，进程会一直持有cpu，直到IO处理完毕后返回进程</p>
-<p>2.非阻塞IO</p>
-<p>在内核数据准备好之前，系统会一直访问内核是否准备好数据，如果没有准备好，不会阻塞程序，内核会直接返回数据未准备就绪的信号，在这个过程中虽然不会一直持有cpu，但是会一直调用cpu，即轮询</p>
-<p>3.IO复用模型(JAVA NIO)</p>
-<p>引入了新的系统调用（linux2.6前select，poll，linux2.6后epoll，这些函数是阻塞的），查询IO的就绪状态。通过该系统调用，一个进程可以监视多个fd（文件描述符），某个fd就绪，内核就能将就绪状态返回给应用程序，应用程序再次发起IO系统调用进行读写</p>
-<p>本质上，系统调用时还是阻塞的。</p>
-<p>select：最大连接数为1024，存在连接数限制；需要通过遍历fdset的方式找到就绪的fd，因为只知道有IO事件发送，不知道是那几个流，所以需要遍历所有流</p>
-<p>poll：解决了连接数限制的问题，还是存在需要遍历的问题</p>
-<p>epoll：使用监听事件回调的机制代替了遍历fd的机制</p>
-<p>4.信号驱动IO</p>
-<p>向内核发送一个SIGIO信号，此时用户进程就可以去做别的事情，内核数据准备好后，再通过SIGIO信号通知应用进程，应用进程收到信号之后就去读取数据，不过在数据从内核复制到应用缓冲区的时候是还是阻塞的</p>
-<p>5.异步IO(JAVA AIO)</p>
-<p>应用进程发起系统调用后，立即返回，不会阻塞等待，等内核数据准备好，将数据拷贝到用户进程缓冲区，发送信号通知用户进程IO操作执行完毕</p>
+        <h2 id="Maven"><a href="#Maven" class="headerlink" title="Maven"></a>Maven</h2><p>方便于管理和构建java项目的工具</p>
+<p>在一个java项目中，需要引入依赖包时，需要手动加入classpath并且手动将该包的依赖包也放入classpath，此外还需要配置环境，jdk版本，当前代码版本号，确定项目的目录结构，如：src目录存放java源码，resource目录存放配置文件，bin目录存放编译生成的.class文件而Maven提供了标准化的项目结构：使用Maven创建项目会自动创建好目录；标准化的构建流程：编译，测试，打包，发布等；还有依赖管理机制</p>
+<h3 id="Maven项目结构"><a href="#Maven项目结构" class="headerlink" title="Maven项目结构"></a>Maven项目结构</h3><p>使用了Maven管理的java项目目录结构：</p>
+<p>a-maven-project<br>├── pom.xml<br>├── src<br>│   ├── main<br>│   │   ├── java<br>│   │   └── resources<br>│   ├── test<br>│   │   ├── java<br>│   │   └── resources<br>└── target</p>
+<h3 id="pom文件"><a href="#pom文件" class="headerlink" title="pom文件"></a>pom文件</h3><p>项目描述文件，groupId类似于包名，通常是公司或组织名称；artifactId类似于类名，通常是项目名称；一个Maven工程就是由groupId，artifactId，version作为唯一标识，在引用其他第三方库时，也是通过这3个变量确定。在使用<dependency>声明依赖后，Maven就会自动下载依赖包并放到classpath下</dependency></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">...</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.itranswarp.learnjava<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">packaging</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">        ...</span><br><span class="line">	<span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>commons-logging<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-logging<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="Maven安装"><a href="#Maven安装" class="headerlink" title="Maven安装"></a>Maven安装</h3><ol>
+<li><p>从官网安装最新版的解压</p>
+</li>
+<li><p>设置环境变量：</p>
+<p>M2_HOME=/path/to/maven-3.6.x</p>
+<p>PATH=$PATH:$M2_HOME/bin/</p>
+</li>
+<li><p>cmd中运行：mvc -version 如果出现maven版本信息说明安装成功</p>
+</li>
+</ol>
+<h3 id="Mvnw"><a href="#Mvnw" class="headerlink" title="Mvnw"></a>Mvnw</h3><p>就是Maven Wrapper，可以使用Mvnw来给特定的项目安装指定版本的Maven</p>
 
     </div>
 
@@ -264,12 +253,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/02/09/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="prev" title="多线程">
-      <i class="fa fa-chevron-left"></i> 多线程
+    <a href="/2022/02/24/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="prev" title="设计模式">
+      <i class="fa fa-chevron-left"></i> 设计模式
     </a></div>
       <div class="post-nav-item">
-    <a href="/2022/02/10/newredis/" rel="next" title="newredis">
-      newredis <i class="fa fa-chevron-right"></i>
+    <a href="/2022/09/02/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="next" title="数据库">
+      数据库 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -330,7 +319,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#IO%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">IO模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E7%BC%93%E5%86%B2%E5%8C%BA"><span class="nav-number">1.1.</span> <span class="nav-text">关于缓冲区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%98%BB%E5%A1%9E%E5%92%8C%E9%9D%9E%E9%98%BB%E5%A1%9E"><span class="nav-number">1.2.</span> <span class="nav-text">阻塞和非阻塞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5%E5%92%8C%E5%90%8C%E6%AD%A5"><span class="nav-number">1.3.</span> <span class="nav-text">异步和同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5%E7%A7%8DIO%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.4.</span> <span class="nav-text">5种IO模型</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Maven"><span class="nav-number">1.</span> <span class="nav-text">Maven</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Maven%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">Maven项目结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pom%E6%96%87%E4%BB%B6"><span class="nav-number">1.2.</span> <span class="nav-text">pom文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Maven%E5%AE%89%E8%A3%85"><span class="nav-number">1.3.</span> <span class="nav-text">Maven安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mvnw"><span class="nav-number">1.4.</span> <span class="nav-text">Mvnw</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
