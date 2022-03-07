@@ -32,7 +32,7 @@
 <meta property="og:image" content="http://yoursite.com/2021/01/20/spring/SpringAOPProcess.jpg">
 <meta property="og:image" content="http://yoursite.com/2021/01/20/spring/image-20210126172529678.png">
 <meta property="article:published_time" content="2021-01-20T03:29:42.000Z">
-<meta property="article:modified_time" content="2022-03-03T14:06:19.284Z">
+<meta property="article:modified_time" content="2022-03-07T11:25:27.220Z">
 <meta property="article:author" content="wuwu">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://yoursite.com/2021/01/20/spring/48376272.jpg">
@@ -203,7 +203,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-03 22:06:19" itemprop="dateModified" datetime="2022-03-03T22:06:19+08:00">2022-03-03</time>
+                <time title="Modified: 2022-03-07 19:25:27" itemprop="dateModified" datetime="2022-03-07T19:25:27+08:00">2022-03-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -263,8 +263,10 @@
 </ol>
 <p>ioc容器不仅将组件的创建，配置与组件的使用相分离，并且由容器负责管理组件的生命周期</p>
 <h2 id="ioc容器"><a href="#ioc容器" class="headerlink" title="ioc容器"></a>ioc容器</h2><p>有两种容器BeanFactory和ApplicationContext</p>
-<p>BeanFactory采用懒加载，容器启动比较快，是按需创建，即第一次获取Bean时才创建这个Bean，而ApplicationContext会一次性创建所有的Bean。</p>
-<p>ApplicationContext 继承了 BeanFactory 接口，对象在启动容器时加载，在BeanFactory的基础上增加了很多企业级功能，如AOP，国际化，事件支持</p>
+<p>BeanFactory，最顶层的接口，提供了简单的容器功能，即实例化对象和取对象的功能</p>
+<p>Applicatition，继承于BeanFactory，除了具有BeanFactory的功能，还提供了其他功能</p>
+<p>比如国际化，AOP等</p>
+<p>在装配Bean方面，BeanFactory采用懒加载，容器启动比较快，是按需创建，即第一次获取Bean时才创建这个Bean，而ApplicationContext会一次性创建所有的Bean，对象在启动容器时就加载。</p>
 <p>BeanFactory的使用：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Resource resource = <span class="keyword">new</span> ClassPathResource(<span class="string">&quot;applicationContext.xml&quot;</span>); </span><br><span class="line">BeanFactory factory = <span class="keyword">new</span> XmlBeanFactory(resource); </span><br></pre></td></tr></table></figure>
 <p>ApplicationContext的使用：</p>

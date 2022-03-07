@@ -277,7 +277,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-03 22:03:38" itemprop="dateModified" datetime="2022-03-03T22:03:38+08:00">2022-03-03</time>
+                <time title="Modified: 2022-03-07 21:04:52" itemprop="dateModified" datetime="2022-03-07T21:04:52+08:00">2022-03-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -300,8 +300,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h1><h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><p>String，hash，list，set，zset</p>
-<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><p>分布式锁：</p>
+          <h1 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h1><h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><h4 id="字符串（STRING）"><a href="#字符串（STRING）" class="headerlink" title="字符串（STRING）"></a>字符串（STRING）</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; <span class="built_in">set</span> hello world</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; get hello</span><br><span class="line"><span class="string">&quot;world&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; del hello</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; get hello</span><br><span class="line">(nil) </span><br><span class="line"></span><br><span class="line">127.0.0.1:6379&gt; <span class="built_in">set</span> key 10</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; get key</span><br><span class="line"><span class="string">&quot;10&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; incr key             <span class="comment">#自增</span></span><br><span class="line">(<span class="built_in">integer</span>) 11</span><br><span class="line">127.0.0.1:6379&gt; incrby key 5         <span class="comment">#增加指定的数值</span></span><br><span class="line">(<span class="built_in">integer</span>) 16</span><br><span class="line">127.0.0.1:6379&gt; decr key</span><br><span class="line">(<span class="built_in">integer</span>) 15</span><br><span class="line">127.0.0.1:6379&gt; decrby key 5</span><br><span class="line">(<span class="built_in">integer</span>) 10</span><br></pre></td></tr></table></figure>
+<h4 id="列表（LIST）"><a href="#列表（LIST）" class="headerlink" title="列表（LIST）"></a>列表（LIST）</h4>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/02/10/newredis/#more" rel="contents">
