@@ -28,7 +28,7 @@
 <meta property="og:description" content="Redis数据结构字符串（STRING）123456789101112131415161718192021127.0.0.1:6379&gt; set hello worldOK127.0.0.1:6379&gt; get hello&quot;world&quot;127.0.0.1:6379&gt; del hello(integer) 1127.0.0.1:6379&gt; get hell">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-02-10T15:43:26.000Z">
-<meta property="article:modified_time" content="2022-03-07T13:04:52.360Z">
+<meta property="article:modified_time" content="2022-03-09T12:00:57.445Z">
 <meta property="article:author" content="wuwu">
 <meta name="twitter:card" content="summary">
 
@@ -198,7 +198,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-07 21:04:52" itemprop="dateModified" datetime="2022-03-07T21:04:52+08:00">2022-03-07</time>
+                <time title="Modified: 2022-03-09 20:00:57" itemprop="dateModified" datetime="2022-03-09T20:00:57+08:00">2022-03-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -283,6 +283,8 @@
 <p>分布式锁：</p>
 <p>锁的原理在于setnx命令，当key不存在时将key设置为value，返回值为1；如果已经存在，setnx不做任何动作，返回值为0</p>
 <p>发布与订阅：</p>
+<p>延时队列：</p>
+<p>使用ZSET做优先队列，按照score维持优先级，使用LIST，以先进先出的方式消费</p>
 <h3 id="缓存击穿"><a href="#缓存击穿" class="headerlink" title="缓存击穿"></a>缓存击穿</h3><p>热点key在失效的瞬间，大量的访问会直接请求数据库，会导致数据库崩了</p>
 <h3 id><a href="#" class="headerlink" title></a></h3><h3 id="主从复制"><a href="#主从复制" class="headerlink" title="主从复制"></a>主从复制</h3>
     </div>
@@ -381,7 +383,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">33</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
