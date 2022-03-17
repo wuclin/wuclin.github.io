@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.7.2","exturl":false,"sidebar":{"position":"hide","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="MySQL逻辑架构   最上层的服务一般是连接处理，授权认证，安全等 第二层主要是包括MySQL查询解析，分析，优化，缓存，内置函数以及跨出存储引擎的功能都在这一层实现：存储过程，触发器，视图等 第三层包含了存储引擎，存储引擎负责数据的存储和提取  优化并发控制">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysqlv2.0">
+<meta property="og:url" content="http://yoursite.com/2022/03/14/mysqlv2-0/index.html">
+<meta property="og:site_name" content="fufu">
+<meta property="og:description" content="MySQL逻辑架构   最上层的服务一般是连接处理，授权认证，安全等 第二层主要是包括MySQL查询解析，分析，优化，缓存，内置函数以及跨出存储引擎的功能都在这一层实现：存储过程，触发器，视图等 第三层包含了存储引擎，存储引擎负责数据的存储和提取  优化并发控制">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="file:///C:/Users/delic/AppData/Roaming/marktext/images/2022-03-14-14-46-12-image.png">
+<meta property="article:published_time" content="2022-03-14T06:39:40.000Z">
+<meta property="article:modified_time" content="2022-03-14T08:20:22.369Z">
+<meta property="article:author" content="wuwu">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="file:///C:/Users/delic/AppData/Roaming/marktext/images/2022-03-14-14-46-12-image.png">
+
+<link rel="canonical" href="http://yoursite.com/2022/03/14/mysqlv2-0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>mysqlv2.0 | fufu</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">fufu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-fw fa-calendar"></i>Schedule</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/03/14/mysqlv2-0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.png">
+      <meta itemprop="name" content="wuwu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fufu">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          mysqlv2.0
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-03-14 14:39:40 / Modified: 16:20:22" itemprop="dateCreated datePublished" datetime="2022-03-14T14:39:40+08:00">2022-03-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="MySQL逻辑架构"><a href="#MySQL逻辑架构" class="headerlink" title="MySQL逻辑架构"></a>MySQL逻辑架构</h2><img src="file:///C:/Users/delic/AppData/Roaming/marktext/images/2022-03-14-14-46-12-image.png" title alt width="368">
+
+<blockquote>
+<p>最上层的服务一般是连接处理，授权认证，安全等</p>
+<p>第二层主要是包括MySQL查询解析，分析，优化，缓存，内置函数以及跨出存储引擎的功能都在这一层实现：存储过程，触发器，视图等</p>
+<p>第三层包含了存储引擎，存储引擎负责数据的存储和提取</p>
+</blockquote>
+<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><h2 id="并发控制"><a href="#并发控制" class="headerlink" title="并发控制"></a>并发控制</h2><p>在服务层和存储引擎层两个层面控制</p>
+<h3 id="读写锁"><a href="#读写锁" class="headerlink" title="读写锁"></a>读写锁</h3><p>是一个锁系统，用于处理并发读写，也可以叫共享锁和排他锁（读锁和写锁）</p>
+<h3 id="锁粒度"><a href="#锁粒度" class="headerlink" title="锁粒度"></a>锁粒度</h3><p>表锁：最基本的锁策略，锁一张表</p>
+<p>行锁：只在存储引擎层实现，所以具体的实现取决于存储引擎，在服务层没有实现，锁住一行数据</p>
+<h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><h3 id="ACID概念"><a href="#ACID概念" class="headerlink" title="ACID概念"></a>ACID概念</h3><p>原子性：整个事务中的所有操作要么全部提交成功，要么全部失败回滚，对于一个事务来说不可能只执行其中的一部分操作</p>
+<p>一致性：数据库总是从一个一致性的状态转换到另外一个一致性的状态，一致性保证了在转账事务中，事务没有提交的话，事务所做的修改不会保存到数据库中</p>
+<p>隔离性：一个事务所做的修改在提交之前，对其他事务是不可见的，即一个事务对账户A做了减去操作，对于另外一个事务来说是不知道的</p>
+<p>持久性：事务提交，做的修改就会永久的保存在数据库中</p>
+<h3 id="隔离级别"><a href="#隔离级别" class="headerlink" title="隔离级别"></a>隔离级别</h3><p>READ UNCOMMITTED（未提交读）：事务可以读取到未提交的数据，也叫做脏读</p>
+<p>READ COMMITTED（提交读）：事务开始时，只能看见已经提交事务所做的修改，一个事务从开始到提交之前，所做的修改对其他事务都是不可见的，也叫做不可重复读，执行两次同样的查询，可能会得到不一样的结果（事务A读取数据A，事务B修改数据A并提交事务，事务A再次读取数据A，此时两次读取到的数据A不一样）</p>
+<p>REPEATABLE READ（可重复读）：MySQL的默认事务隔离级别，解决了脏读，同时保证了在同一个事务中多次读取同样的数据结果是一致的，无法解决幻读问题，幻读指的是在事务读取某个范围内的记录时，另一个事务在该范围内插入了新的记录，当前事务再次读取时会产生幻行，InnoDB通过MVCC解决了幻读问题</p>
+<p>SERIALIZABLE（可串行化）：通过强制事务串行执行，避免了幻读的问题，即在读取的每一行数据加上锁</p>
+<h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#事务<span class="number">1</span></span><br><span class="line"><span class="keyword">set</span> autocommit <span class="number">0</span>；</span><br><span class="line"><span class="keyword">update</span> <span class="keyword">user</span> <span class="keyword">set</span> name <span class="operator">=</span> &quot;A&quot; <span class="keyword">where</span> user_id <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"><span class="keyword">update</span> <span class="keyword">user</span> <span class="keyword">set</span> name <span class="operator">=</span> &quot;B&quot; <span class="keyword">where</span> user_id <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line"><span class="keyword">commit</span>;</span><br><span class="line">#事务<span class="number">2</span></span><br><span class="line"><span class="keyword">set</span> autocommit <span class="number">0</span>;</span><br><span class="line"><span class="keyword">update</span> <span class="keyword">user</span> <span class="keyword">set</span> name <span class="operator">=</span> &quot;C&quot; <span class="keyword">where</span> user_id <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line"><span class="keyword">update</span> <span class="keyword">user</span> <span class="keyword">set</span> name <span class="operator">=</span> &quot;D&quot; <span class="keyword">where</span> user_id <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"><span class="keyword">commit</span>;</span><br><span class="line">#加入两个事务都执行了第一行语句，同时也锁住了该行数据，接着每个事务都去执行第二条语句</span><br><span class="line">#会发现该行被锁定，由于两个事务都等待对方释放锁，又同时持有对方需要的锁，就会造成死锁</span><br><span class="line">#innodb处理死锁的方法是，将持有最少行级排他锁的事务回滚</span><br></pre></td></tr></table></figure>
+<h3 id="MySQL中的事务"><a href="#MySQL中的事务" class="headerlink" title="MySQL中的事务"></a>MySQL中的事务</h3><p>MySQL服务层部管理事务，事务由下层的存储引擎实现，MyISAM不支持事务，InnoDB支持事务，锁在事务中随时都可以锁定，只有在执行commit或rollback的时候才会释放，并且是所有锁同一时刻释放，InnoDB会根据隔离级别在需要的时候自动加锁，也就是隐式锁定，也支持显式锁定</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> .. lock <span class="keyword">in</span> share mode;</span><br><span class="line"><span class="keyword">select</span> .. <span class="keyword">for</span> <span class="keyword">update</span>; #相当于<span class="keyword">update</span>语句</span><br></pre></td></tr></table></figure>
+<h2 id="多版本控制"><a href="#多版本控制" class="headerlink" title="多版本控制"></a>多版本控制</h2><p>避免了加锁操作，用于提高并发性能，MVCC的实现是通过保存数据在某个时间点的快照来实现的，不管执行多久，每个事务看到的数据都是一致的</p>
+<h3 id="InnoDB中的实现"><a href="#InnoDB中的实现" class="headerlink" title="InnoDB中的实现"></a>InnoDB中的实现</h3><p>通过在每行记录后面保存两个隐藏的列实现，一个保存行的创建时间，一个保存行的过期时间，存储的是系统版本号，每开始一个新的事务，系统版本号就会自动递增，事务开始时的系统版本号会作为事务的版本号，用来和查询到的每行记录的版本号进行比较。在可重复读中就是使用了MVCC，保存的这两个额外系统版本号，可以让大多数操作不用加锁，并且能保证读取到符合标准的行，MVCC只在可重复读和读可提交两个隔离级别下工作，读未提交总是会读到最新的数据，而不是符合事务版本的行，串行化读会对所有读取的行都加锁</p>
+<blockquote>
+<p>Select：</p>
+<pre><code>InnoDB只会根据两个条件检查每行记录：
+
+1.只查找版本早于当前事务版本的数据行
+
+2.行的删除行要么未定义，要么大于当前事务版本号</code></pre><p>Insert：</p>
+<pre><code>为新插入的每一行保存当前系统版本号作为行版本号</code></pre><p>delete：</p>
+<pre><code>为删除的每一行保存当前系统版本号作为输出标识</code></pre><p>update：</p>
+<pre><code>保存当前系统版本号作为行版本号，同时保存当前系统版本号到原来的行作为删除标识</code></pre></blockquote>
+<p>其实就是通过返回指定的数据来保证数据的准确性</p>
+<h2 id="存储引擎"><a href="#存储引擎" class="headerlink" title="存储引擎"></a>存储引擎</h2><h3 id="innoDB"><a href="#innoDB" class="headerlink" title="innoDB"></a>innoDB</h3><h3 id="MyISAM"><a href="#MyISAM" class="headerlink" title="MyISAM"></a>MyISAM</h3>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/03/09/1-8%E6%96%B0%E7%89%B9%E6%80%A7/" rel="prev" title="1.8新特性">
+      <i class="fa fa-chevron-left"></i> 1.8新特性
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/03/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="next" title="计算机网络">
+      计算机网络 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL%E9%80%BB%E8%BE%91%E6%9E%B6%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">MySQL逻辑架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E5%8C%96"><span class="nav-number">2.</span> <span class="nav-text">优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6"><span class="nav-number">3.</span> <span class="nav-text">并发控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%BB%E5%86%99%E9%94%81"><span class="nav-number">3.1.</span> <span class="nav-text">读写锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%81%E7%B2%92%E5%BA%A6"><span class="nav-number">3.2.</span> <span class="nav-text">锁粒度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1"><span class="nav-number">4.</span> <span class="nav-text">事务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ACID%E6%A6%82%E5%BF%B5"><span class="nav-number">4.1.</span> <span class="nav-text">ACID概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="nav-number">4.2.</span> <span class="nav-text">隔离级别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%BB%E9%94%81"><span class="nav-number">4.3.</span> <span class="nav-text">死锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL%E4%B8%AD%E7%9A%84%E4%BA%8B%E5%8A%A1"><span class="nav-number">4.4.</span> <span class="nav-text">MySQL中的事务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6"><span class="nav-number">5.</span> <span class="nav-text">多版本控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#InnoDB%E4%B8%AD%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">5.1.</span> <span class="nav-text">InnoDB中的实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E"><span class="nav-number">6.</span> <span class="nav-text">存储引擎</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#innoDB"><span class="nav-number">6.1.</span> <span class="nav-text">innoDB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MyISAM"><span class="nav-number">6.2.</span> <span class="nav-text">MyISAM</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="wuwu"
+      src="/uploads/avatar.png">
+  <p class="site-author-name" itemprop="name">wuwu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wuwu</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v5.3.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

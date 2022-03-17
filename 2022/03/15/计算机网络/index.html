@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.7.2","exturl":false,"sidebar":{"position":"hide","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="基本概念协议协议定义了在多个通信实体之间交换的报文格式和顺序，以及报文发送或接收所采取的动作,例如TCP协议定义了在建立TCP连接时需要三次握手 协议分层   因特尔协议栈  OSI参考模型  数据分组    应用层  应用层 HTTP,SMTP,FTP,DNS 报文     表示层       会话层     运输层  运输层 TCP,UDP 报文段   网络层  网络层 IP，路由选择协议 数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络">
+<meta property="og:url" content="http://yoursite.com/2022/03/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/index.html">
+<meta property="og:site_name" content="fufu">
+<meta property="og:description" content="基本概念协议协议定义了在多个通信实体之间交换的报文格式和顺序，以及报文发送或接收所采取的动作,例如TCP协议定义了在建立TCP连接时需要三次握手 协议分层   因特尔协议栈  OSI参考模型  数据分组    应用层  应用层 HTTP,SMTP,FTP,DNS 报文     表示层       会话层     运输层  运输层 TCP,UDP 报文段   网络层  网络层 IP，路由选择协议 数">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-03-15T15:09:17.000Z">
+<meta property="article:modified_time" content="2022-03-16T15:56:30.653Z">
+<meta property="article:author" content="wuwu">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2022/03/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>计算机网络 | fufu</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">fufu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-fw fa-calendar"></i>Schedule</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/03/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.png">
+      <meta itemprop="name" content="wuwu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fufu">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          计算机网络
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-03-15 23:09:17" itemprop="dateCreated datePublished" datetime="2022-03-15T23:09:17+08:00">2022-03-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-16 23:56:30" itemprop="dateModified" datetime="2022-03-16T23:56:30+08:00">2022-03-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h3><p>协议定义了在多个通信实体之间交换的报文格式和顺序，以及报文发送或接收所采取的动作,例如TCP协议定义了在建立TCP连接时需要三次握手</p>
+<h3 id="协议分层"><a href="#协议分层" class="headerlink" title="协议分层"></a>协议分层</h3><table>
+<thead>
+<tr>
+<th>因特尔协议栈</th>
+<th></th>
+<th>OSI参考模型</th>
+<th></th>
+<th>数据分组</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>应用层</td>
+<td></td>
+<td>应用层</td>
+<td>HTTP,SMTP,FTP,DNS</td>
+<td>报文</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>表示层</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>会话层</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>运输层</td>
+<td></td>
+<td>运输层</td>
+<td>TCP,UDP</td>
+<td>报文段</td>
+</tr>
+<tr>
+<td>网络层</td>
+<td></td>
+<td>网络层</td>
+<td>IP，路由选择协议</td>
+<td>数据报</td>
+</tr>
+<tr>
+<td>链路层</td>
+<td></td>
+<td>链路层</td>
+<td></td>
+<td>帧</td>
+</tr>
+<tr>
+<td>物理层</td>
+<td></td>
+<td>物理层</td>
+<td></td>
+<td>将帧中的比特从一个节点移动到另外一个节点</td>
+</tr>
+</tbody></table>
+<p>一个数据分组具有两种类型的字段：首部字段和有效载荷字段，有效载荷字段通常是来自上一层的分组</p>
+<p>报文段 = 运输层首部 + 报文</p>
+<p>数据段 = 网络层首部 + 报文段</p>
+<p>帧 = 链路层首部 + 数据报</p>
+<h2 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h2><h3 id="应用程序体系结构"><a href="#应用程序体系结构" class="headerlink" title="应用程序体系结构"></a>应用程序体系结构</h3><p>客户-服务体系：典型例子就是浏览器和web服务器，有两个特征：客户之间不直接通信，比如两个浏览器并不直接通信；服务器有一个固定的ip地址，客户可以通过向IP地址发送分组来和服务器联系。一般有一个数据中心作为虚拟服务器，来保证能够处理请求</p>
+<p>对等（P2P）体系：对数据中心的依赖较小，例如对于P2P文件共享应用，每个对等方都由于请求文件产生工作负载，但每个对等方也通过向其他对等方分发文件为系统增加服务能力，通常不需要庞大的服务器和带宽</p>
+<h3 id="套接字"><a href="#套接字" class="headerlink" title="套接字"></a>套接字</h3><p>进程通过套接字向网络发送报文和从网络中接收报文，每个套接字都会被分配一个端口，用于报文传输时，将数据定向到相应的套接字</p>
+<h3 id="HTTP协议"><a href="#HTTP协议" class="headerlink" title="HTTP协议"></a>HTTP协议</h3><h2 id="运输层"><a href="#运输层" class="headerlink" title="运输层"></a>运输层</h2><p>前提：</p>
+<p>在这里将TCP和UDP的分组都叫做报文段</p>
+<p>不可靠是指：不能保证一个进程所发送的数据能够完整或全部到达目的进程</p>
+<h3 id="多路复用和多路分解"><a href="#多路复用和多路分解" class="headerlink" title="多路复用和多路分解"></a>多路复用和多路分解</h3><p>多路分解：将运输层报文段中的数据交付到正确的套接口，不同的协议使用不同套接口来接</p>
+<p>收</p>
+<p>多路复用：在主机从不同的套接口收集数据，并为每个数据块封装首部信息生成报文段，然后将报文段传递到网络层</p>
+<h3 id="UDP-用户数据报协议"><a href="#UDP-用户数据报协议" class="headerlink" title="UDP 用户数据报协议"></a>UDP 用户数据报协议</h3><p>不可靠数据传输，就是UDP不保证报文能到达接收方</p>
+<p>DNS使用的就是UDP，如果使用TCP的话，建立连接的时间，会使域名解析的时间变长</p>
+<p>可以通过增加和确认重传机制来实现可靠性，既可以达到可靠通信又不会受到TCP拥塞控制机制强加的传输速率限制</p>
+<p>UDP校验和提供了差错检测的方法，用于确定UDP报文段从源到目的移动时，其中的比特是否发送了变化，只能检测不会能差错进行恢复，一般是将受损的报文丢弃或者交给程序给出警告</p>
+<p>UDP提供差错检测的原因是不能保证源和目的之间所有的链路都提供差错检测，所以最好是在端到端上加上差错检测</p>
+<h3 id="TCP-传输控制协议（TCP的安全性怎么保证的）"><a href="#TCP-传输控制协议（TCP的安全性怎么保证的）" class="headerlink" title="TCP 传输控制协议（TCP的安全性怎么保证的）"></a>TCP 传输控制协议（TCP的安全性怎么保证的）</h3><p>自动重传请求协议（ARQ）：使用控制报文让接收方可以让发送方知道哪些内容被正确接收，哪些内容需要重新发送，ARQ还需要另外三种协议功能来处理比特差错的情况</p>
+<ol>
+<li><p>差错检测</p>
+</li>
+<li><p>接收方反馈，接收方回传肯定确认和否定确认</p>
+</li>
+<li><p>重传，接收方收到有差错的分组时，发送方重传该报文</p>
+</li>
+</ol>
+<p>停等协议：除非发送方确信接收方已正确接收当前分组，否则不会发送新数据</p>
+<p>为了解决发送方接收到的肯定确认分组和否定确认分组没有受损的问题，在数据分组中添加了序号</p>
+<p>由于停等协议发送方需要等待接收到接收方发送的确认报文才能继续发送数据，性能不好，所以就有了流水线协议，流水线协议允许发送方发送多个分组而不需要等待。</p>
+<p>使用了流水线协议后，应对流水线情况会发生的差错有两种基本的方法：回退N步（GBN）和选择重传（SR）</p>
+<p>回退N步协议（滑动窗口协议）：</p>
+<p>允许发送方发送多个分组而不需要等待，发送的分组数也受限于最大允许数N。</p>
+<p>选择重传协议：</p>
+<p>TCP使用的是选择确认：允许TCP接收方有选择的确认失序报文段，而不是累积的确认最后一个</p>
+<h4 id="面向连接"><a href="#面向连接" class="headerlink" title="面向连接"></a>面向连接</h4><p>使用TCP进行信息传输时，需要通过三次握手建立连接</p>
+<p>断开连接需要采用四次握手</p>
+<h4 id="可靠传输"><a href="#可靠传输" class="headerlink" title="可靠传输"></a>可靠传输</h4><p>通过使用流量控制，序号，确认和定时器确保正确，有序的将数据从发送进程交付给接受进程，通过TCP可以将不可靠的IP服务转换成进程间的可靠传输服务，即接收的字节流与连接的另一端系统发出的字节流是完全相同。</p>
+<p>TCP采用的是选择确认</p>
+<p>快速重传</p>
+<p>TCP发送方接收到相同数据的3个冗余ACK，就说明被确认过3次的报文段之后的报文段已经丢失，一旦接收到3个冗余ACK，就执行快速重传</p>
+<h4 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h4><p>使发送方的发送速率和接收方的读取速率相匹配</p>
+<p>通过让发送方维护一个接收窗口来提供流量控制，接收窗口用于给发送方指示接收方还有多少可用的缓存空间</p>
+<h4 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h4><p>防止任何一条TCP连接用过多的流量对整个网络造成影响</p>
+<p>当TCP发送方感知到目的地之间的路径没什么拥塞，发送方就会增加发送速率；如果感知到目的地之间的路径有拥塞，发送方就会减低发送速率</p>
+<ol>
+<li><p>发送方如何限制发送流量：</p>
+<p>发送方有一个拥塞窗口cwnd，发送方中未被确认的数据量不会超过cwnd与rwnd中的最小值，通过调整cwnd的大小，发送方就能调整发送数据的速率</p>
+</li>
+<li><p>发送方如何感知发送路径上存在阻塞：</p>
+<p>出现丢包事件时就认为阻塞，丢包事件包括超时或接收到3个冗余ACK</p>
+</li>
+<li><p>发送方感知到阻塞时如何改变发送速率：</p>
+<p>使用TCP拥塞控制算法，算法包含三个主要部分：慢启动，拥塞避免，快速恢复（快速恢复对于TCP发送方不是必须的）</p>
+<p>慢启动：TCP连接开始时，cwnd的值从1开始并且每收到一个确认报文就以指数大小增长cwnd的大小</p>
+<blockquote>
+<p>结束指数增长的情况：</p>
+<p>1.出现超时，cwnd被设置为1并重新开始慢启动，此时ssthresh（慢启动阈值）设置为cwnd的一半</p>
+<p>2.当cwnd的值等于ssthresh时，结束慢启动进入拥塞避免</p>
+<p>3.检测到3个冗余ACK，TCP执行快速重传并进入快速恢复状态</p>
+</blockquote>
+<p>拥塞避免：进入拥塞避免时，cwnd的值大约是上次拥塞时的值的一半，所以没经过一个RTT，cwnd的值增加1</p>
+<blockquote>
+<p>结束线性增长的情况：</p>
+<p>1.出现超时，和慢启动一样</p>
+<p>2.检测到3个冗余ACK，ssthresh的值设置为cwnd的一半并加入快速恢复</p>
+</blockquote>
+<p>快速恢复：</p>
+<p>cwnd被设置为1，ssthresh为cwnd的一半，以慢启动重新开始</p>
+</li>
+</ol>
+<h2 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h2><h4 id="IP-网际协议"><a href="#IP-网际协议" class="headerlink" title="IP 网际协议"></a>IP 网际协议</h4><p>不可靠服务</p>
+<h2 id="链路层"><a href="#链路层" class="headerlink" title="链路层"></a>链路层</h2>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/03/14/mysqlv2-0/" rel="prev" title="mysqlv2.0">
+      <i class="fa fa-chevron-left"></i> mysqlv2.0
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/09/02/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="next" title="数据库">
+      数据库 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.1.</span> <span class="nav-text">协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%8F%E8%AE%AE%E5%88%86%E5%B1%82"><span class="nav-number">1.2.</span> <span class="nav-text">协议分层</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%B1%82"><span class="nav-number">2.</span> <span class="nav-text">应用层</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="nav-number">2.1.</span> <span class="nav-text">应用程序体系结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A5%97%E6%8E%A5%E5%AD%97"><span class="nav-number">2.2.</span> <span class="nav-text">套接字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.3.</span> <span class="nav-text">HTTP协议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%BE%93%E5%B1%82"><span class="nav-number">3.</span> <span class="nav-text">运输层</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E5%92%8C%E5%A4%9A%E8%B7%AF%E5%88%86%E8%A7%A3"><span class="nav-number">3.1.</span> <span class="nav-text">多路复用和多路分解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP-%E7%94%A8%E6%88%B7%E6%95%B0%E6%8D%AE%E6%8A%A5%E5%8D%8F%E8%AE%AE"><span class="nav-number">3.2.</span> <span class="nav-text">UDP 用户数据报协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-%E4%BC%A0%E8%BE%93%E6%8E%A7%E5%88%B6%E5%8D%8F%E8%AE%AE%EF%BC%88TCP%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E7%9A%84%EF%BC%89"><span class="nav-number">3.3.</span> <span class="nav-text">TCP 传输控制协议（TCP的安全性怎么保证的）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%A2%E5%90%91%E8%BF%9E%E6%8E%A5"><span class="nav-number">3.3.1.</span> <span class="nav-text">面向连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93"><span class="nav-number">3.3.2.</span> <span class="nav-text">可靠传输</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6"><span class="nav-number">3.3.3.</span> <span class="nav-text">流量控制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6"><span class="nav-number">3.3.4.</span> <span class="nav-text">拥塞控制</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%B1%82"><span class="nav-number">4.</span> <span class="nav-text">网络层</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#IP-%E7%BD%91%E9%99%85%E5%8D%8F%E8%AE%AE"><span class="nav-number">4.0.1.</span> <span class="nav-text">IP 网际协议</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%93%BE%E8%B7%AF%E5%B1%82"><span class="nav-number">5.</span> <span class="nav-text">链路层</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="wuwu"
+      src="/uploads/avatar.png">
+  <p class="site-author-name" itemprop="name">wuwu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wuwu</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v5.3.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
