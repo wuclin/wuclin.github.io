@@ -28,7 +28,7 @@
 <meta property="og:description" content="Spring关注的点1. ApplicationContext和BeanFactoryBeanFactory作为顶级的接口，只提供了简单的容器功能，就是实例化对象和拿对象的功能ApplicationContext继承于BeanFactory接口，不仅具有BeanFactory的所有功能，由于还继承其他的接口，所以有更多的功能 123456ApplicationContext ac &#x3D;new las">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-05-30T13:11:30.000Z">
-<meta property="article:modified_time" content="2022-05-30T13:12:02.840Z">
+<meta property="article:modified_time" content="2022-05-30T14:17:04.855Z">
 <meta property="article:author" content="wuwu">
 <meta name="twitter:card" content="summary">
 
@@ -192,7 +192,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-05-30 21:11:30 / Modified: 21:12:02" itemprop="dateCreated datePublished" datetime="2022-05-30T21:11:30+08:00">2022-05-30</time>
+              <time title="Created: 2022-05-30 21:11:30 / Modified: 22:17:04" itemprop="dateCreated datePublished" datetime="2022-05-30T21:11:30+08:00">2022-05-30</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -200,7 +200,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
+                  <a href="/categories/%E6%A1%86%E6%9E%B6/" itemprop="url" rel="index"><span itemprop="name">框架</span></a>
                 </span>
             </span>
 
@@ -227,18 +227,12 @@
 <p>singletonsCurrentlyCreation：存放正在被创建的bean的集合</p>
 <p>解决循环依赖的思路：</p>
 <ol>
-<li><p>初始化bean之前，将BeanNaem放入三级缓存</p>
-</li>
-<li><p>创建bean时，将准备创建的bean放入singletonsCurrentlyCreation</p>
-</li>
-<li><p>createNewInstance 方法执行完后执行 addSingletonFactory，将这个实例化但没有 属性赋值的Bean放入二级缓存，并从三级缓存中移除</p>
-</li>
-<li><p>填充属性的时候，引发关联创建</p>
-</li>
-<li><p>关联创建时，检查“正在被创建的bean”中是否有即将注入的bean。如果有，检查二级缓存中是否有当前创建好但没有赋值初始化的bean，如果没有，检查三级缓存中是否有正在创建中的bean，如果有的话就把他放入二级缓存，并从三级缓存中移除</p>
-</li>
-<li><p>bean被成功注入之后，最后执行addSingleton，将完全创建好的bean放入一级缓存，从二级缓存和三级缓存中移除，并记录已经创建了的单实例bean</p>
-</li>
+<li>初始化bean之前，将BeanNaem放入三级缓存</li>
+<li>创建bean时，将准备创建的bean放入singletonsCurrentlyCreation</li>
+<li>createNewInstance 方法执行完后执行 addSingletonFactory，将这个实例化但没有 属性赋值的Bean放入二级缓存，并从三级缓存中移除</li>
+<li>填充属性的时候，引发关联创建</li>
+<li>关联创建时，检查“正在被创建的bean”中是否有即将注入的bean。如果有，检查二级缓存中是否有当前创建好但没有赋值初始化的bean，如果没有，检查三级缓存中是否有正在创建中的bean，如果有的话就把他放入二级缓存，并从三级缓存中移除</li>
+<li>bean被成功注入之后，最后执行addSingleton，将完全创建好的bean放入一级缓存，从二级缓存和三级缓存中移除，并记录已经创建了的单实例bean</li>
 </ol>
 <h4 id="4-bean实例化过程（生命周期）"><a href="#4-bean实例化过程（生命周期）" class="headerlink" title="4.bean实例化过程（生命周期）"></a>4.bean实例化过程（生命周期）</h4><p>在容器中采用了策略模式来实例化bean，首先通过方式实例化bean，然后通过BeanWrapper对bean填充属性（涉及循环依赖），之后会检查实现了aware的接口，返回对应值，然后结果BeanPostProcessor前置处理，并且执行初始化方法，然后BeanPostProcessor后置处理，设置销毁方法，之后就是使用bean，在要销毁bean的时候就会回调销毁方法。</p>
 <h4 id="5-spring是否保证安全性"><a href="#5-spring是否保证安全性" class="headerlink" title="5.spring是否保证安全性"></a>5.spring是否保证安全性</h4><p>spring不保证安全性，首先如果类里面没有成员变量的话，那就是线程安全的，即便是在单例的情况下。如果有成员变量的话，可以通过将scope修改成原型模式，但是在这种情况下不能保证静态变量的线程安全，如果一定要定义变量的话，可以用ThreadLocal来封装，这样变量就是线程安全的</p>
@@ -329,10 +323,8 @@
 </ul>
 <p>声明式事务管理主要有2种方式实现：</p>
 <ol>
-<li><p>xml方式</p>
-</li>
-<li><p>注解方式</p>
-</li>
+<li>xml方式</li>
+<li>注解方式</li>
 </ol>
 <p>一般使用的是声明式事务的注解方式：</p>
 <ol>
@@ -367,7 +359,6 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用线程池的方法就是通过提交任务给线程池来执行异步任务</span></span><br></pre></td></tr></table></figure></li>
 <li><p>使用@Async注解</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.写一个配置类，添加@EnableAsync注解</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableAsync</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.需要异步执行的方法在spring的管理下，一般就是在service方法上加上@Async注解</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">t4</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">      BeanUtil.getBean(CustomerServiceImpl.class).t5();</span><br><span class="line">      SmallTool.printTimeAndThread(<span class="string">&quot;主线程&quot;</span>);</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">          sum += i;</span><br><span class="line">      &#125;</span><br><span class="line">      System.out.println(sum);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Async</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">t5</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">      SmallTool.printTimeAndThread(<span class="string">&quot;异步线程&quot;</span>);</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">50</span>; i++)&#123;</span><br><span class="line">          sum += i;</span><br><span class="line">      &#125;</span><br><span class="line">      System.out.println(sum);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
 <p>在使用@Async时，不指定线程池的名称，就会使用默认线程池，也就是SimpleAsyncTaskExecutor。</p>
 </li>
 </ol>
@@ -475,14 +466,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-count">40</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
