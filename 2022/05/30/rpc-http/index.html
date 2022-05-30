@@ -27,10 +27,12 @@
 <meta property="og:site_name" content="fufu">
 <meta property="og:description" content="http和rpc的区别http就是一个通信协议，然后呢rpc是一个远程调用方案，它包括了接口规范和序列化反序列化规范和通信协议。 应用调用另外一个应用通常有两种方法： 1.暴露接口后使用http调用 2.远程过程调用rpc，一个rpc通常由动态代理，序列化和反序列，通信方式（httpclient，socket等）">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2022/05/30/rpc-http/image/rpc-http/1653925127084.png">
 <meta property="article:published_time" content="2022-05-30T14:13:20.000Z">
-<meta property="article:modified_time" content="2022-05-30T14:13:56.604Z">
+<meta property="article:modified_time" content="2022-05-30T15:39:01.661Z">
 <meta property="article:author" content="wuwu">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2022/05/30/rpc-http/image/rpc-http/1653925127084.png">
 
 <link rel="canonical" href="http://yoursite.com/2022/05/30/rpc-http/">
 
@@ -192,7 +194,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-05-30 22:13:20 / Modified: 22:13:56" itemprop="dateCreated datePublished" datetime="2022-05-30T22:13:20+08:00">2022-05-30</time>
+              <time title="Created: 2022-05-30 22:13:20 / Modified: 23:39:01" itemprop="dateCreated datePublished" datetime="2022-05-30T22:13:20+08:00">2022-05-30</time>
             </span>
 
           
@@ -210,9 +212,14 @@
 <p>应用调用另外一个应用通常有两种方法：</p>
 <p>1.暴露接口后使用http调用</p>
 <p>2.远程过程调用rpc，一个rpc通常由动态代理，序列化和反序列，通信方式（httpclient，socket等）</p>
-<p>比如dubbo就是一个rpc框架，对于一个rpc框架来说</p>
+<p>比如dubbo就是一个rpc框架，对于一个rpc框架来说，主要关注：</p>
+<p>1.通信协议</p>
+<p>2.序列化反序列化方式</p>
+<p>3.注册中心</p>
+<p><img src="image/rpc-http/1653925127084.png" alt=""></p>
 <p>1.调用方：调用方调用接口，系统为接口使用动态代理，动态代理收到调用后：识别具体要调用的远程方法的ip，端口；将方法的参数序列化；使用通信将请求发送到远程的方法</p>
 <p>2.提供方：相反的操作</p>
+<p>首先两个应用需要建立通信，也就是服务提供者和服务消费者之间建立tcp连接，rpc过程的所有交换数据都在这个连接里面传输，接下来就是服务寻址问题。服务提供者需要将方法名称和本机的ip地址，端口信息暴露给服务消费者，这就会使用到注册中心，服务提供者将这些信息注册到zk中，服务消费者通过zk来获取服务信息并且调用。当消费者发起rpc调用时，调用方法和参数等信息会通过网络协议传输到提供者机器，这里需要先序列化，接收到请求之后，将数据反序列化，再通过动态代理本地调用，将返回结果序列化传输回消费者，消费者将数据反序列化，得到数据这就完成了。</p>
 
     </div>
 
@@ -310,14 +317,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-count">42</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">

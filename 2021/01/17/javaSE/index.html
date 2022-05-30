@@ -27,11 +27,6 @@
 <meta property="og:site_name" content="fufu">
 <meta property="og:description" content="面向对象，编译和解释，字节码，单继承，接口 1.java环境1.1 JVM, JDR,JRE JVM：Java虚拟机，是运行Java字节码（.class后缀）的虚拟机， JDK : 编写Java程序使用软件，Java开发工具包（这也是为什么一般都是下载JDK的原因） JRE : 运行Java程序使用软件，Java运行时环境（只包含虚拟机） SE : 标准版，桌面或简单服务器 EE : 企业版，复杂">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://yoursite.com/2021/01/17/javaSE/java-deep-and-shallow-copy.jpg">
-<meta property="og:image" content="http://yoursite.com/2021/01/17/javaSE/22191348.jpg">
-<meta property="og:image" content="http://yoursite.com/2021/01/17/javaSE/3825204.jpg">
-<meta property="og:image" content="http://yoursite.com/2021/01/17/javaSE/88729818.jpg">
-<meta property="og:image" content="http://yoursite.com/2021/01/17/javaSE/34384414.jpg">
 <meta property="og:image" content="https://images2018.cnblogs.com/blog/1120165/201803/1120165-20180312213707709-1454308742.png">
 <meta property="og:image" content="https://images2018.cnblogs.com/blog/1120165/201803/1120165-20180312220935185-85540133.png">
 <meta property="og:image" content="https://images2018.cnblogs.com/blog/1120165/201803/1120165-20180313205221201-187008977.png">
@@ -39,7 +34,7 @@
 <meta property="article:modified_time" content="2022-03-17T08:46:52.713Z">
 <meta property="article:author" content="wuwu">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2021/01/17/javaSE/java-deep-and-shallow-copy.jpg">
+<meta name="twitter:image" content="https://images2018.cnblogs.com/blog/1120165/201803/1120165-20180312213707709-1454308742.png">
 
 <link rel="canonical" href="http://yoursite.com/2021/01/17/javaSE/">
 
@@ -345,7 +340,7 @@
 <h2 id="自动类型转换"><a href="#自动类型转换" class="headerlink" title="自动类型转换"></a>自动类型转换</h2><p>数字表示范围小的数据类型可以自动转换成范围大的数据类型。</p>
 <h2 id="类型提升"><a href="#类型提升" class="headerlink" title="类型提升"></a>类型提升</h2><p>类型会自动向范围表示大的值的数据类型提升。</p>
 <h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><p>java中使用的泛型时类型擦拭型泛型</p>
-<p>java的类型擦拭：在编译时把ArrayList<Integer>还原成ArrayList，只在元素访问，修改时自动插入一些强制类型转换</Integer></p>
+<p>java的类型擦拭：在编译时把ArrayList<Integer>还原成ArrayList，只在元素访问，修改时自动插入一些强制类型转换</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">rename</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        HashMap&lt;String, String&gt; m = <span class="keyword">new</span> HashMap&lt;String, String&gt;();</span><br><span class="line">        m.put(<span class="string">&quot;123&quot;</span>,<span class="string">&quot;1233&quot;</span>);</span><br><span class="line">        System.out.println(m.get(<span class="string">&quot;123&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//编译成class后通过反编译可以看出</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">rename</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] paramArrayOfString)</span> </span>&#123;</span><br><span class="line">    HashMap&lt;Object, Object&gt; hashMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    hashMap.put(<span class="string">&quot;123&quot;</span>, <span class="string">&quot;1233&quot;</span>);</span><br><span class="line">    System.out.println((String)hashMap.get(<span class="string">&quot;123&quot;</span>));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="自动装箱和拆箱"><a href="#自动装箱和拆箱" class="headerlink" title="自动装箱和拆箱"></a>自动装箱和拆箱</h2><ul>
 <li><strong>装箱</strong>：将基本类型用它们对应的引用类型包装起来；</li>
@@ -368,7 +363,7 @@
 <li><strong>浅拷贝</strong>：对基本数据类型进行值传递，对引用数据类型进行引用传递般的拷贝，此为浅拷贝。</li>
 <li><strong>深拷贝</strong>：对基本数据类型进行值传递，对引用数据类型，创建一个新的对象，并复制其内容，此为深拷贝。</li>
 </ol>
-<img src="/2021/01/17/javaSE/java-deep-and-shallow-copy.jpg" class title="deep and shallow copy">
+
 
 <h2 id="空串和null串"><a href="#空串和null串" class="headerlink" title="空串和null串"></a>空串和null串</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(str.length() == <span class="number">0</span>) 或 <span class="keyword">if</span>(str.equals(<span class="string">&quot;&quot;</span>)) <span class="comment">//判断空串</span></span><br><span class="line"><span class="keyword">if</span>(str == <span class="keyword">null</span>) <span class="comment">//判断null串，null是特殊变量，表示目前没有任何对象与该变量关联</span></span><br><span class="line"><span class="keyword">if</span>(str != <span class="keyword">null</span> &amp;&amp; str.length() != <span class="number">0</span>) <span class="comment">//判断不是null也不为空</span></span><br></pre></td></tr></table></figure>
 <h1 id="3-面向对象设计——对象和类"><a href="#3-面向对象设计——对象和类" class="headerlink" title="3.面向对象设计——对象和类"></a>3.面向对象设计——对象和类</h1><h3 id="类"><a href="#类" class="headerlink" title="类"></a>类</h3><p>数据，构造器，方法</p>
@@ -388,7 +383,7 @@
 <p><strong>结果：</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">20</span></span><br><span class="line">b = <span class="number">10</span></span><br><span class="line">num1 = <span class="number">10</span></span><br><span class="line">num2 = <span class="number">20</span></span><br></pre></td></tr></table></figure>
 <p><strong>解析：</strong></p>
-<img src="/2021/01/17/javaSE/22191348.jpg" class title="example 1">
+
 
 <p>在 swap 方法中，a、b 的值进行交换，并不会影响到 num1、num2。因为，a、b 中的值，只是从 num1、num2 的复制过来的。也就是说，a、b 相当于 num1、num2 的副本，副本的内容无论怎么修改，都不会影响到原件本身。</p>
 <p><strong>一个方法不能修改一个基本数据类型的参数，而对象引用作为参数就不一样</strong></p>
@@ -397,7 +392,7 @@
 <p><strong>结果：</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">0</span></span><br></pre></td></tr></table></figure>
 <p><strong>解析：</strong></p>
-<img src="/2021/01/17/javaSE/3825204.jpg" class title="example 2">
+
 
 <p>array 被初始化 arr 的拷贝也就是一个对象的引用，也就是说 array 和 arr 指向的是同一个数组对象。 因此，外部对引用对象的改变会反映到所对应的对象上。</p>
 <p><strong>实现一个改变对象参数状态的方法并不是一件难事。理由很简单，方法得到的是对象引用的拷贝，对象引用及其他的拷贝同时引用同一个对象。</strong></p>
@@ -406,10 +401,10 @@
 <p><strong>结果：</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x:小李</span><br><span class="line">y:小张</span><br><span class="line">s1:小张</span><br><span class="line">s2:小李</span><br></pre></td></tr></table></figure>
 <p>交换之前：</p>
-<img src="/2021/01/17/javaSE/88729818.jpg" class title="img">
+
 
 <p>交换之后：</p>
-<img src="/2021/01/17/javaSE/34384414.jpg" class title="img">
+
 
 <p>通过上面两张图可以很清晰的看出： <strong>方法并没有改变存储在变量 s1 和 s2 中的对象引用。swap 方法的参数 x 和 y 被初始化为两个对象引用的拷贝，这个方法交换的是这两个拷贝</strong>，也就是只是交换了x，y指向的对象，没有改变s1和s2.</p>
 <h3 id="构造器"><a href="#构造器" class="headerlink" title="构造器"></a>构造器</h3><p>Constructor 不能被 override（重写）,但是可以 overload（重载）。</p>
@@ -431,7 +426,7 @@
 <li>如果子类重写了父类的方法，真正执行的是子类覆盖的方法，如果子类没有覆盖父类的方法，执行的是父类的方法。</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用extend继承</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Man</span> <span class="title">extend</span> <span class="title">People</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//使用super调用超类的方法</span></span><br><span class="line"><span class="comment">//虚拟机会根据实际引用对象类型，调用相应的方法</span></span><br><span class="line">People p = <span class="keyword">new</span> People();<span class="comment">//此时p既可以引用People类型对象，也可以引用Man类型对象，这种一个对象变量可以指示多种实际类型的现象叫多态，而在运行时能够自动选择适当方法，称为动态绑定</span></span><br><span class="line"><span class="comment">//超类可以被子类替换，反过来不行</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//使用final代表禁止继承</span></span><br><span class="line"><span class="comment">//超类强制转化成子类时，进行instanceof检查</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Object是所有类的超类</span></span><br><span class="line"><span class="comment">//可以用hashCode()判断是否是同一对象，hashCode是由对象导出的一个整型值</span></span><br></pre></td></tr></table></figure>
-<p>使用ArrayList可以自动调整数组容量，ArrayList<Person> </Person></p>
+<p>使用ArrayList可以自动调整数组容量，ArrayList<Person> </p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;Person&gt; p = <span class="keyword">new</span> ArrayList&lt;Person&gt;();</span><br><span class="line"><span class="comment">//可使用下面两种代替</span></span><br><span class="line"><span class="keyword">var</span> p = <span class="keyword">new</span> ArrayList&lt;Person&gt;();</span><br><span class="line">ArrayList&lt;Person&gt; p = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line"><span class="comment">//只能使用get，set方法访问元素</span></span><br></pre></td></tr></table></figure>
 <h1 id="4-核心技术"><a href="#4-核心技术" class="headerlink" title="4.核心技术"></a>4.核心技术</h1><h3 id="反射机制"><a href="#反射机制" class="headerlink" title="反射机制"></a>反射机制</h3><p>通常写代码的时候通过new来实例化对象，不过如果对于运行时才知道要使用什么数据类型的情况，就可以使用反射，通过反射在程序运行过程中动态获取类信息和调用类方法。</p>
 <p>比如对于集合来说，只要实现了Map接口，就可以通过全类名路径的方式，获得对应的Map实例，例如HashMap，LinkedHashMap等，而不需要修改代码</p>
@@ -486,14 +481,14 @@
 <h2 id="基本类型和引用类型"><a href="#基本类型和引用类型" class="headerlink" title="基本类型和引用类型"></a>基本类型和引用类型</h2><p>基本类型也称为值类型，分别是字符类型 char，布尔类型 boolean以及数值类型 byte、short、int、long、float、double</p>
 <p>引用类型则包括类、接口、数组、枚举等</p>
 <p>Java将内存空间分为堆和栈，基本类型直接在栈中存储数值，而引用类型是将引用放在栈中，实际存储的值是放在堆中，通过栈中的引用指向堆中存放的数据。</p>
-<p><img src="https://images2018.cnblogs.com/blog/1120165/201803/1120165-20180312213707709-1454308742.png" alt></p>
+<p><img src="https://images2018.cnblogs.com/blog/1120165/201803/1120165-20180312213707709-1454308742.png" alt=""></p>
 <p>上图定义的 a 和 b 都是基本类型，其值是直接存放在栈中的；而 c 和 d 是 String 声明的，这是一个引用类型，引用地址是存放在 栈中，然后指向堆的内存空间。</p>
 <p>下面 d = c；这条语句表示将 c 的引用赋值给 d，那么 c 和 d 将指向同一块堆内存空间</p>
 <h3 id="深拷贝和浅拷贝"><a href="#深拷贝和浅拷贝" class="headerlink" title="深拷贝和浅拷贝"></a>深拷贝和浅拷贝</h3><p>浅拷贝实现：类实现Cloneable接口，重写clone方法（也就是Object的clone方法）</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Person p1 = <span class="keyword">new</span> Person();</span><br><span class="line">Person p2 = (Person)p1.clone();</span><br><span class="line"><span class="comment">//此时的p1和p2是两个不同的对象，p1中的非静态字段复制到p2对象</span></span><br><span class="line"><span class="comment">//字段是基本数据类型直接复制</span></span><br><span class="line"><span class="comment">//字段是引用类型，则是复制引用，也就是说无论p1还是p2如果修改引用类型数据的值</span></span><br><span class="line"><span class="comment">//对p1，p2都会有影响</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://images2018.cnblogs.com/blog/1120165/201803/1120165-20180312220935185-85540133.png" alt></p>
+<p><img src="https://images2018.cnblogs.com/blog/1120165/201803/1120165-20180312220935185-85540133.png" alt=""></p>
 <p>深拷贝：无论是基本数据类型还是应用数据类型，都复制一份，修改的时候相互不会造成影响</p>
-<p><img src="https://images2018.cnblogs.com/blog/1120165/201803/1120165-20180313205221201-187008977.png" alt></p>
+<p><img src="https://images2018.cnblogs.com/blog/1120165/201803/1120165-20180313205221201-187008977.png" alt=""></p>
 <p>深拷贝的实现：</p>
 <ol>
 <li><p>对每个引用类型也重写clone方法</p>
@@ -602,14 +597,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-count">42</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">

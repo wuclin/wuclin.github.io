@@ -27,15 +27,10 @@
 <meta property="og:site_name" content="fufu">
 <meta property="og:description" content="Spring本质是一个IOC框架，可以通过读取xml文件，外部文件或者使用配置的形式创建容器并注入bean 通常在spring中就通过读取xml文件的形式创建容器，使用的是ClassPathXmlApplicationContent方法，这个方法的构造方法中有一个refresh方法作为创建容器的核心方法  里面有一个prepareRefresh方法，用于创建Bean容器前的准备工作 通过obtai">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://yoursite.com/2021/01/20/spring/48376272.jpg">
-<meta property="og:image" content="http://yoursite.com/2021/01/20/spring/5496407.jpg">
-<meta property="og:image" content="http://yoursite.com/2021/01/20/spring/SpringAOPProcess.jpg">
-<meta property="og:image" content="http://yoursite.com/2021/01/20/spring/image-20210126172529678.png">
 <meta property="article:published_time" content="2021-01-20T03:29:42.000Z">
 <meta property="article:modified_time" content="2022-05-30T14:17:22.475Z">
 <meta property="article:author" content="wuwu">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2021/01/20/spring/48376272.jpg">
 
 <link rel="canonical" href="http://yoursite.com/2021/01/20/spring/">
 
@@ -311,14 +306,14 @@
 <li>当要销毁 Bean 的时候，如果 Bean 在配置文件中的定义包含 destroy-method 属性，执行指定的方法。</li>
 </ul>
 <p>图示：</p>
-<img src="/2021/01/20/spring/48376272.jpg" class title="Spring Bean 生命周期">
+
 
 <p>与之比较类似的中文版本:</p>
-<img src="/2021/01/20/spring/5496407.jpg" class title="Spring Bean 生命周期">
+
 
 <h2 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h2><p>AOP(Aspect-Oriented Programming:面向切面编程)能够将那些与业务无关，<strong>却为业务模块所共同调用的逻辑或责任（例如事务处理、日志管理、权限控制等）封装起来</strong>，便于<strong>减少系统的重复代码</strong>，<strong>降低模块间的耦合度</strong>，并<strong>有利于未来的可拓展性和可维护性</strong>。</p>
 <p><strong>Spring AOP就是基于动态代理的</strong>，如果要代理的对象，实现了某个接口，那么Spring AOP会使用<strong>JDK Proxy</strong>，去创建代理对象，而对于没有实现接口的对象，就无法使用 JDK Proxy 去进行代理了，这时候Spring AOP会使用<strong>Cglib</strong> ，这时候Spring AOP会使用 <strong>Cglib</strong> 生成一个被代理对象的子类来作为代理，如下图所示：</p>
-<img src="/2021/01/20/spring/SpringAOPProcess.jpg" class title="SpringAOPProcess">
+
 
 <p>使用 AOP 之后我们可以把一些通用功能抽象出来，在需要用到的地方直接使用即可，这样大大简化了代码量。我们需要增加新功能时也方便，这样也提高了系统扩展性。日志功能、事务管理等等场景都用到了 AOP 。</p>
 <h5 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h5><p>简单来说，就是在运行的时候为目标类动态生成代理类，而在操作的时候都是操作代理类，代理模式有个显而易见的好处，那便是可以在不改变对象方法的情况下对方法进行增强。</p>
@@ -376,7 +371,7 @@
 <p>Model2 模式下还存在很多问题，Model2的抽象和封装程度还远远不够，使用Model2进行开发时不可避免地会重复造轮子，这就大大降低了程序的可维护性和复用性。于是很多JavaWeb开发相关的 MVC 框架应运而生比如Struts2，但是 Struts2 比较笨重。随着 Spring 轻量级开发框架的流行，Spring 生态圈出现了 Spring MVC 框架， Spring MVC 是当前最优秀的 MVC 框架。相比于 Struts2 ， Spring MVC 使用更加简单和方便，开发效率更高，并且 Spring MVC 运行速度更快。</p>
 <p>MVC 是一种设计模式,Spring MVC 是一款很优秀的 MVC 框架。Spring MVC 可以帮助我们进行更简洁的Web层的开发，并且它天生与 Spring 框架集成。Spring MVC 下我们一般把后端项目分为 Service层（处理业务）、Dao层（数据库操作）、Entity层（实体类）、Controller层(控制层，返回数据给前台页面)。</p>
 <p>SpringMVC是围绕DispatcherServlet来设计的，这个Servlet会把请求发给各个处理器</p>
-<img src="/2021/01/20/spring/image-20210126172529678.png" class title="image-20210126172529678">
+
 
 <h3 id="Spring-MVC工作原理"><a href="#Spring-MVC工作原理" class="headerlink" title="Spring MVC工作原理"></a>Spring MVC工作原理</h3><p><strong>流程说明（重要）：</strong></p>
 <ol>
@@ -619,14 +614,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-count">42</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">

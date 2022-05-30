@@ -20,19 +20,22 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.7.2","exturl":false,"sidebar":{"position":"hide","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="语言新特性Lambda表达式和函数式接口可以在函数式接口使用lambda表达式，函数式接口就是只定义了一个抽象方法的接口，比如Comparator，Runnable，Callable 接口的默认方法和静态方法方法引用">
+  <meta name="description" content="介绍Log4j，log4j2，slf4j，logback 使用方法都是引入jar包或者依赖，配置文件，代码中获取Logger打印日志 由于每次使用都需要引入包，如果替换日志框架的话，需要替换很多的包，使用不同的代码获取Logger 因此就有了门面系统，也就是Common-logging">
 <meta property="og:type" content="article">
-<meta property="og:title" content="1.8新特性">
-<meta property="og:url" content="http://yoursite.com/2022/03/09/1-8%E6%96%B0%E7%89%B9%E6%80%A7/index.html">
+<meta property="og:title" content="日志框架">
+<meta property="og:url" content="http://yoursite.com/2022/05/30/%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6/index.html">
 <meta property="og:site_name" content="fufu">
-<meta property="og:description" content="语言新特性Lambda表达式和函数式接口可以在函数式接口使用lambda表达式，函数式接口就是只定义了一个抽象方法的接口，比如Comparator，Runnable，Callable 接口的默认方法和静态方法方法引用">
+<meta property="og:description" content="介绍Log4j，log4j2，slf4j，logback 使用方法都是引入jar包或者依赖，配置文件，代码中获取Logger打印日志 由于每次使用都需要引入包，如果替换日志框架的话，需要替换很多的包，使用不同的代码获取Logger 因此就有了门面系统，也就是Common-logging">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-03-09T15:02:42.000Z">
-<meta property="article:modified_time" content="2022-04-11T16:14:02.136Z">
+<meta property="og:image" content="http://yoursite.com/2022/05/30/%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6/image/%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6/1653924835158.png">
+<meta property="og:image" content="http://yoursite.com/2022/05/30/%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6/image/%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6/1653924898512.png">
+<meta property="article:published_time" content="2022-05-30T15:32:00.000Z">
+<meta property="article:modified_time" content="2022-05-30T15:37:26.317Z">
 <meta property="article:author" content="wuwu">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2022/05/30/%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6/image/%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6/1653924835158.png">
 
-<link rel="canonical" href="http://yoursite.com/2022/03/09/1-8%E6%96%B0%E7%89%B9%E6%80%A7/">
+<link rel="canonical" href="http://yoursite.com/2022/05/30/%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6/">
 
 
 <script id="page-configurations">
@@ -44,7 +47,7 @@
   };
 </script>
 
-  <title>1.8新特性 | fufu</title>
+  <title>日志框架 | fufu</title>
   
 
 
@@ -168,7 +171,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/03/09/1-8%E6%96%B0%E7%89%B9%E6%80%A7/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/05/30/%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.png">
@@ -181,7 +184,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          1.8新特性
+          日志框架
         </h1>
 
         <div class="post-meta">
@@ -190,24 +193,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2022-03-09 23:02:42" itemprop="dateCreated datePublished" datetime="2022-03-09T23:02:42+08:00">2022-03-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-04-12 00:14:02" itemprop="dateModified" datetime="2022-04-12T00:14:02+08:00">2022-04-12</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
+              <time title="Created: 2022-05-30 23:32:00 / Modified: 23:37:26" itemprop="dateCreated datePublished" datetime="2022-05-30T23:32:00+08:00">2022-05-30</time>
             </span>
 
           
@@ -221,21 +209,28 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="语言新特性"><a href="#语言新特性" class="headerlink" title="语言新特性"></a>语言新特性</h1><h2 id="Lambda表达式和函数式接口"><a href="#Lambda表达式和函数式接口" class="headerlink" title="Lambda表达式和函数式接口"></a>Lambda表达式和函数式接口</h2><p>可以在函数式接口使用lambda表达式，函数式接口就是只定义了一个抽象方法的接口，比如Comparator，Runnable，Callable</p>
-<h2 id="接口的默认方法和静态方法"><a href="#接口的默认方法和静态方法" class="headerlink" title="接口的默认方法和静态方法"></a>接口的默认方法和静态方法</h2><h2 id="方法引用"><a href="#方法引用" class="headerlink" title="方法引用"></a>方法引用</h2><h1 id="新的库"><a href="#新的库" class="headerlink" title="新的库"></a>新的库</h1><h2 id="Streams-API"><a href="#Streams-API" class="headerlink" title="Streams API"></a>Streams API</h2><h2 id="时间日期API"><a href="#时间日期API" class="headerlink" title="时间日期API"></a>时间日期API</h2><p>提供了新的时间API</p>
-<ol>
-<li><p>LocalDate：表示日期</p>
-</li>
-<li><p>LocalTime：表示时间</p>
-</li>
-<li><p>LocalDateTime：表示日期和时间</p>
-</li>
-</ol>
-<p>新的日期API，底层的变量使用fianl修饰，所以都是不可变的，更适用于多线程的环境</p>
-<p>Date类的月份从0开始，使用的时候需要+1，新的API月份和星期都改成了枚举</p>
-<p>Date是线程不安全的，新的API线程安全</p>
-<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><p>HashMap底层改成了链表加红黑树</p>
-
+        <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>Log4j，log4j2，slf4j，logback</p>
+<p>使用方法都是引入jar包或者依赖，配置文件，代码中获取Logger打印日志</p>
+<p>由于每次使用都需要引入包，如果替换日志框架的话，需要替换很多的包，使用不同的代码获取Logger</p>
+<p>因此就有了门面系统，也就是Common-logging</p>
+<p>Common-logging不负责写日志，而是提供一个统一的接口，通过jar来决定使用的日志框架，这样就不用在更换日志框架的时候再修改代码。后来使用slf4j作为新的门面框架</p>
+<p>这也是为什么在使用日志的时候都需要引入：org.slf4j.Logger; org.slf4j.LoggerFactory;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"></span><br><span class="line">Logger logger = LoggerFactory.getLogger(Test.class);</span><br><span class="line">logger.info(<span class="string">&quot;HelloWorld!&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>以上代码表示使用了日志，但是是会根据你引入的jar包来决定使用了什么日志框架</p>
+<p>关于slf4j如何决定使用哪个日志框架，并且需要引入对应jar包：</p>
+<p><img src="image/%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6/1653924835158.png" alt="img"></p>
+<p>图片是slf4j和日志框架的组合依赖结构图</p>
+<p>1.首先使用slf4j需要导入slf4j-api.jar</p>
+<p>2.根据选用的不同日志框架导入不同的jar包以及对应的桥接包（可以看到logback不需要桥接包）</p>
+<h3 id="Slf4j调用流程"><a href="#Slf4j调用流程" class="headerlink" title="Slf4j调用流程"></a>Slf4j调用流程</h3><p><img src="image/%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6/1653924898512.png" alt=""></p>
+<p>原理就是让ClassLoader从classpath(依赖的jar)中找到StaticLoggerBinder这个类，然后利用他来返回log4j、logback中的Logger，然后打印日志，由于有一些包本身就带了日志框架的jar包，所以会有冲突的问题</p>
+<p>所谓的桥接包，就是实现StaticLoggerBinder类，用来连接slf4j和日志框架。因为log4j和log4j2刚开始没有StaticLoggerBinder这个类，为了不改变程序结构，只能重新写一个新的jar来实现StaticLoggerBinder。而logback出现在slf4j之后，于是在logback本身的jar中实现了StaticLoggerBinder，所以就不需要桥接包。</p>
+<p>StaticLoggerBinder实现了使用底层日志框架创建Logger的功能，各自的StaticLoggerBinder为slf4j提供的Logger，再提供给用户打印日志。</p>
+<p>可以看到log4j和log4j2桥接包及logback依赖里，都有StaticLoggerBinder类。</p>
+<p>使用注意：</p>
+<p>在使用时有时会出现：”Class path contains multiple SLF4J bindings.” 导致日志不生效</p>
+<p>根本原因是logback-classic、log4j-slf4j-impl、slf4j-log412、slf4j-jdk这些jar不能同时存在。他们都实现了StaticLoggerBinder类而导致冲突，slf4j无法确定到底用哪个日志框架。手动排除依赖即可</p>
+<h3 id="不同日志框架的使用"><a href="#不同日志框架的使用" class="headerlink" title="不同日志框架的使用"></a>不同日志框架的使用</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用log4j，需要log4j.jar</span></span><br><span class="line"><span class="keyword">import</span> org.apache.log4j.Logger;</span><br><span class="line">Logger logger_log4j = Logger.getLogger(Test.class);</span><br><span class="line">logger_log4j.info(<span class="string">&quot;Hello World!&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用log4j2，需要log4j-api.jar、log4j-core.jar</span></span><br><span class="line"><span class="keyword">import</span> org.apache.logging.log4j.LogManager;</span><br><span class="line"><span class="keyword">import</span> org.apache.logging.log4j.Logger;</span><br><span class="line">Logger logger_log4j2 = LogManager.getLogger(Test.class);</span><br><span class="line">logger_log4j2.info(<span class="string">&quot;Hello World!&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// logback，需要logback-classic.jar、logback-core.jar</span></span><br><span class="line"><span class="keyword">import</span> ch.qos.logback.classic.Logger;</span><br><span class="line"><span class="keyword">import</span> ch.qos.logback.classic.LoggerContext;</span><br><span class="line">Logger logger_logback = <span class="keyword">new</span> LoggerContext().getLogger(Test.class);</span><br><span class="line">logger_logback.info(<span class="string">&quot;Hello World!&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// java.until.logging，简称jul</span></span><br><span class="line"><span class="keyword">import</span> java.util.logging.Logger;</span><br><span class="line">Logger logger_jul = Logger.getLogger(<span class="string">&quot;java.Test&quot;</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -250,12 +245,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/03/05/Maven/" rel="prev" title="Maven">
-      <i class="fa fa-chevron-left"></i> Maven
+    <a href="/2022/05/30/%E5%88%86%E5%B8%83%E5%BC%8F%E6%9C%89%E5%85%B3%E7%90%86%E8%AE%BA/" rel="prev" title="分布式有关理论">
+      <i class="fa fa-chevron-left"></i> 分布式有关理论
     </a></div>
       <div class="post-nav-item">
-    <a href="/2022/03/14/mysqlv2-0/" rel="next" title="mysqlv2.0">
-      mysqlv2.0 <i class="fa fa-chevron-right"></i>
+    <a href="/2022/09/02/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="next" title="数据库">
+      数据库 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -316,7 +311,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%AD%E8%A8%80%E6%96%B0%E7%89%B9%E6%80%A7"><span class="nav-number">1.</span> <span class="nav-text">语言新特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%92%8C%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.1.</span> <span class="nav-text">Lambda表达式和函数式接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3%E7%9A%84%E9%BB%98%E8%AE%A4%E6%96%B9%E6%B3%95%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">接口的默认方法和静态方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E5%BC%95%E7%94%A8"><span class="nav-number">1.3.</span> <span class="nav-text">方法引用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%B0%E7%9A%84%E5%BA%93"><span class="nav-number">2.</span> <span class="nav-text">新的库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Streams-API"><span class="nav-number">2.1.</span> <span class="nav-text">Streams API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E6%97%A5%E6%9C%9FAPI"><span class="nav-number">2.2.</span> <span class="nav-text">时间日期API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">2.3.</span> <span class="nav-text">数据结构</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Slf4j%E8%B0%83%E7%94%A8%E6%B5%81%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">Slf4j调用流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E5%90%8C%E6%97%A5%E5%BF%97%E6%A1%86%E6%9E%B6%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">不同日志框架的使用</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

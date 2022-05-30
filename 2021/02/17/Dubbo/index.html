@@ -27,26 +27,10 @@
 <meta property="og:site_name" content="fufu">
 <meta property="og:description" content="Dubbo分布式系统：把一个系统的各个模块分别部署在不同的服务器上，来提供服务。 Dubbo可以用来协调各个模块之间的应用  将服务提供者注册到注册中心 引入依赖（dubbo，zookeeper客户端（curator）） 配置服务（把服务者的服务接口暴露，让其他地方的消费者可以调用）   让消费者去注册中心订阅  SOA 面向服务的架构（Service Oriented Architecture）">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://yoursite.com/2021/02/17/Dubbo/43050183.jpg">
-<meta property="og:image" content="http://yoursite.com/2021/02/17/Dubbo/77722327.jpg">
-<meta property="og:image" content="http://yoursite.com/2021/02/17/Dubbo/97933247.jpg">
-<meta property="og:image" content="http://yoursite.com/2021/02/17/Dubbo/image-20210218111829640.png">
-<meta property="og:image" content="http://yoursite.com/2021/02/17/Dubbo/7ce4e40b68d625676bb42c29efce046a.png">
-<meta property="og:image" content="http://yoursite.com/2021/02/17/Dubbo/d0b44361c746593f70a6e42c298b413a.png">
-<meta property="og:image" content="http://yoursite.com/2021/02/17/Dubbo/22e8d512d954676bdf0cc92d200af8ef.png">
-<meta property="og:image" content="http://yoursite.com/2021/02/17/Dubbo/b82536f956f70a584c6a20c10113f225.png">
-<meta property="og:image" content="http://yoursite.com/2021/02/17/Dubbo/743889b97485fdfe2094e5ef0af6b141.png">
-<meta property="og:image" content="http://yoursite.com/2021/02/17/Dubbo/0c38d08ea026e25bf3849cc7654a4e79.png">
-<meta property="og:image" content="http://yoursite.com/2021/02/17/Dubbo/08ccce48190fe4edcbcbb223d6231876.png">
-<meta property="og:image" content="http://yoursite.com/2021/02/17/Dubbo/ffcb12c6fb2bad76ac7105696655e85c.png">
-<meta property="og:image" content="http://yoursite.com/2021/02/17/Dubbo/abb6efc7d4df9c82b162cbecb129a6e3.png">
-<meta property="og:image" content="http://yoursite.com/2021/02/17/Dubbo/241ab8cc37571034fa984322b753c7ba.png">
-<meta property="og:image" content="http://yoursite.com/2021/02/17/Dubbo/a94707028c5581c815f72fba0f50f43a.png">
 <meta property="article:published_time" content="2021-02-17T07:46:12.000Z">
 <meta property="article:modified_time" content="2022-03-03T14:02:44.288Z">
 <meta property="article:author" content="wuwu">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2021/02/17/Dubbo/43050183.jpg">
 
 <link rel="canonical" href="http://yoursite.com/2021/02/17/Dubbo/">
 
@@ -247,7 +231,7 @@
 </li>
 <li>让消费者去注册中心订阅</li>
 </ol>
-<p>SOA 面向服务的架构（Service Oriented Architecture），把工程按照业务逻辑拆分成服务层、表现层两个工程。服务层中包含业务逻辑，只需要对外提供服务即可。表现层只需要处理和页面的交互，业务逻辑都是调用服务层的服务来实现。SOA架构中有两个主要角色：服务提供者（Provider）和服务使用者（Consumer）。<img src="/2021/02/17/Dubbo/43050183.jpg" class title="为什么要用 Dubbo"></p>
+<p>SOA 面向服务的架构（Service Oriented Architecture），把工程按照业务逻辑拆分成服务层、表现层两个工程。服务层中包含业务逻辑，只需要对外提供服务即可。表现层只需要处理和页面的交互，业务逻辑都是调用服务层的服务来实现。SOA架构中有两个主要角色：服务提供者（Provider）和服务使用者（Consumer）。</p>
 <h4 id="SpringBoot应用"><a href="#SpringBoot应用" class="headerlink" title="SpringBoot应用"></a>SpringBoot应用</h4><p>不用在配置文件中一个一个的去写服务，直接使用@Reference注解代替@Autowired注解。</p>
 <p>注意要在启动器加上@EnableDubbo注解</p>
 <h4 id="Dubbo配置加载顺序"><a href="#Dubbo配置加载顺序" class="headerlink" title="Dubbo配置加载顺序"></a>Dubbo配置加载顺序</h4><p>虚拟机-&gt;XML-&gt;Properties</p>
@@ -261,10 +245,10 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Reference(url = &quot;127.0.0.1:20880&quot;)</span>   </span><br><span class="line">HelloService helloService;</span><br></pre></td></tr></table></figure>
 <h4 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h4><ol>
 <li><p>基于权重的随机负载均衡 (Dubbo默认使用)</p>
-<img src="/2021/02/17/Dubbo/77722327.jpg" class title="基于权重的随机负载均衡机制">
+
 </li>
 <li><p>基于权重的轮询负载均衡</p>
-<img src="/2021/02/17/Dubbo/97933247.jpg" class title="基于权重的轮询负载均衡机制">
+
 </li>
 <li><p>最少活跃数–负载均衡</p>
 <ul>
@@ -282,7 +266,7 @@
 <h4 id="服务降级"><a href="#服务降级" class="headerlink" title="服务降级"></a>服务降级</h4><p>对非关键服务降级，达到动态调配服务器功能</p>
 <p>可以在控制台直接修改，屏蔽和容错</p>
 <h4 id="Hystrix容错"><a href="#Hystrix容错" class="headerlink" title="Hystrix容错"></a>Hystrix容错</h4><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><h4 id="RPC原理"><a href="#RPC原理" class="headerlink" title="RPC原理"></a>RPC原理</h4><p>远程过程调用，是一种进程间通信方式，允许程序调用另一个地址空间的代码</p>
-<p>基本原理：<img src="/2021/02/17/Dubbo/image-20210218111829640.png" class title="image-20210218111829640"></p>
+<p>基本原理：</p>
 <p>决定RPC效率主要是看通信效率和序列化和反序列化效率</p>
 <p>RPC就是把中间的过程封装起来</p>
 <h4 id="http和RPC"><a href="#http和RPC" class="headerlink" title="http和RPC"></a>http和RPC</h4><p>RPC 只是一种概念、一种设计，就是为了解决 <strong>不同服务之间的调用问题</strong>, 它一般会包含有 <strong>传输协议</strong> 和 <strong>序列化协议</strong> 这两个。</p>
@@ -306,7 +290,7 @@
 <p>第二阶段：第二阶段主要是协调者根据参与者反馈的情况来决定接下来是否可以进行事务的提交操作，即提交事务或者回滚事务。</p>
 <p>比如这个时候 <strong>所有的参与者</strong> 都返回了准备好了的消息，这个时候就进行事务的提交，协调者此时会给所有的参与者发送 <strong><code>Commit</code> 请求</strong> ，当参与者收到 <code>Commit</code> 请求的时候会执行前面执行的事务的 <strong>提交操作</strong> ，提交完毕之后将给协调者发送提交成功的响应。</p>
 <p>而如果在第一阶段并不是所有参与者都返回了准备好了的消息，那么此时协调者将会给所有参与者发送 <strong>回滚事务的 <code>rollback</code> 请求</strong>，参与者收到之后将会 <strong>回滚它在第一阶段所做的事务处理</strong> ，然后再将处理情况返回给协调者，最终协调者收到响应后便给事务发起者返回处理失败的结果。</p>
-<img src="/2021/02/17/Dubbo/7ce4e40b68d625676bb42c29efce046a.png" class title="2PC流程">
+
 
 <p>带来的问题：</p>
 <ul>
@@ -319,7 +303,7 @@
 <li><strong>PreCommit阶段</strong>：协调者根据参与者返回的响应来决定是否可以进行下面的 <code>PreCommit</code> 操作。如果上面参与者返回的都是 YES，那么协调者将向所有参与者发送 <code>PreCommit</code> 预提交请求，<strong>参与者收到预提交请求后，会进行事务的执行操作，并将 <code>Undo</code> 和 <code>Redo</code> 信息写入事务日志中</strong> ，最后如果参与者顺利执行了事务则给协调者返回成功的响应。如果在第一阶段协调者收到了 <strong>任何一个 NO</strong> 的信息，或者 <strong>在一定时间内</strong> 并没有收到全部的参与者的响应，那么就会中断事务，它会向所有参与者发送中断请求（abort），参与者收到中断请求之后会立即中断事务，或者在一定时间内没有收到协调者的请求，它也会中断事务。</li>
 <li><strong>DoCommit阶段</strong>：这个阶段其实和 <code>2PC</code> 的第二阶段差不多，如果协调者收到了所有参与者在 <code>PreCommit</code> 阶段的 YES 响应，那么协调者将会给所有参与者发送 <code>DoCommit</code> 请求，<strong>参与者收到 <code>DoCommit</code> 请求后则会进行事务的提交工作</strong>，完成后则会给协调者返回响应，协调者收到所有参与者返回的事务提交成功的响应之后则完成事务。若协调者在 <code>PreCommit</code> 阶段 <strong>收到了任何一个 NO 或者在一定时间内没有收到所有参与者的响应</strong> ，那么就会进行中断请求的发送，参与者收到中断请求后则会 <strong>通过上面记录的回滚日志</strong> 来进行事务的回滚操作，并向协调者反馈回滚状况，协调者收到参与者返回的消息后，中断事务。</li>
 </ol>
-<img src="/2021/02/17/Dubbo/d0b44361c746593f70a6e42c298b413a.png" class title="3PC流程">
+
 
 <p>总之，<code>3PC</code> 通过一系列的超时机制很好的缓解了阻塞问题，但是最重要的一致性并没有得到根本的解决，比如在 <code>PreCommit</code> 阶段，当一个参与者收到了请求之后其他参与者和协调者挂了或者出现了网络分区，这个时候收到消息的参与者都会进行事务提交，这就会出现数据不一致性问题。</p>
 <p>所以，要解决一致性问题还需要靠 <code>Paxos</code> 算法</p>
@@ -329,20 +313,20 @@
 <li><code>Proposer提案者</code>：负责提出 <code>proposal</code>，每个提案者在提出提案时都会首先获取到一个 <strong>具有全局唯一性的、递增的提案编号N</strong>，即在整个集群中是唯一的编号 N，然后将该编号赋予其要提出的提案，在<strong>第一阶段是只将提案编号发送给所有的表决者</strong>。</li>
 <li><code>Acceptor表决者</code>：每个表决者在 <code>accept</code> 某提案后，会将该提案编号N记录在本地，这样每个表决者中保存的已经被 accept 的提案中会存在一个<strong>编号最大的提案</strong>，其编号假设为 <code>maxN</code>。每个表决者仅会 <code>accept</code> 编号大于自己本地 <code>maxN</code> 的提案，在批准提案时表决者会将以前接受过的最大编号的提案作为响应反馈给 <code>Proposer</code> 。</li>
 </ul>
-<img src="/2021/02/17/Dubbo/22e8d512d954676bdf0cc92d200af8ef.png" class title="paxos第一阶段">
+
 
 <h4 id="accept-阶段"><a href="#accept-阶段" class="headerlink" title="accept 阶段"></a>accept 阶段</h4><p>当一个提案被 <code>Proposer</code> 提出后，如果 <code>Proposer</code> 收到了超过半数的 <code>Acceptor</code> 的批准（<code>Proposer</code> 本身同意），那么此时 <code>Proposer</code> 会给所有的 <code>Acceptor</code> 发送真正的提案（你可以理解为第一阶段为试探），这个时候 <code>Proposer</code> 就会发送提案的内容和提案编号。</p>
 <p>表决者收到提案请求后会再次比较本身已经批准过的最大提案编号和该提案编号，如果该提案编号 <strong>大于等于</strong> 已经批准过的最大提案编号，那么就 <code>accept</code> 该提案（此时执行提案内容但不提交），随后将情况返回给 <code>Proposer</code> 。如果不满足则不回应或者返回 NO 。</p>
-<img src="/2021/02/17/Dubbo/b82536f956f70a584c6a20c10113f225.png" class title="paxos第二阶段1">
+
 
 <p>当 <code>Proposer</code> 收到超过半数的 <code>accept</code> ，那么它这个时候会向所有的 <code>acceptor</code> 发送提案的提交请求。需要注意的是，因为上述仅仅是超过半数的 <code>acceptor</code> 批准执行了该提案内容，其他没有批准的并没有执行该提案内容，所以这个时候需要<strong>向未批准的 <code>acceptor</code> 发送提案内容和提案编号并让它无条件执行和提交</strong>，而对于前面已经批准过该提案的 <code>acceptor</code> 来说 <strong>仅仅需要发送该提案的编号</strong> ，让 <code>acceptor</code> 执行提交就行了。</p>
-<img src="/2021/02/17/Dubbo/743889b97485fdfe2094e5ef0af6b141.png" class title="paxos第二阶段2">
+
 
 <p>而如果 <code>Proposer</code> 如果没有收到超过半数的 <code>accept</code> 那么它将会将 <strong>递增</strong> 该 <code>Proposal</code> 的编号，然后 <strong>重新进入 <code>Prepare</code> 阶段</strong> 。</p>
 <h4 id="paxos-算法的死循环问题"><a href="#paxos-算法的死循环问题" class="headerlink" title="paxos 算法的死循环问题"></a>paxos 算法的死循环问题</h4><p>比如说，此时提案者 P1 提出一个方案 M1，完成了 <code>Prepare</code> 阶段的工作，这个时候 <code>acceptor</code> 则批准了 M1，但是此时提案者 P2 同时也提出了一个方案 M2，它也完成了 <code>Prepare</code> 阶段的工作。然后 P1 的方案已经不能在第二阶段被批准了（因为 <code>acceptor</code> 已经批准了比 M1 更大的 M2），所以 P1 自增方案变为 M3 重新进入 <code>Prepare</code> 阶段，然后 <code>acceptor</code> ，又批准了新的 M3 方案，它又不能批准 M2 了，这个时候 M2 又自增进入 <code>Prepare</code> 阶段。。。</p>
 <p>就这样无休无止的永远提案下去，这就是 <code>paxos</code> 算法的死循环问题。</p>
 <h3 id="ZAB"><a href="#ZAB" class="headerlink" title="ZAB"></a>ZAB</h3><p><code>ZooKeeper</code> 在解决分布式数据一致性问题时并没有直接使用 <code>Paxos</code> ，而是专门定制了一致性协议叫做 <code>ZAB(ZooKeeper Automic Broadcast)</code> 原子广播协议，该协议能够很好地支持 <strong>崩溃恢复</strong> 。</p>
-<img src="/2021/02/17/Dubbo/0c38d08ea026e25bf3849cc7654a4e79.png" class title="Zookeeper架构">
+
 
 <h4 id="ZAB中的三个角色"><a href="#ZAB中的三个角色" class="headerlink" title="ZAB中的三个角色"></a>ZAB中的三个角色</h4><p>和 <code>Paxos</code> 一样，在介绍 <code>ZAB</code> 协议之前，我们首先来了解一下在 <code>ZAB</code> 中三个主要的角色，<code>Leader 领导者</code>、<code>Follower跟随者</code>、<code>Observer观察者</code> 。</p>
 <ul>
@@ -351,7 +335,7 @@
 <li><code>Observer</code> ：就是没有选举权和被选举权的 <code>Follower</code> 。</li>
 </ul>
 <p>在 <code>ZAB</code> 协议中对 <code>zkServer</code>(即上面我们说的三个角色的总称) 还有两种模式的定义，分别是 <strong>消息广播</strong> 和 <strong>崩溃恢复</strong> 。</p>
-<h4 id="消息广播模式"><a href="#消息广播模式" class="headerlink" title="消息广播模式"></a>消息广播模式</h4><img src="/2021/02/17/Dubbo/08ccce48190fe4edcbcbb223d6231876.png" class title="消息广播">
+<h4 id="消息广播模式"><a href="#消息广播模式" class="headerlink" title="消息广播模式"></a>消息广播模式</h4>
 
 <p>这两个 <code>Queue</code> 哪冒出来的？答案是 <strong><code>ZAB</code> 需要让 <code>Follower</code> 和 <code>Observer</code> 保证顺序性</strong> 。何为顺序性，比如我现在有一个写请求A，此时 <code>Leader</code> 将请求A广播出去，因为只需要半数同意就行，所以可能这个时候有一个 <code>Follower</code> F1因为网络原因没有收到，而 <code>Leader</code> 又广播了一个请求B，因为网络原因，F1竟然先收到了请求B然后才收到了请求A，这个时候请求处理的顺序不同就会导致数据的不同，从而 <strong>产生数据不一致问题</strong> 。</p>
 <p>所以在 <code>Leader</code> 这端，它为每个其他的 <code>zkServer</code> 准备了一个 <strong>队列</strong> ，采用先进先出的方式发送消息。由于协议是 *<em>通过 <code>TCP</code> *</em>来进行网络通信的，保证了消息的发送顺序性，接受顺序性也得到了保证。</p>
@@ -372,13 +356,13 @@
 <p>如果 <code>Leader</code> 挂了那就麻烦了，我们肯定需要先暂停服务变为 <code>Looking</code> 状态然后进行 <code>Leader</code> 的重新选举（上面我讲过了），但这个就要分为两种情况了，分别是 <strong>确保已经被Leader提交的提案最终能够被所有的Follower提交</strong> 和 <strong>跳过那些已经被丢弃的提案</strong> 。</p>
 <p>确保已经被Leader提交的提案最终能够被所有的Follower提交是什么意思呢？</p>
 <p>假设 <code>Leader (server2)</code> 发送 <code>commit</code> 请求（忘了请看上面的消息广播模式），他发送给了 <code>server3</code>，然后要发给 <code>server1</code> 的时候突然挂了。这个时候重新选举的时候我们如果把 <code>server1</code> 作为 <code>Leader</code> 的话，那么肯定会产生数据不一致性，因为 <code>server3</code> 肯定会提交刚刚 <code>server2</code> 发送的 <code>commit</code> 请求的提案，而 <code>server1</code> 根本没收到所以会丢弃。</p>
-<img src="/2021/02/17/Dubbo/ffcb12c6fb2bad76ac7105696655e85c.png" class title="崩溃恢复">
+
 
 <p>那怎么解决呢？</p>
 <p>聪明的同学肯定会质疑，<strong>这个时候 <code>server1</code> 已经不可能成为 <code>Leader</code> 了，因为 <code>server1</code> 和 <code>server3</code> 进行投票选举的时候会比较 <code>ZXID</code> ，而此时 <code>server3</code> 的 <code>ZXID</code> 肯定比 <code>server1</code> 的大了</strong>。(不理解可以看前面的选举算法)</p>
 <p>那么跳过那些已经被丢弃的提案又是什么意思呢？</p>
 <p>假设 <code>Leader (server2)</code> 此时同意了提案N1，自身提交了这个事务并且要发送给所有 <code>Follower</code> 要 <code>commit</code> 的请求，却在这个时候挂了，此时肯定要重新进行 <code>Leader</code> 的选举，比如说此时选 <code>server1</code> 为 <code>Leader</code> （这无所谓）。但是过了一会，这个 <strong>挂掉的 <code>Leader</code> 又重新恢复了</strong> ，此时它肯定会作为 <code>Follower</code> 的身份进入集群中，需要注意的是刚刚 <code>server2</code> 已经同意提交了提案N1，但其他 <code>server</code> 并没有收到它的 <code>commit</code> 信息，所以其他 <code>server</code> 不可能再提交这个提案N1了，这样就会出现数据不一致性问题了，所以 <strong>该提案N1最终需要被抛弃掉</strong> 。</p>
-<img src="/2021/02/17/Dubbo/abb6efc7d4df9c82b162cbecb129a6e3.png" class title="崩溃恢复">
+
 
 <h3 id="重要概念"><a href="#重要概念" class="headerlink" title="重要概念"></a>重要概念</h3><h4 id="Data-model-（数据模型）"><a href="#Data-model-（数据模型）" class="headerlink" title="Data model （数据模型）"></a>Data model （数据模型）</h4><p>ZooKeeper 数据模型采用层次化的多叉树形结构，每个节点上都可以存储数据，这些数据可以是数字、字符串或者是二级制序列。并且。每个节点还可以拥有 N 个子节点，最上层是根节点以“/”来代表。每个数据节点在 ZooKeeper 中被称为 <strong>znode</strong>，它是 ZooKeeper 中数据的最小单元。并且，每个 znode 都一个唯一的路径标识。</p>
 <p>强调一句：<strong>ZooKeeper 主要是用来协调服务的，而不是用来存储业务数据的，所以不要放比较大的数据在 znode 上，ZooKeeper 给出的上限是每个结点的数据大小最大是 1M。</strong></p>
@@ -407,12 +391,12 @@
 <h4 id="会话"><a href="#会话" class="headerlink" title="会话"></a>会话</h4><p> <code>zk</code> 客户端和服务端是通过 <strong><code>TCP</code> 长连接</strong> 维持的会话机制，其实对于会话来说你可以理解为 <strong>保持连接状态</strong> 。</p>
 <p>在 <code>zookeeper</code> 中，会话还有对应的事件，比如 <code>CONNECTION_LOSS 连接丢失事件</code> 、<code>SESSION_MOVED 会话转移事件</code> 、<code>SESSION_EXPIRED 会话超时失效事件</code> 。</p>
 <h4 id="Watcher机制"><a href="#Watcher机制" class="headerlink" title="Watcher机制"></a>Watcher机制</h4><p><code>Watcher</code> 为事件监听器，是 <code>zk</code> 非常重要的一个特性，很多功能都依赖于它，它有点类似于订阅的方式，即客户端向服务端 <strong>注册</strong> 指定的 <code>watcher</code> ，当服务端符合了 <code>watcher</code> 的某些事件或要求则会 <strong>向客户端发送事件通知</strong> ，客户端收到通知后找到自己定义的 <code>Watcher</code> 然后 <strong>执行相应的回调方法</strong> 。</p>
-<img src="/2021/02/17/Dubbo/241ab8cc37571034fa984322b753c7ba.png" class title="watcher机制">
+
 
 <h3 id="ZooKeeper应用场景"><a href="#ZooKeeper应用场景" class="headerlink" title="ZooKeeper应用场景"></a>ZooKeeper应用场景</h3><h4 id="选主"><a href="#选主" class="headerlink" title="选主"></a>选主</h4><p>因为 <code>Zookeeper</code> 的强一致性，能够很好地在保证 <strong>在高并发的情况下保证节点创建的全局唯一性</strong> (即无法重复创建同样的节点)。</p>
 <p>利用这个特性，我们可以 <strong>让多个客户端创建一个指定的节点</strong> ，创建成功的就是 <code>master</code>。</p>
 <p>但是，如果这个 <code>master</code> 挂了怎么办？？？</p>
-<p>你想想为什么我们要创建临时节点？还记得临时节点的生命周期吗？<code>master</code> 挂了是不是代表会话断了？会话断了是不是意味着这个节点没了？还记得 <code>watcher</code> 吗？我们是不是可以 <strong>让其他不是 <code>master</code> 的节点监听节点的状态</strong> ，比如说我们监听这个临时节点的父节点，如果子节点个数变了就代表 <code>master</code> 挂了，这个时候我们 <strong>触发回调函数进行重新选举</strong> ，或者我们直接监听节点的状态，我们可以通过节点是否已经失去连接来判断 <code>master</code> 是否挂了等等。<img src="/2021/02/17/Dubbo/a94707028c5581c815f72fba0f50f43a.png" class title="选主"></p>
+<p>你想想为什么我们要创建临时节点？还记得临时节点的生命周期吗？<code>master</code> 挂了是不是代表会话断了？会话断了是不是意味着这个节点没了？还记得 <code>watcher</code> 吗？我们是不是可以 <strong>让其他不是 <code>master</code> 的节点监听节点的状态</strong> ，比如说我们监听这个临时节点的父节点，如果子节点个数变了就代表 <code>master</code> 挂了，这个时候我们 <strong>触发回调函数进行重新选举</strong> ，或者我们直接监听节点的状态，我们可以通过节点是否已经失去连接来判断 <code>master</code> 是否挂了等等。</p>
 <p>总的来说，我们可以完全 <strong>利用 临时节点、节点状态 和 <code>watcher</code> 来实现选主的功能</strong>，临时节点主要用来选举，节点状态和<code>watcher</code> 可以用来判断 <code>master</code> 的活性和进行重新选举。</p>
 <h4 id="分布式锁"><a href="#分布式锁" class="headerlink" title="分布式锁"></a>分布式锁</h4><p>分布式锁的实现方式有很多种，比如 <code>Redis</code> 、数据库 、<code>zookeeper</code> 等。个人认为 <code>zookeeper</code> 在实现分布式锁这方面是非常非常简单的。</p>
 <p>上面我们已经提到过了 <strong>zk在高并发的情况下保证节点创建的全局唯一性</strong>，这玩意一看就知道能干啥了。实现互斥锁呗，又因为能在分布式的情况下，所以能实现分布式锁呗。</p>
@@ -536,14 +520,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-count">42</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">

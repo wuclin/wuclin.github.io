@@ -226,7 +226,8 @@
 <h3 id="接口绑定"><a href="#接口绑定" class="headerlink" title="接口绑定"></a>接口绑定</h3><p>定义接口，然后把接口里面的方法和SQL语句绑定，通过直接调用接口的方法执行SQL语句。两种实现：1.使用注解2.使用mapper.xml写sql绑定，此时的namespace要为接口的全路径名</p>
 <h3 id="映射器"><a href="#映射器" class="headerlink" title="映射器"></a>映射器</h3><p>Mapper.xml文件，通过namespace和子元素的id区分不同的sql语句</p>
 <h3 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h3><p>一级缓存默认开启，作用域为sqlsession，执行相同语句会从缓存中取结果，如果执行了增删改操作，缓存就会被清除，没有过期时间，生命周期和sqlsession一样，在spring和mybatis使用时，每次查询完都要关闭sqlsession，相当于一级缓存是没有意义的</p>
-<p>二级缓存需要在Mapper中使用<cache>开启，作用域为mapper的namespace，多个sqlsession操作同一mapper的语句时，多个sqlsession可以共用二级缓存，缓存只作用于xml文件中的语句，有过期时间，默认为一个小时，可以在一个命名空间内使用<cache-ref namespace="com.mybatis.demo.mapper.xxMapper">来使用另外一个命名空间的缓存</cache-ref></cache></p>
+<p>二级缓存需要在Mapper中使用<cache/>开启，作用域为mapper的namespace，多个sqlsession操作同一mapper的语句时，多个sqlsession可以共用二级缓存，缓存只作用于xml文件中的语句，有过期时间，默认为一个小时，可以在一个命名空间内使用<cache-ref
+namespace="com.mybatis.demo.mapper.xxMapper">来使用另外一个命名空间的缓存</p>
 <h3 id="动态SQL"><a href="#动态SQL" class="headerlink" title="动态SQL"></a>动态SQL</h3><ol>
 <li><p>if，单独使用比较少，一般和where和set搭配使用</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;findActiveBlogWithTitleLike&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;Blog&quot;</span>&gt;</span></span><br><span class="line">  SELECT * FROM BLOG  WHERE state = ‘ACTIVE’</span><br><span class="line">  <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;title != null&quot;</span>&gt;</span></span><br><span class="line">    ANDtitle like #&#123;title&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
@@ -371,14 +372,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-count">42</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
