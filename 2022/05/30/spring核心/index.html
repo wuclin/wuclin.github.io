@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.7.2","exturl":false,"sidebar":{"position":"hide","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Spring关注的点1. ApplicationContext和BeanFactoryBeanFactory作为顶级的接口，只提供了简单的容器功能，就是实例化对象和拿对象的功能ApplicationContext继承于BeanFactory接口，不仅具有BeanFactory的所有功能，由于还继承其他的接口，所以有更多的功能 123456ApplicationContext ac &#x3D;new las">
+<meta property="og:type" content="article">
+<meta property="og:title" content="spring核心">
+<meta property="og:url" content="http://yoursite.com/2022/05/30/spring%E6%A0%B8%E5%BF%83/index.html">
+<meta property="og:site_name" content="fufu">
+<meta property="og:description" content="Spring关注的点1. ApplicationContext和BeanFactoryBeanFactory作为顶级的接口，只提供了简单的容器功能，就是实例化对象和拿对象的功能ApplicationContext继承于BeanFactory接口，不仅具有BeanFactory的所有功能，由于还继承其他的接口，所以有更多的功能 123456ApplicationContext ac &#x3D;new las">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-05-30T13:11:30.000Z">
+<meta property="article:modified_time" content="2022-05-30T13:12:02.840Z">
+<meta property="article:author" content="wuwu">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2022/05/30/spring%E6%A0%B8%E5%BF%83/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>spring核心 | fufu</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">fufu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-fw fa-calendar"></i>Schedule</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/05/30/spring%E6%A0%B8%E5%BF%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.png">
+      <meta itemprop="name" content="wuwu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fufu">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          spring核心
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-05-30 21:11:30 / Modified: 21:12:02" itemprop="dateCreated datePublished" datetime="2022-05-30T21:11:30+08:00">2022-05-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Spring关注的点"><a href="#Spring关注的点" class="headerlink" title="Spring关注的点"></a>Spring关注的点</h2><h4 id="1-ApplicationContext和BeanFactory"><a href="#1-ApplicationContext和BeanFactory" class="headerlink" title="1. ApplicationContext和BeanFactory"></a>1. ApplicationContext和BeanFactory</h4><p>BeanFactory作为顶级的接口，只提供了简单的容器功能，就是实例化对象和拿对象的功能<br>ApplicationContext继承于BeanFactory接口，不仅具有BeanFactory的所有功能，由于还继承其他的接口，所以有更多的功能</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ApplicationContext ac =<span class="keyword">new</span> lassPathXmlApplicationContext(<span class="string">&quot;/applicationContext.xml&quot;</span>);</span><br><span class="line">比如访问资源（ResourceLoader接口）：Resource r = ac.getResource(classpath类路径/file绝对路径/相对路径.properties)</span><br><span class="line">国际化（MessageSource接口）:String testString = ac.getMessage(Locale.CHINA)；拿到对应语言的内容</span><br><span class="line">AOP（拦截器）：通过实现HandleInterceptor，里面有三个方法preHandle：执行Controller之前执行；postHandle：执行完controller，<span class="keyword">return</span> modelandview之前执行，afterCompletion：controller返回后执行（使用方法，注册拦截器并确定要拦截哪些url）</span><br><span class="line">工厂分层（HierarchicalBeanFactory接口），查找和遍历Bean（ListableBeanFactory接口）：分层，载入多个配置文件</span><br><span class="line">消息发送，响应机制（ApplicationEventPublisher接口）：观察者模式，通过ApplicationEvent类和ApplicationListener接口，可以实现ApplicationContext事件处理。 如果容器中有一个ApplicationListener Bean，每当ApplicationContext发布ApplicationEvent时，ApplicationListener Bean将自动被触发。ApplicationEvent：容器事件，必须由ApplicationContext发布；ApplicationListener：监听器，可由容器中的任何监听器Bean担任。</span><br></pre></td></tr></table></figure>
+<p>BeanFactory在启动的时候不会去实例化Bean，只有要用到的时候才回去实例化<br>ApplicationContext在启动的时候就会实例化单例非懒加载的bean</p>
+<h4 id="2-容器启动过程（也就是容器初始化，这个过程中会创建单例bean）"><a href="#2-容器启动过程（也就是容器初始化，这个过程中会创建单例bean）" class="headerlink" title="2.容器启动过程（也就是容器初始化，这个过程中会创建单例bean）"></a>2.容器启动过程（也就是容器初始化，这个过程中会创建单例bean）</h4><p>利用BeanDefinitionReader从配置文件或注解读取bean的信息，并以BeanDefinition的形式注册。注册就是将BeanDefinition以键值对的形式存放在BeanDefinitionMap里面，这是一个ConcurrentHashMap，接着会通过BeanFactoryPostProcessor对BeanDefinition进行替换和修改，比如jdbc中的占位符，就会在这个时候被替换成真实数据，这一步之后容器就启动完成了，此时对于单例非懒加载的bean就会开始他们的实例化。</p>
+<h4 id="3-三级缓存"><a href="#3-三级缓存" class="headerlink" title="3. 三级缓存"></a>3. 三级缓存</h4><p>在bean实例化之后，有一部就是填充属性，这里就会涉及到循环依赖的问题。</p>
+<p>解决循环依赖问题主要使用到了：</p>
+<p>singletonObjects：一级缓存，存放完全初始化好的bean的集合，从这个集合中取出来的bean可以立马返回</p>
+<p>earlySingletonObjects：二级缓存，存放创建好但没有初始化属性的bean的集合，用于解决循环依赖</p>
+<p>singletonFactories：三级缓存，存放单实例bean工厂的集合</p>
+<p>singletonsCurrentlyCreation：存放正在被创建的bean的集合</p>
+<p>解决循环依赖的思路：</p>
+<ol>
+<li><p>初始化bean之前，将BeanNaem放入三级缓存</p>
+</li>
+<li><p>创建bean时，将准备创建的bean放入singletonsCurrentlyCreation</p>
+</li>
+<li><p>createNewInstance 方法执行完后执行 addSingletonFactory，将这个实例化但没有 属性赋值的Bean放入二级缓存，并从三级缓存中移除</p>
+</li>
+<li><p>填充属性的时候，引发关联创建</p>
+</li>
+<li><p>关联创建时，检查“正在被创建的bean”中是否有即将注入的bean。如果有，检查二级缓存中是否有当前创建好但没有赋值初始化的bean，如果没有，检查三级缓存中是否有正在创建中的bean，如果有的话就把他放入二级缓存，并从三级缓存中移除</p>
+</li>
+<li><p>bean被成功注入之后，最后执行addSingleton，将完全创建好的bean放入一级缓存，从二级缓存和三级缓存中移除，并记录已经创建了的单实例bean</p>
+</li>
+</ol>
+<h4 id="4-bean实例化过程（生命周期）"><a href="#4-bean实例化过程（生命周期）" class="headerlink" title="4.bean实例化过程（生命周期）"></a>4.bean实例化过程（生命周期）</h4><p>在容器中采用了策略模式来实例化bean，首先通过方式实例化bean，然后通过BeanWrapper对bean填充属性（涉及循环依赖），之后会检查实现了aware的接口，返回对应值，然后结果BeanPostProcessor前置处理，并且执行初始化方法，然后BeanPostProcessor后置处理，设置销毁方法，之后就是使用bean，在要销毁bean的时候就会回调销毁方法。</p>
+<h4 id="5-spring是否保证安全性"><a href="#5-spring是否保证安全性" class="headerlink" title="5.spring是否保证安全性"></a>5.spring是否保证安全性</h4><p>spring不保证安全性，首先如果类里面没有成员变量的话，那就是线程安全的，即便是在单例的情况下。如果有成员变量的话，可以通过将scope修改成原型模式，但是在这种情况下不能保证静态变量的线程安全，如果一定要定义变量的话，可以用ThreadLocal来封装，这样变量就是线程安全的</p>
+<h4 id="6-bean作用域"><a href="#6-bean作用域" class="headerlink" title="6.bean作用域"></a>6.bean作用域</h4><p>singleton：单例模式<br>prototype：原型模式<br>request：每次http请求，容器都会创建一个Bean实例，只在当前的Request内有效<br>session：同一个Session共享一个Bean实例，不同session使用不同的bean实例，作用域只在当前session<br>application：同一个web应用共享一个Bean实例，只在ServletContext内有效</p>
+<h4 id="为什么实现Aware接口要在初始化之前执行"><a href="#为什么实现Aware接口要在初始化之前执行" class="headerlink" title="为什么实现Aware接口要在初始化之前执行"></a>为什么实现Aware接口要在初始化之前执行</h4><p>初始化可能会依赖于Aware接口提供的状态，比如ApplicationAware，用于获取bean</p>
+<h4 id="7-事务"><a href="#7-事务" class="headerlink" title="7.事务"></a>7.事务</h4><p>spring的事务其实就是根据事务注解生成代理类，然后在前置增强方法里面获取connection，设置connection到threadlocal，开启事务。然后执行原始方法，最后在后置增强方法中判断是否有无异常来进行事务回滚或提交，再释放连接</p>
+<p>使用事务时一般加上：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;tx:annotation-driven transaction-manager=&quot;txManager&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<p>Spring不会直接管理事务，而是通过事务管理器，具体的逻辑在PlatformTransactionManager的实现类里面，这里使用了策略模式，把事务管理相关的方法抽象到了PlatformTransactionManager，不同的场景就用不同的实现类，比如：DataSourceTransactionManager实现了数据库事务相关，JmsTransactionManager实现了消息队列事务相关，在这里通过determineTransactionManager方法决定使用哪个实现类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">PlatformTransactionManager</span> <span class="keyword">extends</span> <span class="title">TransactionManager</span> </span>&#123;</span><br><span class="line">    <span class="function">TransactionStatus <span class="title">getTransaction</span><span class="params">(<span class="meta">@Nullable</span> TransactionDefinition definition)</span> <span class="keyword">throws</span> TransactionException</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">commit</span><span class="params">(TransactionStatus status)</span> <span class="keyword">throws</span> TransactionException</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">rollback</span><span class="params">(TransactionStatus status)</span> <span class="keyword">throws</span> TransactionException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在批量操作时，如果不是同一个事务的请求，每一次都会创建一个sqlsession，严重影响性能</p>
+<h4 id="9-aop"><a href="#9-aop" class="headerlink" title="9.aop"></a>9.aop</h4><h4 id="10-事务"><a href="#10-事务" class="headerlink" title="10.事务"></a>10.事务</h4><p>Spring事务的本质其实就是数据库对事务的支持，在没有使用spring管理事务之前，使用JDBC的事务管理机制，就是利用java.sql.Connection对象完成对事务的提交</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Connection conn = DriverManger.getConnection();</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    conn.setAutoCommit(<span class="keyword">false</span>); <span class="comment">//设置自动提交为false</span></span><br><span class="line">    <span class="comment">//CURD操作</span></span><br><span class="line">    conn.commit;  <span class="comment">//手动提交事务</span></span><br><span class="line">&#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">    conn.rollback(); <span class="comment">//出现异常则回滚</span></span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">    conn.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="事务的四大特性：ACID"><a href="#事务的四大特性：ACID" class="headerlink" title="事务的四大特性：ACID"></a>事务的四大特性：ACID</h5><h5 id="事务并发带来的问题：看数据库部分"><a href="#事务并发带来的问题：看数据库部分" class="headerlink" title="事务并发带来的问题：看数据库部分"></a>事务并发带来的问题：看数据库部分</h5><h5 id="隔离级别"><a href="#隔离级别" class="headerlink" title="隔离级别"></a>隔离级别</h5><p>隔离级别就是一个事务受其他并发事务影响的程度</p>
+<table>
+<thead>
+<tr>
+<th>ISOLATION_DEFAULT</th>
+<th>使用后端数据库默认的隔离级别</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ISOLATION_READ_UNCOMMITTED</td>
+<td>允许读取尚未提交的更改，可能导致脏读、幻读和不可重复读</td>
+</tr>
+<tr>
+<td>ISOLATION_READ_COMMITTED</td>
+<td>Oracle 默认级别，允许读取已提交的并发事务，防止脏读，可能出现幻读和不可重复读</td>
+</tr>
+<tr>
+<td>ISOLATION_REPEATABLE_READ</td>
+<td>MySQL 默认级别，多次读取相同字段的结果是一致的，防止脏读和不可重复读，可能出现幻读</td>
+</tr>
+<tr>
+<td>ISOLATION_SERIALIZABLE</td>
+<td>完全服从 ACID 的隔离级别，防止脏读、不可重复读和幻读</td>
+</tr>
+</tbody></table>
+<h5 id="传播行为"><a href="#传播行为" class="headerlink" title="传播行为"></a>传播行为</h5><p>传播行为是指：一个事务被另外一个事务方法调用的说实话，这个事务方法应该如何运行。例如：事务方法 A 在调用事务方法 B 时，B 方法是继续在调用者 A 方法的事务中运行呢，还是为自己开启一个新事务运行，这就是由事务方法 B 的事务传播行为决定的。</p>
+<table>
+<thead>
+<tr>
+<th>PROPAGATION_MANDATORY</th>
+<th>支持当前事务，如果不存在当前事务，则引发异常。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PROPAGATION_NESTED</td>
+<td>如果当前事务存在，则在嵌套事务中执行。</td>
+</tr>
+<tr>
+<td>PROPAGATION_NEVER</td>
+<td>不支持当前事务，如果当前事务存在，则引发异常。</td>
+</tr>
+<tr>
+<td>PROPAGATION_NOT_SUPPORTED</td>
+<td>不支持当前事务，始终以非事务方式执行。</td>
+</tr>
+<tr>
+<td>PROPAGATION_REQUIRED</td>
+<td>默认传播行为，如果存在当前事务，则当前方法就在当前事务中运行，如果不存在，则创建一个新的事务，并在这个新建的事务中运行。</td>
+</tr>
+<tr>
+<td>PROPAGATION_REQUIRES_NEW</td>
+<td>创建新事务，如果已经存在事务则暂停当前事务。</td>
+</tr>
+<tr>
+<td>PROPAGATION_SUPPORTS</td>
+<td>支持当前事务，如果不存在事务，则以非事务方式执行。</td>
+</tr>
+</tbody></table>
+<h5 id="spring事务管理方式"><a href="#spring事务管理方式" class="headerlink" title="spring事务管理方式"></a>spring事务管理方式</h5><table>
+<thead>
+<tr>
+<th>编程式事务管理</th>
+<th>编程式事务管理是通过编写代码实现的事务管理。 这种方式能够在代码中精确地定义事务的边界，我们可以根据需求规定事务从哪里开始，到哪里结束。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>声明式事务管理</td>
+<td>Spring 声明式事务管理在底层采用了 AOP 技术，其最大的优点在于无须通过编程的方式管理事务，只需要在配置文件中进行相关的规则声明，就可以将事务规则应用到业务逻辑中。</td>
+</tr>
+</tbody></table>
+<p>选择编程式事务还是声明式事务，很大程度上就是在控制权细粒度和易用性之间进行权衡。</p>
+<ul>
+<li>编程式对事物控制的细粒度更高，我们能够精确的控制事务的边界，事务的开始和结束完全取决于我们的需求，但这种方式存在一个致命的缺点，那就是事务规则与业务代码耦合度高，难以维护，因此我们很少使用这种方式对事务进行管理。</li>
+<li>声明式事务易用性更高，对业务代码没有侵入性，耦合度低，易于维护，因此这种方式也是我们最常用的事务管理方式。</li>
+</ul>
+<p>声明式事务管理主要有2种方式实现：</p>
+<ol>
+<li><p>xml方式</p>
+</li>
+<li><p>注解方式</p>
+</li>
+</ol>
+<p>一般使用的是声明式事务的注解方式：</p>
+<ol>
+<li><p>在spring配置文件中开启对注解事务管理的支持</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">tx:annotation-driven</span>/&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>在方法上面加上@Transactional注解（一般就是加在serviceImpl方法上）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">insert</span><span class="params">(User user)</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> UserDao.insert(user);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="事务失效情况"><a href="#事务失效情况" class="headerlink" title="事务失效情况"></a>事务失效情况</h5></li>
+<li><p>没有开启spring事务管理功能或者没有配置数据源的事务管理器，一般不太可能</p>
+</li>
+<li><p>数据库不支持事务，对于mysql来说，myisam引擎不支持事务，innodb才支持事务</p>
+</li>
+<li><p>应用在非public方法上，失效是因为AOP代理时，事务拦截器在目标方法的前后进行拦截，cglib动态代理会调用方法获取Transacational注解的事务配置信息，如果目标方法的修饰符不为public的话，则不会获取@Transactional的属性配置，当在protected，private修饰的方法上使用@Transactional注解时，虽然事务无效，但是不会报错方法没有被spring管理</p>
+</li>
+<li><p>在同一个类中直接调用，这样子相当于使用了本身的对象去调用，而事务是通过代理类调用生效的</p>
+</li>
+<li><p>注解的propagation属性设置错误，当配置为TransactionDefinition.PROPAGATION_SUPPORTS，TransactionDefinition.PROPAGATION_NOT_SUPPORTED，TransactionDefinition.PROPAGATION_NEVER时事务不会发生回滚</p>
+</li>
+<li><p>注解的rollbackFro设置错误，Spring默认抛出未检查异常或者Error（也就是运行时异常）才回滚事务，其他异常不会触发回滚事务，如果在事务中抛出其他类型的异常，但希望spring能回滚事务，就需要指定rollbackFor属性（rolllbackFor=Exception.class）</p>
+</li>
+<li><p>方法B内部抛出异常，被方法Acatch了，此时的事务就不能回滚，会抛出异常，因为当ServiceB抛出异常后，ServiceB认为当前事务需要回滚，但是在ServiceA中手动捕获了这个异常并进行处理，ServiceA认为当前事务应该正常提交，出现了不一致的现象，所以就会抛出UnexpectedRollbackException异常。spring的事务是在调用业务方法之前开始的，业务方法执行完毕之后才执行commit or rollback，事务是否执行取决于是否抛出runtime异常。如果抛出runtime exception并在你的业务方法中没有catch到的话，事务会回滚。在业务方法中一般不需要catch异常，如果非要catch一定要抛出throw new RuntimeException()，或者注解中指定抛异常类型@Transactional(rollbackFor=Exception.class)，否则会导致事务失效</p>
+</li>
+</ol>
+<p>tips:最多发生的就是：同一个类中调用，异常被catch没有抛出，异常抛出类型不对这三种情况</p>
+<blockquote>
+<p>对于以上三种情况，第二三种情况都可以通过正确处理异常的情况解决，对于第一种情况，由于引发的原因为spring基于AOP机制实现事务的管理，在注入Service时，调用Service的方法时，实际上是通过Service的代理类调用Service的方法，代理类在执行目标方法前后，加上了事务管理的代码，因此只有通过注入的Service调用事务方法，才会走代理类，才会执行事务管理，如果是在同一个类直接调用，没有走代理类，事务就无效，除了@Transactional，@Async同样需要代理类调用异步<br>才会生效。</p>
+<p>解决方法为：实现一个工具类，这个类实现ApplicationContextAware接口，通过实现接口这个接口，就可以获得容器中的所有Bean，通过他来调用方法就是通过代理类来调用方法。</p>
+</blockquote>
+<h4 id="11-开启异步"><a href="#11-开启异步" class="headerlink" title="11.开启异步"></a>11.开启异步</h4><p>对于java中有两种开启异步的方式</p>
+<ol>
+<li><p>使用线程池</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用线程池的方法就是通过提交任务给线程池来执行异步任务</span></span><br></pre></td></tr></table></figure></li>
+<li><p>使用@Async注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.写一个配置类，添加@EnableAsync注解</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableAsync</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.需要异步执行的方法在spring的管理下，一般就是在service方法上加上@Async注解</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">t4</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">      BeanUtil.getBean(CustomerServiceImpl.class).t5();</span><br><span class="line">      SmallTool.printTimeAndThread(<span class="string">&quot;主线程&quot;</span>);</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">          sum += i;</span><br><span class="line">      &#125;</span><br><span class="line">      System.out.println(sum);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Async</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">t5</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">      SmallTool.printTimeAndThread(<span class="string">&quot;异步线程&quot;</span>);</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">50</span>; i++)&#123;</span><br><span class="line">          sum += i;</span><br><span class="line">      &#125;</span><br><span class="line">      System.out.println(sum);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>在使用@Async时，不指定线程池的名称，就会使用默认线程池，也就是SimpleAsyncTaskExecutor。</p>
+</li>
+</ol>
+<p>一般都不会使用默认的线程池，Executors各个方法线程池的弊端：</p>
+<ul>
+<li>newFixedThreadPool和newSingleThreadExecutor：主要问题是堆积的请求处理队列可能会耗费非常大的内存，甚至OOM。</li>
+<li>newCachedThreadPool和newScheduledThreadPool：要问题是线程数最大数是Integer.MAX_VALUE，可能会创建数量非常多的线程，甚至OOM。</li>
+</ul>
+<p>而对于SimpleAsyncTaskExecutor，该线程池默认来一个任务创建一个线程池，如果系统中不断的创建线程，会引发OOM，针对线程创建问题，SimpleAsyncTaskExecutor提供了限流机制，通过concurrencyLimit属性来控制开关，，当concurrencyLimit&gt;=0时开启限流机制，默认关闭限流机制即concurrencyLimit=-1，当关闭情况下，会不断创建新的线程来处理任务。基于默认配置，SimpleAsyncTaskExecutor并不是严格意义的线程池，达不到线程复用的功能。</p>
+<p>1.为每个任务新起一个线程；2.默认线程数不做限制；3.不复用线程</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/05/30/Thread/" rel="prev" title="Thread">
+      <i class="fa fa-chevron-left"></i> Thread
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/05/30/%E5%AE%B9%E5%99%A8%E5%88%9D%E5%A7%8B%E5%8C%96%E8%BF%87%E7%A8%8B/" rel="next" title="容器初始化过程">
+      容器初始化过程 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring%E5%85%B3%E6%B3%A8%E7%9A%84%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">Spring关注的点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-ApplicationContext%E5%92%8CBeanFactory"><span class="nav-number">1.0.1.</span> <span class="nav-text">1. ApplicationContext和BeanFactory</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%AE%B9%E5%99%A8%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B%EF%BC%88%E4%B9%9F%E5%B0%B1%E6%98%AF%E5%AE%B9%E5%99%A8%E5%88%9D%E5%A7%8B%E5%8C%96%EF%BC%8C%E8%BF%99%E4%B8%AA%E8%BF%87%E7%A8%8B%E4%B8%AD%E4%BC%9A%E5%88%9B%E5%BB%BA%E5%8D%95%E4%BE%8Bbean%EF%BC%89"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.容器启动过程（也就是容器初始化，这个过程中会创建单例bean）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E4%B8%89%E7%BA%A7%E7%BC%93%E5%AD%98"><span class="nav-number">1.0.3.</span> <span class="nav-text">3. 三级缓存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-bean%E5%AE%9E%E4%BE%8B%E5%8C%96%E8%BF%87%E7%A8%8B%EF%BC%88%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%EF%BC%89"><span class="nav-number">1.0.4.</span> <span class="nav-text">4.bean实例化过程（生命周期）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-spring%E6%98%AF%E5%90%A6%E4%BF%9D%E8%AF%81%E5%AE%89%E5%85%A8%E6%80%A7"><span class="nav-number">1.0.5.</span> <span class="nav-text">5.spring是否保证安全性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-bean%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="nav-number">1.0.6.</span> <span class="nav-text">6.bean作用域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AE%9E%E7%8E%B0Aware%E6%8E%A5%E5%8F%A3%E8%A6%81%E5%9C%A8%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B9%8B%E5%89%8D%E6%89%A7%E8%A1%8C"><span class="nav-number">1.0.7.</span> <span class="nav-text">为什么实现Aware接口要在初始化之前执行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-%E4%BA%8B%E5%8A%A1"><span class="nav-number">1.0.8.</span> <span class="nav-text">7.事务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-aop"><span class="nav-number">1.0.9.</span> <span class="nav-text">9.aop</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-%E4%BA%8B%E5%8A%A1"><span class="nav-number">1.0.10.</span> <span class="nav-text">10.事务</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%9B%9B%E5%A4%A7%E7%89%B9%E6%80%A7%EF%BC%9AACID"><span class="nav-number">1.0.10.1.</span> <span class="nav-text">事务的四大特性：ACID</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E5%B9%B6%E5%8F%91%E5%B8%A6%E6%9D%A5%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9A%E7%9C%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E9%83%A8%E5%88%86"><span class="nav-number">1.0.10.2.</span> <span class="nav-text">事务并发带来的问题：看数据库部分</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="nav-number">1.0.10.3.</span> <span class="nav-text">隔离级别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%A0%E6%92%AD%E8%A1%8C%E4%B8%BA"><span class="nav-number">1.0.10.4.</span> <span class="nav-text">传播行为</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#spring%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86%E6%96%B9%E5%BC%8F"><span class="nav-number">1.0.10.5.</span> <span class="nav-text">spring事务管理方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E5%A4%B1%E6%95%88%E6%83%85%E5%86%B5"><span class="nav-number">1.0.10.6.</span> <span class="nav-text">事务失效情况</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-%E5%BC%80%E5%90%AF%E5%BC%82%E6%AD%A5"><span class="nav-number">1.0.11.</span> <span class="nav-text">11.开启异步</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="wuwu"
+      src="/uploads/avatar.png">
+  <p class="site-author-name" itemprop="name">wuwu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wuwu</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v5.3.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
