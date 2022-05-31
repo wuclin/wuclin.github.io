@@ -28,6 +28,7 @@
 <meta property="og:description" content="JVM虚构的计算机，类似一台小型电脑同操作系统交互。 JDK,JREJDK 与 JRE 是我们经常遇到的概念，但许多学习了几年的开发都搞不懂他们之间的区别。简单地说 JRE（Java Runtime Environment）仅包含运行 Java 程序的必需组件，包括 Java 虚拟机以及 Java 核心类库等。而 JDK（Java Development Kit）除了包含 JRE外，还附带了一系列">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/2019-11/897863ee5ecb4d92b9119d065f468262-new-imagef7287f0b-c9f0-4f22-9eb4-6968bbaa5a82.png">
+<meta property="og:image" content="http://yoursite.com/2021/02/01/pic/JVM/image-20210201150037662.png">
 <meta property="og:image" content="http://yoursite.com/2021/02/01/JVM/image/JVM/1653923719264.png">
 <meta property="og:image" content="http://yoursite.com/2021/02/01/JVM/image/JVM/1653923819643.png">
 <meta property="og:image" content="http://yoursite.com/2021/02/01/JVM/image/JVM/1653923886212.png">
@@ -41,7 +42,7 @@
 <meta property="og:image" content="c:%5CUsers%5Cdelic%5CAppData%5CRoaming%5Cmarktext%5Cimages%5C2022-05-30-00-17-44-image.png">
 <meta property="og:image" content="http://yoursite.com/2021/02/01/JVM/JVM/image-20210201165653358.png">
 <meta property="article:published_time" content="2021-02-01T06:29:40.000Z">
-<meta property="article:modified_time" content="2022-05-30T15:22:23.907Z">
+<meta property="article:modified_time" content="2022-05-31T11:19:12.395Z">
 <meta property="article:author" content="wuwu">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/2019-11/897863ee5ecb4d92b9119d065f468262-new-imagef7287f0b-c9f0-4f22-9eb4-6968bbaa5a82.png">
@@ -212,7 +213,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-30 23:22:23" itemprop="dateModified" datetime="2022-05-30T23:22:23+08:00">2022-05-30</time>
+                <time title="Modified: 2022-05-31 19:19:12" itemprop="dateModified" datetime="2022-05-31T19:19:12+08:00">2022-05-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -255,8 +256,7 @@
 <li>编译模式（Compiled Mode）。 此模式优先采用编译，但是无法编译时也会解释执行，使用 <code>-Xcomp</code> 打开这种模式。</li>
 </ul>
 <p>在命令行中输入 <code>java -version</code> 可以看到，电脑上的虚拟机使用 Mixed Mode 运行模式。</p>
-
-
+<p><img src="../pic/JVM/image-20210201150037662.png" alt="image-20210201150037662"></p>
 <h3 id="AOT编译器：从源代码到机器码"><a href="#AOT编译器：从源代码到机器码" class="headerlink" title="AOT编译器：从源代码到机器码"></a>AOT编译器：从源代码到机器码</h3><p>AOT 编译器的基本思想是：在程序执行前生成 Java 方法的本地代码，以便在程序运行时直接使用本地代码。但是 Java 语言本身的动态特性带来了额外的复杂性，影响了 Java 程序静态编译代码的质量。</p>
 <p>总的来说，AOT 编译器从编译质量上来看，肯定比不上 JIT 编译器。其存在的目的在于避免 JIT 编译器的运行时性能消耗或内存消耗，或者避免解释程序的早期性能开销。</p>
 <p>在运行速度上来说，AOT 编译器编译出来的代码比 JIT 编译出来的慢，但是比解释执行的快。而编译时间上，AOT 也是一个始终的速度。所以说，AOT 编译器的存在是 JVM 牺牲质量换取性能的一种策略。</p>
