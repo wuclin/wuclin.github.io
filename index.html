@@ -361,7 +361,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-01 00:16:25" itemprop="dateModified" datetime="2022-06-01T00:16:25+08:00">2022-06-01</time>
+                <time title="Modified: 2022-06-01 23:48:43" itemprop="dateModified" datetime="2022-06-01T23:48:43+08:00">2022-06-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -384,7 +384,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
+          <h1 id="ThreadLocal是什么"><a href="#ThreadLocal是什么" class="headerlink" title="ThreadLocal是什么"></a>ThreadLocal是什么</h1><p>ThreadLocal可以理解为是线程的局部变量，是线程安全的。一般使用它可以将用户ID或事务ID和线程关联起来</p>
+<h2 id="ThreadLocal实现原理"><a href="#ThreadLocal实现原理" class="headerlink" title="ThreadLocal实现原理"></a>ThreadLocal实现原理</h2><p>ThreadLocal底层是通过ThreadLocalMap这个静态内部类来存储数据的，ThreadLocalMap就是一个Map，底层是Entry对象数组，Entry对象中存放的键是ThreadLocal对象，值就是具体的存储内容。</p>
+<p>同时ThreadLocalMap也是Thread类的一个属性。每一个线程都有自己的ThreadLocalMap。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/05/31/ThreadLocal/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
