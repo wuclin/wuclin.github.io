@@ -22,25 +22,25 @@
 
   <meta property="og:type" content="website">
 <meta property="og:title" content="fufu">
-<meta property="og:url" content="http://yoursite.com/archives/2021/01/index.html">
+<meta property="og:url" content="http://yoursite.com/page/10/index.html">
 <meta property="og:site_name" content="fufu">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="wuwu">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/archives/2021/01/">
+<link rel="canonical" href="http://yoursite.com/page/10/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : false,
+    isHome : true,
     isPost : false
   };
 </script>
 
-  <title>Archive | fufu</title>
+  <title>fufu</title>
   
 
 
@@ -159,229 +159,123 @@
           <div class="content">
             
 
-  
-  
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
+  <div class="posts-expand">
         
-        <span class="collection-header">OK! 46 posts in total. Keep on posting.</span>
-      </div>
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/11/hexo%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.png">
+      <meta itemprop="name" content="wuwu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fufu">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/11/hexo%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">部分命令用法</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-03-11 09:59:51" itemprop="dateCreated datePublished" datetime="2020-03-11T09:59:51+08:00">2020-03-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-03 22:01:35" itemprop="dateModified" datetime="2022-03-03T22:01:35+08:00">2022-03-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2021</h1>
+          <h1 id="hexo部分命令"><a href="#hexo部分命令" class="headerlink" title="hexo部分命令"></a>hexo部分命令</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">hexo n <span class="string">&quot;TitleName&quot;</span>  <span class="comment">#新建文件，并命名为TitleName</span></span><br><span class="line"></span><br><span class="line">hexo server <span class="comment">#启动服务器，可在上传之前查看是否有问题，默认情况下访问地址为http://localhost:4000/</span></span><br><span class="line"></span><br><span class="line">hexo d -g <span class="comment">#可将文件上传到github上，即生成静态文件再部署文件</span></span><br><span class="line"></span><br><span class="line">hexo clean <span class="comment">#清除缓存文件和已生成的静态文件，在某些情况（尤其是更换主题后），如果发现您对站点的更改无论如              何也不生效，您可能需要运行该命令。</span></span><br><span class="line">hexo version <span class="comment">#查看hexo版本</span></span><br></pre></td></tr></table></figure>
+<h1 id="其他功能实现方法"><a href="#其他功能实现方法" class="headerlink" title="其他功能实现方法"></a>其他功能实现方法</h1><ol>
+<li><p>添加标签（tags）</p>
+<p>1.1生成标签页</p>
+<p>使用git bash，在博客文件夹，执行命令</p>
+<blockquote>
+<p>$hexo new page tags</p>
+</blockquote>
+<p>成功后会提示</p>
+<blockquote>
+<p>INFO  Created: ~/Documents/blog/source/tags/index.md</p>
+</blockquote>
+<p>根据路径找到<strong>index.md</strong>这个文件，打开后默认内容为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 标签</span><br><span class="line">date: 2017-05-27 14:22:08</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<p>之后添加<code>type: &quot;tags&quot;</code>到内容中，添加后是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 文章分类</span><br><span class="line">date: 2017-05-27 13:47:40</span><br><span class="line">type: &quot;tags&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<p>保存文件即可。</p>
+<p>1.2 给文章添加“tags”属性</p>
+<p>打开文章：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: xx</span><br><span class="line">date: datatime</span><br><span class="line">categories: </span><br><span class="line">- 分类1</span><br><span class="line">tags:</span><br><span class="line">- 标签1</span><br><span class="line">- 标签2</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+
+<p>这样就给文章添加了分类</p>
+</li>
+<li><p>添加分类（categories）</p>
+<p>分类的方法和上面的一样，只要把tags改成categories即可。</p>
+</li>
+</ol>
+<p><strong>特别：Scaffold文件夹中有三个文件：draft.md; page.md; post.md；</strong></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/03/11/hexo%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-01-26T01:06:43+08:00"
-              content="2021-01-26">
-          01-26
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2021/01/26/JavaWeb/" itemprop="url">
-            <span itemprop="name">JavaWeb</span>
-          </a>
-      </h2>
-
-    </header>
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
   </article>
+  
+  
+  
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-01-25T23:29:51+08:00"
-              content="2021-01-25">
-          01-25
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2021/01/25/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" itemprop="url">
-            <span itemprop="name">单例模式</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-01-23T12:31:19+08:00"
-              content="2021-01-23">
-          01-23
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2021/01/23/%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" itemprop="url">
-            <span itemprop="name">一些小问题记录</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-01-22T00:25:20+08:00"
-              content="2021-01-22">
-          01-22
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2021/01/22/git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/" itemprop="url">
-            <span itemprop="name">git基本命令</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-01-20T11:29:42+08:00"
-              content="2021-01-20">
-          01-20
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2021/01/20/spring/" itemprop="url">
-            <span itemprop="name">spring</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-01-18T01:23:06+08:00"
-              content="2021-01-18">
-          01-18
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2021/01/18/MySQL/" itemprop="url">
-            <span itemprop="name">MySQL</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-01-18T01:22:54+08:00"
-              content="2021-01-18">
-          01-18
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2021/01/18/Oracle/" itemprop="url">
-            <span itemprop="name">Oracle</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-01-18T01:19:28+08:00"
-              content="2021-01-18">
-          01-18
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2021/01/18/Linux/" itemprop="url">
-            <span itemprop="name">Linux</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-01-17T09:40:03+08:00"
-              content="2021-01-17">
-          01-17
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2021/01/17/%E9%9B%86%E5%90%88/" itemprop="url">
-            <span itemprop="name">集合</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-01-17T09:37:06+08:00"
-              content="2021-01-17">
-          01-17
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2021/01/17/javaSE/" itemprop="url">
-            <span itemprop="name">javaSE</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-
-    </div>
   </div>
-  
-  
-  
 
   
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span>
+  </nav>
 
 
 
