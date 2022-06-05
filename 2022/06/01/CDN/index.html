@@ -20,13 +20,15 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.7.2","exturl":false,"sidebar":{"position":"hide","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="article">
+  <meta name="description" content="CDNCDN即内容分发网络 CDN 的关键技术主要有内容存储和分发技术，简单来讲，CDN就是根据用户位置分配最近的资源，于是，用户在上网的时候不用直接访问源站，而是访问离他“最近的”一个 CDN 节点(也叫做“边缘节点”、edge node)，其实就是缓存了源站内容的代理服务器。 CDN特点1.CDN 的最核心原则是“就近访问”，如果用户能够在本地几十公里的距离之内获取到数据，那么时延就基本上变成">
+<meta property="og:type" content="article">
 <meta property="og:title" content="CDN">
 <meta property="og:url" content="http://yoursite.com/2022/06/01/CDN/index.html">
 <meta property="og:site_name" content="fufu">
+<meta property="og:description" content="CDNCDN即内容分发网络 CDN 的关键技术主要有内容存储和分发技术，简单来讲，CDN就是根据用户位置分配最近的资源，于是，用户在上网的时候不用直接访问源站，而是访问离他“最近的”一个 CDN 节点(也叫做“边缘节点”、edge node)，其实就是缓存了源站内容的代理服务器。 CDN特点1.CDN 的最核心原则是“就近访问”，如果用户能够在本地几十公里的距离之内获取到数据，那么时延就基本上变成">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-06-01T15:50:26.000Z">
-<meta property="article:modified_time" content="2022-06-01T15:51:08.847Z">
+<meta property="article:modified_time" content="2022-06-04T17:08:35.096Z">
 <meta property="article:author" content="wuwu">
 <meta name="twitter:card" content="summary">
 
@@ -188,10 +190,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-06-01 23:50:26 / Modified: 23:51:08" itemprop="dateCreated datePublished" datetime="2022-06-01T23:50:26+08:00">2022-06-01</time>
+              <time title="Created: 2022-06-01 23:50:26" itemprop="dateCreated datePublished" datetime="2022-06-01T23:50:26+08:00">2022-06-01</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-06-05 01:08:35" itemprop="dateModified" datetime="2022-06-05T01:08:35+08:00">2022-06-05</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -213,7 +221,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h1 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h1><p>CDN即内容分发网络</p>
+<p>CDN 的关键技术主要有内容存储和分发技术，简单来讲，CDN就是根据用户位置分配最近的资源，于是，用户在上网的时候不用直接访问源站，而是访问离他“最近的”一个 CDN 节点(也叫做“边缘节点”、edge node)，其实就是缓存了源站内容的代理服务器。</p>
+<h2 id="CDN特点"><a href="#CDN特点" class="headerlink" title="CDN特点"></a>CDN特点</h2><p>1.CDN 的最核心原则是“就近访问”，如果用户能够在本地几十公里的距离之内获取到数据，那么时延就基本上变成 0 了。 <strong>所以 CDN 厂商 投入了大笔资金，在全国、乃至全球的各个大枢纽城市都建立了机房，部署了大量拥有高存储高带宽的节点，构建了一个专用网络</strong> 。</p>
+<p>2.有了这个高速专用网，CDN就要分发源站的内容，利用缓存代理技术，把源站内容逐级缓存到网络的每一个节点上， <strong>这样用户上网就不用直接访问源站，而是访问离他“最近的”一个 CDN 节点</strong> ，其实就是缓存了源站内容的代理服务器，这样一来就省去了“长途跋涉”的时间成本，实现了“网络加速”。</p>
+<p>3.那么，CDN 都能加速什么样的“内容”呢？ 静态资源，而不是动态资源。</p>
+<p>在 CDN 领域里，“内容”其实就是 HTTP 协议里的“静态资源”，比如超文本、图片、视频、应用程序安装包等等。</p>
+<blockquote>
+<p>名词解释：“静态资源”和“动态资源”: 所谓的“静态资源”是指数据内容“静态不变”，任何时候来访问都是一样的，比如图片、音频。所谓的“动态资源”是指数据内容是“动态变化”的，也就是由后台服务计算生成的，每次访问都不一样，比如商品的库存、微博的粉丝数等。</p>
+</blockquote>
+<h2 id="CDN原理"><a href="#CDN原理" class="headerlink" title="CDN原理"></a>CDN原理</h2><p>内容分发网络（Content Delivery Network, CDN）其目的是通过在现有的Internet中增加一层新的网络架构，将 <strong>网站的内容发布到最接近用户的网络”边缘”</strong> ，使用户可以就近取得所需的内容，解决Internet网络拥塞状况，提高用户访问网站的响应速度。</p>
+<p>从技术上全面解决由于网络带宽小、用户访问量大、网点分布不均等原因所造成的用户访问网站响应速度慢的问题。</p>
+
     </div>
 
     
@@ -294,6 +313,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CDN"><span class="nav-number">1.</span> <span class="nav-text">CDN</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CDN%E7%89%B9%E7%82%B9"><span class="nav-number">1.1.</span> <span class="nav-text">CDN特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CDN%E5%8E%9F%E7%90%86"><span class="nav-number">1.2.</span> <span class="nav-text">CDN原理</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
