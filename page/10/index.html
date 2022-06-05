@@ -164,6 +164,102 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/17/javaSE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.png">
+      <meta itemprop="name" content="wuwu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fufu">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/17/javaSE/" class="post-title-link" itemprop="url">javaSE</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-17 09:37:06" itemprop="dateCreated datePublished" datetime="2021-01-17T09:37:06+08:00">2021-01-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-17 16:46:52" itemprop="dateModified" datetime="2022-03-17T16:46:52+08:00">2022-03-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>面向对象，编译和解释，字节码，单继承，接口</p>
+<h1 id="1-java环境"><a href="#1-java环境" class="headerlink" title="1.java环境"></a>1.java环境</h1><h3 id="1-1-JVM-JDR-JRE"><a href="#1-1-JVM-JDR-JRE" class="headerlink" title="1.1 JVM, JDR,JRE"></a>1.1 JVM, JDR,JRE</h3><blockquote>
+<p>JVM：Java虚拟机，是运行Java字节码（.class后缀）的虚拟机，</p>
+<p>JDK : 编写Java程序使用软件，Java开发工具包（这也是为什么一般都是下载JDK的原因）</p>
+<p>JRE : 运行Java程序使用软件，Java运行时环境（只包含虚拟机）</p>
+<p>SE : 标准版，桌面或简单服务器</p>
+<p>EE : 企业版，复杂服务器</p>
+</blockquote>
+<p>![Java程序运行过程](javaSE/Java 程序运行过程.png)</p>
+<p>在Windows和Linux中要注意配环境变量</p>
+<blockquote>
+<p>使用命令行编译运行Java程序时</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">javac filename.java <span class="comment"># javac程序是一个Java编译器，将文件filename.java编译成filename.class</span></span><br><span class="line">java filename <span class="comment">#java程序启动java虚拟机，虚拟机执行编译器编译到类文件的字节码， 注意不用加.class</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="1-2-Java，编译和解释并存"><a href="#1-2-Java，编译和解释并存" class="headerlink" title="1.2 Java，编译和解释并存"></a>1.2 Java，编译和解释并存</h3><p>编译型语言是指编译器针对特定的操作系统将源代码一次性翻译成可被该平台执行的机器码；解释型语言是指解释器对源程序逐行解释成特定平台的机器码并立即执行。比如，你想阅读一本英文名著，你可以找一个英文翻译人员帮助你阅读， 有两种选择方式，你可以先等翻译人员将全本的英文名著（也就是源码）都翻译成汉语，再去阅读，也可以让翻译人员翻译一段，你在旁边阅读一段，慢慢把书读完。</p>
+<p>Java程序要先经过编译，生成字节码（*.class文件），这种字节码再由Java解释器来解释执行。因此，可以认为Java编译与解释并存。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/01/17/javaSE/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/11/hexo%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -342,7 +438,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-count">47</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
