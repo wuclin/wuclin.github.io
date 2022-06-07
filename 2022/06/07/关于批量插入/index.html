@@ -20,15 +20,19 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.7.2","exturl":false,"sidebar":{"position":"hide","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="fufu">
-<meta property="og:url" content="http://yoursite.com/archives/2020/03/index.html">
+  <meta name="description" content="批量插入的方式1.使用for循环插入，这样速度很慢，数据量小的时候可以使用 2.使用mybatis的foreach，这种情况下其实就是拼接sql，因为mysql本来就是支持批量插入的，有个问题就是拼接的sql不能太长，超过mysql服务器中的max_allow_packet的话就会报错（关于这里有两种写法，一种是在values里面使用foreach，另外一种是在insert使用foreach，最好">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于批量插入">
+<meta property="og:url" content="http://yoursite.com/2022/06/07/%E5%85%B3%E4%BA%8E%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5/index.html">
 <meta property="og:site_name" content="fufu">
+<meta property="og:description" content="批量插入的方式1.使用for循环插入，这样速度很慢，数据量小的时候可以使用 2.使用mybatis的foreach，这种情况下其实就是拼接sql，因为mysql本来就是支持批量插入的，有个问题就是拼接的sql不能太长，超过mysql服务器中的max_allow_packet的话就会报错（关于这里有两种写法，一种是在values里面使用foreach，另外一种是在insert使用foreach，最好">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-06-07T14:08:15.000Z">
+<meta property="article:modified_time" content="2022-06-07T14:37:39.573Z">
 <meta property="article:author" content="wuwu">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/archives/2020/03/">
+<link rel="canonical" href="http://yoursite.com/2022/06/07/%E5%85%B3%E4%BA%8E%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5/">
 
 
 <script id="page-configurations">
@@ -36,11 +40,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false
+    isPost : true
   };
 </script>
 
-  <title>Archive | fufu</title>
+  <title>关于批量插入 | fufu</title>
   
 
 
@@ -159,50 +163,84 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        
-        <span class="collection-header">OK! 49 posts in total. Keep on posting.</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/07/%E5%85%B3%E4%BA%8E%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.png">
+      <meta itemprop="name" content="wuwu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fufu">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          关于批量插入
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-06-07 22:08:15 / Modified: 22:37:39" itemprop="dateCreated datePublished" datetime="2022-06-07T22:08:15+08:00">2022-06-07</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2020</h1>
+        <h2 id="批量插入的方式"><a href="#批量插入的方式" class="headerlink" title="批量插入的方式"></a>批量插入的方式</h2><p>1.使用for循环插入，这样速度很慢，数据量小的时候可以使用</p>
+<p>2.使用mybatis的foreach，这种情况下其实就是拼接sql，因为mysql本来就是支持批量插入的，有个问题就是拼接的sql不能太长，超过mysql服务器中的max_allow_packet的话就会报错（关于这里有两种写法，一种是在values里面使用foreach，另外一种是在insert使用foreach，最好是使用第一种写法；因为第二种写法，首先是字符长度增加，会导致每个批次可插入的数量变少，第二这种形式的插入其实是执行多条insert语句，这会导致如果后面出错了，前面的语句就会已经插入了，由于数据库默认是单条插入语句就会提交的，出错之前都是单条插入，所以没有回滚数据，如果想在插入失败回滚的话，需要使用spring事务，通过手动抛出异常的方式来回滚，而第一种方法由于是一条sql，所以就不需要使用事务）</p>
+<p>3.使用jdbc的batch批处理</p>
+<p>tips:批量插入要在数据库的配置加上allowMultiQueries=true</p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-03-11T09:59:51+08:00"
-              content="2020-03-11">
-          03-11
-        </time>
-      </div>
+      <footer class="post-footer">
 
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/03/11/hexo%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/" itemprop="url">
-            <span itemprop="name">部分命令用法</span>
-          </a>
-      </h2>
+        
 
-    </header>
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/06/07/%E6%8A%BD%E5%8F%96%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%A1%A8/" rel="prev" title="抽取大数据表">
+      <i class="fa fa-chevron-left"></i> 抽取大数据表
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/09/02/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="next" title="数据库">
+      数据库 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
+  
+  
+  
 
-
-    </div>
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>
@@ -253,6 +291,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">批量插入的方式</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

@@ -246,6 +246,149 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/07/%E5%85%B3%E4%BA%8E%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.png">
+      <meta itemprop="name" content="wuwu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fufu">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/06/07/%E5%85%B3%E4%BA%8E%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5/" class="post-title-link" itemprop="url">关于批量插入</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-06-07 22:08:15 / Modified: 22:37:39" itemprop="dateCreated datePublished" datetime="2022-06-07T22:08:15+08:00">2022-06-07</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="批量插入的方式"><a href="#批量插入的方式" class="headerlink" title="批量插入的方式"></a>批量插入的方式</h2><p>1.使用for循环插入，这样速度很慢，数据量小的时候可以使用</p>
+<p>2.使用mybatis的foreach，这种情况下其实就是拼接sql，因为mysql本来就是支持批量插入的，有个问题就是拼接的sql不能太长，超过mysql服务器中的max_allow_packet的话就会报错（关于这里有两种写法，一种是在values里面使用foreach，另外一种是在insert使用foreach，最好是使用第一种写法；因为第二种写法，首先是字符长度增加，会导致每个批次可插入的数量变少，第二这种形式的插入其实是执行多条insert语句，这会导致如果后面出错了，前面的语句就会已经插入了，由于数据库默认是单条插入语句就会提交的，出错之前都是单条插入，所以没有回滚数据，如果想在插入失败回滚的话，需要使用spring事务，通过手动抛出异常的方式来回滚，而第一种方法由于是一条sql，所以就不需要使用事务）</p>
+<p>3.使用jdbc的batch批处理</p>
+<p>tips:批量插入要在数据库的配置加上allowMultiQueries=true</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/06/07/%E5%85%B3%E4%BA%8E%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/07/%E6%8A%BD%E5%8F%96%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%A1%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.png">
+      <meta itemprop="name" content="wuwu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fufu">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/06/07/%E6%8A%BD%E5%8F%96%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%A1%A8/" class="post-title-link" itemprop="url">抽取大数据表</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-06-07 21:17:55 / Modified: 22:32:00" itemprop="dateCreated datePublished" datetime="2022-06-07T21:17:55+08:00">2022-06-07</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在项目中遇到抽取大数据并进行处理的需求（迁移数据，批量处理数据），解决过程，</p>
+<ol>
+<li><p>使用limit分页查找的方式，部分查找数据</p>
+<p>对于大量的数据，比如200w的数据量，一般不会一次性加载到内存中，一般会采取分页的方式抽取数据，由于limit是在查询结果的基础上跳过多少条记录，也就是跳过多少条记录也是需要记录的。当查询的起始记录页码越来越大的时候，速度也会变慢。<br>优化方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#在查找单列的时候，利用索引覆盖，只查找索引项目</span><br><span class="line">#在查找多列的时候，有两种优化方式</span><br><span class="line">#1.子查询优化，利用在索引上的查询加快查找速度,相当于先找到id的值，不需要从头开始查找</span><br><span class="line">select * from user where id &gt;&#x3D; (select id from user limit 100000,1) limit 20;</span><br><span class="line">#2.通过索引字段定位之后，才取出相应的内容，利用join</span><br><span class="line">select * from user a join (select id from user limit 100000, 20)b on a.id&#x3D;b.id;</span><br></pre></td></tr></table></figure>
+<p>即使使用以上的方式，在进行大量数据操作时速度也是很慢，比如读取1000000条数据，再对数据进行处理，这里的耗时就很长</p>
+</li>
+<li><p>利用游标查找：以io的形式抽取数据，速度最快，会以一条一条数据的形式抽取数据到内存中。</p>
+</li>
+<li><p>利用流式查找：使用游标可以不用一次性取出所有的数据到内存中，而是根据fetchSize的大小来取数据，在使用的时候需要保持数据库连接，而mapper方法通常执行完后连接就关闭了，因此cursor也会关闭，要解决这个问题就要保持数据库连接的打开，有两种方式：1.在controller层手动打开连接；2.加上@Transactional注解</p>
+</li>
+<li><p>以上的方式都是在处理数据的过程中将数据保存在jvm或者内存中，还有一种方式是将数据存放在数据库的临时表空间中,使用以下的sql抽取表的数据，一方面是依赖于数据库的临时表空间大小，另一方面是会产生锁表的问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into select * from table</span><br></pre></td></tr></table></figure>
+<p>在默认的事务隔离级别下，对于语句insert into t1 select * from t2 加锁的规则是：t1为表锁，t2每扫描一条数据就会锁住一条数据，在这个过程中相当于是对t2也是加了表锁，如果要避免全表扫描的话，就需要给条件字段加索引，由于走了索引就不会有缩表的情况，不过一般这种方法用于复制表或者转移表数据</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/05/%E9%94%81%E5%8E%9F%E7%90%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -269,10 +412,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-06-05 22:38:27 / Modified: 23:11:34" itemprop="dateCreated datePublished" datetime="2022-06-05T22:38:27+08:00">2022-06-05</time>
+              <time title="Created: 2022-06-05 22:38:27" itemprop="dateCreated datePublished" datetime="2022-06-05T22:38:27+08:00">2022-06-05</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-06-06 22:03:10" itemprop="dateModified" datetime="2022-06-06T22:03:10+08:00">2022-06-06</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -406,173 +555,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/01/CDN/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.png">
-      <meta itemprop="name" content="wuwu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="fufu">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/06/01/CDN/" class="post-title-link" itemprop="url">CDN</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-06-01 23:50:26" itemprop="dateCreated datePublished" datetime="2022-06-01T23:50:26+08:00">2022-06-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-05 01:08:35" itemprop="dateModified" datetime="2022-06-05T01:08:35+08:00">2022-06-05</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h1><p>CDN即内容分发网络</p>
-<p>CDN 的关键技术主要有内容存储和分发技术，简单来讲，CDN就是根据用户位置分配最近的资源，于是，用户在上网的时候不用直接访问源站，而是访问离他“最近的”一个 CDN 节点(也叫做“边缘节点”、edge node)，其实就是缓存了源站内容的代理服务器。</p>
-<h2 id="CDN特点"><a href="#CDN特点" class="headerlink" title="CDN特点"></a>CDN特点</h2><p>1.CDN 的最核心原则是“就近访问”，如果用户能够在本地几十公里的距离之内获取到数据，那么时延就基本上变成 0 了。 <strong>所以 CDN 厂商 投入了大笔资金，在全国、乃至全球的各个大枢纽城市都建立了机房，部署了大量拥有高存储高带宽的节点，构建了一个专用网络</strong> 。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/06/01/CDN/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/05/31/Bean%E5%88%9B%E5%BB%BA%E8%BF%87%E7%A8%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.png">
-      <meta itemprop="name" content="wuwu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="fufu">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/05/31/Bean%E5%88%9B%E5%BB%BA%E8%BF%87%E7%A8%8B/" class="post-title-link" itemprop="url">Bean创建过程</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-05-31 21:26:18" itemprop="dateCreated datePublished" datetime="2022-05-31T21:26:18+08:00">2022-05-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-01 00:36:57" itemprop="dateModified" datetime="2022-06-01T00:36:57+08:00">2022-06-01</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%A1%86%E6%9E%B6/" itemprop="url" rel="index"><span itemprop="name">框架</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在容器初始化过程调用的refresh方法中，finishBeanFactoryInitialization方法开始了Bean的创建</p>
-<p>以下是部分源码：</p>
-<h3 id="refresh"><a href="#refresh" class="headerlink" title="refresh"></a>refresh</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">refresh</span><span class="params">()</span> <span class="keyword">throws</span> BeansException, IllegalStateException </span>&#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (<span class="keyword">this</span>.startupShutdownMonitor) &#123;</span><br><span class="line">            <span class="comment">// Prepare this context for refreshing.</span></span><br><span class="line">            <span class="comment">// 准备刷新上下文</span></span><br><span class="line">            prepareRefresh();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Tell the subclass to refresh the internal bean factory.</span></span><br><span class="line">            <span class="comment">// 初始化BeanFactory，并进行XML文件读取</span></span><br><span class="line">            <span class="comment">// 经过这个方法之后ApplicationContext就有了BeanFactory的全部功能    </span></span><br><span class="line">            ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Prepare the bean factory for use in this context.</span></span><br><span class="line">            <span class="comment">// 对BeanFactory进行功能填充</span></span><br><span class="line">            prepareBeanFactory(beanFactory);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// Allows post-processing of the bean factory in context subclasses.</span></span><br><span class="line">                <span class="comment">// 子类覆盖方法做额外的处理</span></span><br><span class="line">                postProcessBeanFactory(beanFactory);</span><br><span class="line"></span><br><span class="line">                <span class="comment">// Invoke factory processors registered as beans in the context.</span></span><br><span class="line">                <span class="comment">// 激活各种BeanFactory处理器</span></span><br><span class="line">                invokeBeanFactoryPostProcessors(beanFactory);</span><br><span class="line"></span><br><span class="line">                <span class="comment">// Register bean processors that intercept bean creation.</span></span><br><span class="line">                <span class="comment">// 注册拦截Bean创建的Bean处理器，这里指示注册，调用是在getBean的时候</span></span><br><span class="line">                registerBeanPostProcessors(beanFactory);</span><br><span class="line"></span><br><span class="line">                <span class="comment">// Initialize message source for this context.</span></span><br><span class="line">                <span class="comment">// 为上写文初始化Message源，也就是国际化处理</span></span><br><span class="line">                initMessageSource();</span><br><span class="line"></span><br><span class="line">                <span class="comment">// Initialize event multicaster for this context.</span></span><br><span class="line">                <span class="comment">// 初始化应用消息广播器</span></span><br><span class="line">                initApplicationEventMulticaster();</span><br><span class="line"></span><br><span class="line">                <span class="comment">// Initialize other special beans in specific context subclasses.</span></span><br><span class="line">                <span class="comment">// 留给子类来初始化其他的Bean</span></span><br><span class="line">                onRefresh();</span><br><span class="line"></span><br><span class="line">                <span class="comment">// Check for listener beans and register them.</span></span><br><span class="line">                <span class="comment">// 在所有注册的bean中查找Listener bean，注册到广播器中</span></span><br><span class="line">                registerListeners();</span><br><span class="line"></span><br><span class="line">                <span class="comment">// Instantiate all remaining (non-lazy-init) singletons.</span></span><br><span class="line">                <span class="comment">// 初始化非懒加载的单例</span></span><br><span class="line">                finishBeanFactoryInitialization(beanFactory);</span><br><span class="line"></span><br><span class="line">                <span class="comment">// Last step: publish corresponding event.</span></span><br><span class="line">                <span class="comment">// 完成刷新过程，</span></span><br><span class="line">                finishRefresh();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">catch</span> (BeansException ex) &#123;</span><br><span class="line">                <span class="keyword">if</span> (logger.isWarnEnabled()) &#123;</span><br><span class="line">                    logger.warn(<span class="string">&quot;Exception encountered during context initialization - &quot;</span> +</span><br><span class="line">                            <span class="string">&quot;cancelling refresh attempt: &quot;</span> + ex);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// Destroy already created singletons to avoid dangling resources.</span></span><br><span class="line">                destroyBeans();</span><br><span class="line"></span><br><span class="line">                <span class="comment">// Reset &#x27;active&#x27; flag.</span></span><br><span class="line">                cancelRefresh(ex);</span><br><span class="line"></span><br><span class="line">                <span class="comment">// Propagate exception to caller.</span></span><br><span class="line">                <span class="keyword">throw</span> ex;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">finally</span> &#123;</span><br><span class="line">                <span class="comment">// Reset common introspection caches in Spring&#x27;s core, since we</span></span><br><span class="line">                <span class="comment">// might not ever need metadata for singleton beans anymore...</span></span><br><span class="line">                resetCommonCaches();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="finishBeanFactoryInitialization"><a href="#finishBeanFactoryInitialization" class="headerlink" title="finishBeanFactoryInitialization"></a>finishBeanFactoryInitialization</h3>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/05/31/Bean%E5%88%9B%E5%BB%BA%E8%BF%87%E7%A8%8B/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -645,7 +627,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-count">49</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

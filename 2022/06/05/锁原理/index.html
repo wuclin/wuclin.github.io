@@ -28,7 +28,7 @@
 <meta property="og:description" content="锁悲观锁synchronized原理：依赖的是虚拟机的监控器 通过对代码反编译可以看到有一个monitor在代码前后">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-06-05T14:38:27.000Z">
-<meta property="article:modified_time" content="2022-06-05T15:11:34.276Z">
+<meta property="article:modified_time" content="2022-06-06T14:03:10.652Z">
 <meta property="article:author" content="wuwu">
 <meta name="twitter:card" content="summary">
 
@@ -190,10 +190,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-06-05 22:38:27 / Modified: 23:11:34" itemprop="dateCreated datePublished" datetime="2022-06-05T22:38:27+08:00">2022-06-05</time>
+              <time title="Created: 2022-06-05 22:38:27" itemprop="dateCreated datePublished" datetime="2022-06-05T22:38:27+08:00">2022-06-05</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-06-06 22:03:10" itemprop="dateModified" datetime="2022-06-06T22:03:10+08:00">2022-06-06</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -223,6 +229,7 @@
 <p>轻量级锁</p>
 <p>重量级锁</p>
 <h3 id="Lock"><a href="#Lock" class="headerlink" title="Lock"></a>Lock</h3><p>原理：依赖的是CAS和AQS</p>
+<p>AQS底层使用的是CLH，</p>
 <h3 id="synchronized-和-Lock的不同"><a href="#synchronized-和-Lock的不同" class="headerlink" title="synchronized 和 Lock的不同"></a>synchronized 和 Lock的不同</h3><ol>
 <li>Lock可以选择公平锁或非公平锁</li>
 <li>Lock使用完之后需要手动解锁</li>
@@ -249,8 +256,8 @@
       <i class="fa fa-chevron-left"></i> DNS
     </a></div>
       <div class="post-nav-item">
-    <a href="/2022/09/02/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="next" title="数据库">
-      数据库 <i class="fa fa-chevron-right"></i>
+    <a href="/2022/06/07/%E6%8A%BD%E5%8F%96%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%A1%A8/" rel="next" title="抽取大数据表">
+      抽取大数据表 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -327,7 +334,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-count">49</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
