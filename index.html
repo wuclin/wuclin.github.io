@@ -498,7 +498,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-06 22:03:10" itemprop="dateModified" datetime="2022-06-06T22:03:10+08:00">2022-06-06</time>
+                <time title="Modified: 2022-06-09 00:06:36" itemprop="dateModified" datetime="2022-06-09T00:06:36+08:00">2022-06-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -521,8 +521,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h1><h2 id="悲观锁"><a href="#悲观锁" class="headerlink" title="悲观锁"></a>悲观锁</h2><h3 id="synchronized"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</h3><p>原理：依赖的是虚拟机的监控器</p>
-<p>通过对代码反编译可以看到有一个monitor在代码前后</p>
+          <h1 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h1><h2 id="悲观锁"><a href="#悲观锁" class="headerlink" title="悲观锁"></a>悲观锁</h2><p>悲观锁在操作数据时比较悲观，认为别人会同时修改数据。因此操作数据时直接把数据锁住，直到操作完成后才会释放锁；上锁期间其他人不能修改数据。</p>
+<p>对于synchronized和ReentrantLock都是独占锁，ReentrantReadWriteLock里的写锁式独占锁，读锁是共享锁</p>
+<h3 id="synchronized"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</h3>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/06/05/%E9%94%81%E5%8E%9F%E7%90%86/#more" rel="contents">
