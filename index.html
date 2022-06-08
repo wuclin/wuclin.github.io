@@ -246,6 +246,84 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/08/%E7%BA%BF%E7%A8%8B%E4%BA%A4%E4%BA%92/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.png">
+      <meta itemprop="name" content="wuwu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fufu">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/06/08/%E7%BA%BF%E7%A8%8B%E4%BA%A4%E4%BA%92/" class="post-title-link" itemprop="url">线程交互</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-06-08 20:24:59 / Modified: 20:25:25" itemprop="dateCreated datePublished" datetime="2022-06-08T20:24:59+08:00">2022-06-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="同步队列和等待队列"><a href="#同步队列和等待队列" class="headerlink" title="同步队列和等待队列"></a>同步队列和等待队列</h2><p>对应线程的两个状态，阻塞和等待</p>
+<p>阻塞：因为synchronized没获取到锁的线程就会阻塞在同步队列，同步队列中放的是尝试获取锁但失败的线程</p>
+<p>等待：使用了wait方法，就会进入到等待队列，等待进入同步队列去竞争同步锁，进入等待队列之后，需要notify唤醒或者使用wait(long timeout)等待指定时间后唤醒</p>
+<p>等待队列中会有多个线程wait同一个对象的情况，此时如果某一个线程调用了对象的notify方法，会任意的唤醒等待队列中的一个线程</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/06/08/%E7%BA%BF%E7%A8%8B%E4%BA%A4%E4%BA%92/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/07/%E5%85%B3%E4%BA%8E%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -467,94 +545,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/01/DNS/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.png">
-      <meta itemprop="name" content="wuwu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="fufu">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/06/01/DNS/" class="post-title-link" itemprop="url">DNS</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-06-01 23:50:38" itemprop="dateCreated datePublished" datetime="2022-06-01T23:50:38+08:00">2022-06-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-04 22:19:21" itemprop="dateModified" datetime="2022-06-04T22:19:21+08:00">2022-06-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h1><p>域名解析协议，作用就是根据域名查出对应的ip地址</p>
-<p>tips：arpa，用于PRT查询，ip地址转换成域名</p>
-<h2 id="域名的分级"><a href="#域名的分级" class="headerlink" title="域名的分级"></a>域名的分级</h2><ul>
-<li>根域名 ：<code>.root</code> 或者 <code>.</code> ，根域名通常是省略的</li>
-<li>顶级域名，如 <code>.com</code>，<code>.cn</code> 等</li>
-<li>次级域名，如 <code>baidu.com</code> 里的 <code>baidu</code>，这个是用户可以进行注册购买的</li>
-<li>主机域名，比如 <code>baike.baidu.com</code> 里的 <code>baike</code>，这个是用户可分配的</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/06/01/DNS/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -627,7 +617,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-count">50</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
