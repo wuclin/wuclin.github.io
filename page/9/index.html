@@ -164,7 +164,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/25/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/02/09/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.png">
@@ -178,7 +178,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2021/01/25/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">单例模式</a>
+            <a href="/2022/02/09/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="post-title-link" itemprop="url">多线程</a>
         </h1>
 
         <div class="post-meta">
@@ -188,14 +188,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2021-01-25 23:29:51" itemprop="dateCreated datePublished" datetime="2021-01-25T23:29:51+08:00">2021-01-25</time>
+              <time title="Created: 2022-02-09 16:38:49" itemprop="dateCreated datePublished" datetime="2022-02-09T16:38:49+08:00">2022-02-09</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-03 22:06:52" itemprop="dateModified" datetime="2022-03-03T22:06:52+08:00">2022-03-03</time>
+                <time title="Modified: 2022-05-30 18:57:24" itemprop="dateModified" datetime="2022-05-30T18:57:24+08:00">2022-05-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -203,7 +203,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
                 </span>
             </span>
 
@@ -218,13 +218,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p><strong>只有一个实例，并且自己负责创建自己的对象,主要是保证在程序中，一个类只有一个实例存在</strong></p>
-<p>核心的代码：构造方法私有化</p>
-<h2 id="饿汉式"><a href="#饿汉式" class="headerlink" title="饿汉式"></a>饿汉式</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EHan</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> EHan instance = <span class="keyword">new</span> EHan();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">EHan</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> EHan <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>实例在初始化的时候就建好了，好处是没有线程安全，坏处是浪费内存空间。</p>
+          <h1 id="线程部分"><a href="#线程部分" class="headerlink" title="线程部分"></a>线程部分</h1><h2 id="创建线程"><a href="#创建线程" class="headerlink" title="创建线程"></a>创建线程</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.通过继承Thread类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">newThreadDemo1</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        Thread welcomeThread = <span class="keyword">new</span> WelcomeThread();</span><br><span class="line">        welcomeThread.start();</span><br><span class="line">        System.out.println(Thread.<span class="function">curre   <span class="title">ntThread</span><span class="params">()</span>.<span class="title">getName</span><span class="params">()</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WelcomeThread</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(Thread.currentThread().getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.通过实现Runnable接口 </span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">newThreadDemo2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        Thread welcomeTask = <span class="keyword">new</span> Thread(<span class="keyword">new</span> WelcomeTask());</span><br><span class="line">        welcomeTask.start();</span><br><span class="line">        System.out.println(Thread.currentThread().getName());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WelcomeTask</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(Thread.currentThread().getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一旦run方法结束（包括正常结束或抛出异常结束），相应线程的运行也结束了</p>
+<p>线程属于一次性的用品，不能通过多次调用一个线程的start方法来使一个线程重新运行</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2021/01/25/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/#more" rel="contents">
+              <a class="btn" href="/2022/02/09/%E5%A4%9A%E7%BA%BF%E7%A8%8B/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -248,7 +247,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/23/%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/02/09/newjvm/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.png">
@@ -262,7 +261,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2021/01/23/%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">一些小问题记录</a>
+            <a href="/2022/02/09/newjvm/" class="post-title-link" itemprop="url">jvm</a>
         </h1>
 
         <div class="post-meta">
@@ -272,14 +271,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2021-01-23 12:31:19" itemprop="dateCreated datePublished" datetime="2021-01-23T12:31:19+08:00">2021-01-23</time>
+              <time title="Created: 2022-02-09 16:38:41" itemprop="dateCreated datePublished" datetime="2022-02-09T16:38:41+08:00">2022-02-09</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-06 23:38:20" itemprop="dateModified" datetime="2022-05-06T23:38:20+08:00">2022-05-06</time>
+                <time title="Modified: 2022-04-12 00:14:04" itemprop="dateModified" datetime="2022-04-12T00:14:04+08:00">2022-04-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -287,7 +286,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%85%B6%E4%BB%96/" itemprop="url" rel="index"><span itemprop="name">其他</span></a>
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
                 </span>
             </span>
 
@@ -302,12 +301,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="java里windowClosed-与windowClosing-这两个方法有什么区别？"><a href="#java里windowClosed-与windowClosing-这两个方法有什么区别？" class="headerlink" title="java里windowClosed()与windowClosing()这两个方法有什么区别？"></a>java里windowClosed()与windowClosing()这两个方法有什么区别？</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">windowClosing - 窗口正在关闭</span><br><span class="line">windowClosed - 窗口已关闭</span><br><span class="line">void windowClosed(WindowEvent e)</span><br><span class="line">因对窗口调用 dispose 而将其关闭时调用。</span><br><span class="line">void windowClosing(WindowEvent e)用户试图从窗口的系统菜单中关闭窗口时调用。</span><br><span class="line">在做图形用户界面开发的时候，窗口右上角的关闭按钮要实现它的功能，是要实现一个监听器的。</span><br><span class="line">重写下面这个方法，就会实现单击关闭按钮结束这个程序，而假如把System.exit(0)放入windowClosed发放中，单击关闭按钮是没有反应的，</span><br><span class="line">因为windowClosed的意思是窗口关闭以后，将发生的事情，比如在这个方法里实现弹出一个对话框，则当你结束这个程序后，这个对话框将弹出。</span><br><span class="line">public void windowClosing(WindowEvent e)&#123;System.exit(0);&#125;当单击窗口右上方的关闭图标时,监视器调用windowClosing方法,假如在该方法中使用System.exit(0);退出程序的运行,那么监视器就没有机会再调用windowClosed方法</span><br></pre></td></tr></table></figure>
-<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>Spring，SpringMVC，和SpringBoot的区别</p>
-<p>为什么SpringBoot免去配置</p>
+          <h1 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h1><h2 id="内存模型"><a href="#内存模型" class="headerlink" title="内存模型"></a>内存模型</h2><p>程序计数器：通过改变计数器的值来选取下一条需要执行的指令，如果是java方法记录的是正在执行的字节码指令地址，如果是native方法，则计数器值为空</p>
+<p>虚拟机栈：描述java方法执行的内存模型，每一个方法被执行都会创建一个栈帧，一个方法从被调用直至执行完成的过程，对应一个栈帧入栈到出栈的过程，栈帧用于存储局部变量表，方法出口等信息</p>
+<p>本地方法栈：和虚拟机栈一样，不过对应的是本地方法</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2021/01/23/%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/#more" rel="contents">
+              <a class="btn" href="/2022/02/09/newjvm/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -331,7 +330,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/22/git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/17/Dubbo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.png">
@@ -345,7 +344,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2021/01/22/git%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">git基本命令</a>
+            <a href="/2021/02/17/Dubbo/" class="post-title-link" itemprop="url">Dubbo</a>
         </h1>
 
         <div class="post-meta">
@@ -355,14 +354,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2021-01-22 00:25:20" itemprop="dateCreated datePublished" datetime="2021-01-22T00:25:20+08:00">2021-01-22</time>
+              <time title="Created: 2021-02-17 15:46:12" itemprop="dateCreated datePublished" datetime="2021-02-17T15:46:12+08:00">2021-02-17</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-03 22:02:49" itemprop="dateModified" datetime="2022-03-03T22:02:49+08:00">2022-03-03</time>
+                <time title="Modified: 2022-03-03 22:02:44" itemprop="dateModified" datetime="2022-03-03T22:02:44+08:00">2022-03-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -370,7 +369,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+                  <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" itemprop="url" rel="index"><span itemprop="name">微服务</span></a>
                 </span>
             </span>
 
@@ -385,149 +384,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="1-如何将本地项目上传到Github"><a href="#1-如何将本地项目上传到Github" class="headerlink" title="1.如何将本地项目上传到Github"></a>1.如何将本地项目上传到Github</h1><p><strong>有三种方法</strong></p>
-<h3 id="1-从github克隆到本地"><a href="#1-从github克隆到本地" class="headerlink" title="1.从github克隆到本地"></a>1.从github克隆到本地</h3><ol>
-<li><p>先在github新建好仓库（repository）</p>
-</li>
-<li><p>新建成功后复制仓库地址</p>
-
-</li>
-<li><p>在本地项目的文件夹中，右键打开git bash</p>
-</li>
-<li><p>输入以下代码，把上面创建的github的仓库克隆到本地</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://上面复制的仓库地址</span><br></pre></td></tr></table></figure></li>
-<li><p>在本地会多一个文件夹，把项目移入文件夹中</p>
-</li>
-<li><p>按照以下步骤，输入命令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&quot;提交信息&quot;</span></span><br><span class="line">git push -u origin master <span class="comment">#此步骤需要输入账号密码</span></span><br></pre></td></tr></table></figure>
-<h3 id="2-从本地直接上传到github"><a href="#2-从本地直接上传到github" class="headerlink" title="2.从本地直接上传到github"></a>2.从本地直接上传到github</h3></li>
-<li><p>首先在本地项目的文件夹目录下，新建本地的版本库,并且把它变成git可管理的仓库</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init <span class="comment">#此命令后，会有一个.git的隐藏文件夹</span></span><br></pre></td></tr></table></figure></li>
-<li><p>按照以下步骤，输入命令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git status <span class="comment">#此命令可以查看文件状态</span></span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&quot;提交信息&quot;</span></span><br></pre></td></tr></table></figure></li>
-<li><p>接下来要进行本地仓库和远程仓库的连接，由于本地Git仓库和Github仓库之间的传输是通过SSH加密的，所以连接时需要设置一下。</p>
-<blockquote>
-<p>先看一下你C盘用户目录下有没有.ssh目录，有的话看下里面有没有id_rsa和id_rsa.pub这两个文件。没有的话需要创建SSH KEY。通过以下命令：</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;youremail@example.com&quot;</span> 注意ssh-keygen之间没有空格</span><br></pre></td></tr></table></figure>
-
-<p>然后回车，询问保存key的位置，默认是在括号里的路径下，你可以修改，也可以不做修改。如下图所示：</p>
-
-
-<p>这里不修改，回车，提示已存在，是否覆盖。因为我这是第二次，所以有这个提示如下题所示：</p>
-
-
-<p>输入Y，回车，提示输入密码，如下图所示：</p>
-
-
-<p>为了不必要麻烦，还是不要设置密码，因为容易忘记，不输入密码，回车，如下图所示：</p>
-
-
-<p>确认密码不输入，回车，如图所示：</p>
-
-
-<p> 出现上图结果，表明创建key成功！</p>
-<p>*<em>这时你就会在用户下的.ssh目录里找到id_rsa和id_rsa.pub这两个文件  *</em></p>
-<img src="git基本命令/image-20210122010244468.png" alt="image-20210122010244468" style="zoom:50%;" />
-</li>
-<li><p>这时再登录github，打开点进里面的Settings，再选中里面的SSH and GPG KEYS，点击右上角的New SSH key，然后Title里面随便填，再把刚才id_rsa.pub里面的内容复制到Title下面的Key内容框里面，最后点击Add SSH key，这样就完成了SSH Key的加密。</p>
-
-</li>
-<li><p>在Github上创建一个Git仓库。</p>
-</li>
-<li><p>在Github上创建好Git仓库之后我们就可以和本地仓库进行关联了，输入以下命令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin https://仓库地址</span><br></pre></td></tr></table></figure></li>
-<li><p>关联好之后我们就可以把本地库的所有内容推送到远程仓库，通过</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin master <span class="comment">#由于新建的远程仓库是空的，所以要加上-u这个参数，等远程仓库里面有了内容之后，下次再从本地库上传内容的时候只需下面这样就可以了：</span></span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure></li>
-<li><p><strong>注意</strong>：在创建仓库时，如果勾选了创建README文件，在第一次推送时会报错，因为新创建的那个仓库里面的README文件不在本地仓库目录中，这时需要先将内容合并再push</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull --rebase origin master</span><br></pre></td></tr></table></figure>
-<h1 id="2-Git命令"><a href="#2-Git命令" class="headerlink" title="2.Git命令"></a>2.Git命令</h1></li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/20/spring/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.png">
-      <meta itemprop="name" content="wuwu">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="fufu">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/01/20/spring/" class="post-title-link" itemprop="url">spring</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-01-20 11:29:42" itemprop="dateCreated datePublished" datetime="2021-01-20T11:29:42+08:00">2021-01-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-05-30 22:17:22" itemprop="dateModified" datetime="2022-05-30T22:17:22+08:00">2022-05-30</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%A1%86%E6%9E%B6/" itemprop="url" rel="index"><span itemprop="name">框架</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><p>本质是一个IOC框架，可以通过读取xml文件，外部文件或者使用配置的形式创建容器并注入bean</p>
-<p>通常在spring中就通过读取xml文件的形式创建容器，使用的是ClassPathXmlApplicationContent方法，这个方法的构造方法中有一个refresh方法作为创建容器的核心方法</p>
+          <h1 id="Dubbo"><a href="#Dubbo" class="headerlink" title="Dubbo"></a>Dubbo</h1><p>分布式系统：把一个系统的各个模块分别部署在不同的服务器上，来提供服务。</p>
+<p>Dubbo可以用来协调各个模块之间的应用</p>
 <ol>
-<li>里面有一个prepareRefresh方法，用于创建Bean容器前的准备工作</li>
-<li>通过obtainFreshBeanFactory方法创建BeanFactory，加载并注册Bean，在这个方法里面实现了DefaultListableBeanFactory，这个类可以在程序运行时动态往容器注入新的bean。在这一步之后配置文件就会解析Bean转化成BeanDefinition，注册到BeanFactory，此时Bean还没有初始化，只是配置信息被提取出来，保存到了注册中心</li>
-<li>接着会设置BeanFactory的类加载器，spring把xml配置的bean都注册后，会手动注册一些特殊的bean</li>
-<li>Bean都加载注册完毕后，就要开始初始化，会在一个trycatch里面初始化所有非懒加载的单例bean</li>
+<li>将服务提供者注册到注册中心<ol>
+<li>引入依赖（dubbo，zookeeper客户端（curator））</li>
+<li>配置服务（把服务者的服务接口暴露，让其他地方的消费者可以调用）</li>
 </ol>
-<h2 id="Bean"><a href="#Bean" class="headerlink" title="Bean"></a>Bean</h2>
+</li>
+<li>让消费者去注册中心订阅</li>
+</ol>
+<p>SOA 面向服务的架构（Service Oriented Architecture），把工程按照业务逻辑拆分成服务层、表现层两个工程。服务层中包含业务逻辑，只需要对外提供服务即可。表现层只需要处理和页面的交互，业务逻辑都是调用服务层的服务来实现。SOA架构中有两个主要角色：服务提供者（Provider）和服务使用者（Consumer）。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2021/01/20/spring/#more" rel="contents">
+              <a class="btn" href="/2021/02/17/Dubbo/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -551,7 +421,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/18/MySQL/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/17/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.png">
@@ -565,7 +435,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2021/01/18/MySQL/" class="post-title-link" itemprop="url">MySQL</a>
+            <a href="/2021/02/17/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" class="post-title-link" itemprop="url">消息队列</a>
         </h1>
 
         <div class="post-meta">
@@ -575,14 +445,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2021-01-18 01:23:06" itemprop="dateCreated datePublished" datetime="2021-01-18T01:23:06+08:00">2021-01-18</time>
+              <time title="Created: 2021-02-17 15:45:26" itemprop="dateCreated datePublished" datetime="2021-02-17T15:45:26+08:00">2021-02-17</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-01 19:07:49" itemprop="dateModified" datetime="2022-03-01T19:07:49+08:00">2022-03-01</time>
+                <time title="Modified: 2022-03-03 22:09:02" itemprop="dateModified" datetime="2022-03-03T22:09:02+08:00">2022-03-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -590,7 +460,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                  <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/" itemprop="url" rel="index"><span itemprop="name">中间件</span></a>
                 </span>
             </span>
 
@@ -605,13 +475,121 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h1><p><strong>关系型数据库，默认端口3306</strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> engines;</span><br></pre></td></tr></table></figure>
-<p>注意只有InnoDB支持事务。</p>
-<h3 id="MyISAM和InnoDB区别"><a href="#MyISAM和InnoDB区别" class="headerlink" title="MyISAM和InnoDB区别"></a>MyISAM和InnoDB区别</h3>
+          <h1 id="消息队列（异步、解耦、削峰）"><a href="#消息队列（异步、解耦、削峰）" class="headerlink" title="消息队列（异步、解耦、削峰）"></a>消息队列（<strong>异步、解耦、削峰</strong>）</h1><p><strong>可以把消息队列看作是一个存放消息的容器，当我们需要使用消息的时候，直接从容器中取出消息供自己使用即可。</strong></p>
+<p>消息队列是分布式系统中重要的组件之一。使用消息队列主要是为了通过异步处理提高系统性能和削峰、降低系统耦合性。</p>
+<h3 id="为什么要使用消息队列"><a href="#为什么要使用消息队列" class="headerlink" title="为什么要使用消息队列"></a>为什么要使用消息队列</h3><ol>
+<li><p><strong>通过异步处理提高系统性能（减少响应所需时间）。</strong></p>
+<p>将用户的请求数据存储到消息队列之后就立即返回结果。随后，系统再对消息进行消费。</p>
+<p>因为<strong>用户请求数据写入消息队列之后就立即返回给用户了，但是请求数据在后续的业务校验、写数据库等操作中可能失败</strong>。因此使用消息队列进行异步处理之后，需要<strong>适当修改业务流程进行配合</strong>，比如<strong>用户在提交订单之后，订单数据写入消息队列，不能立即返回用户订单提交成功，需要在消息队列的订单消费者进程真正处理完该订单之后，甚至出库后，再通过电子邮件或短信通知用户订单成功</strong>。</p>
+</li>
+<li><p><strong>削峰/限流</strong></p>
+<p><strong>先将短时间高并发产生的事务消息存储在消息队列中，然后后端服务再慢慢根据自己的能力去消费这些消息，这样就避免一下子巨大的服务请求量直接把后端服务打垮掉。</strong></p>
+</li>
+<li><p><strong>降低系统耦合性。</strong></p>
+<p>生产者（客户端）发送消息到消息队列中去，接受者（服务端）处理消息，需要消费的系统直接去消息队列取消息进行消费即可而不需要和其他系统有耦合， 这显然也提高了系统的扩展性。</p>
+<p><strong>消息队列使利用发布-订阅模式工作，消息发送者（生产者）发布消息，一个或多个消息接受者（消费者）订阅消息。</strong> 从上图可以看到<strong>消息发送者（生产者）和消息接受者（消费者）之间没有直接耦合</strong>，消息发送者将消息发送至分布式消息队列即结束对消息的处理，消息接受者从分布式消息队列获取该消息后进行后续处理，并不需要知道该消息从何而来。<strong>对新增业务，只要对该类消息感兴趣，即可订阅该消息，对原有系统和业务没有任何影响，从而实现网站业务的可扩展性设计</strong>。</p>
+<p>消息接受者对消息进行过滤、处理、包装后，构造成一个新的消息类型，将消息继续发送出去，等待其他消息接受者订阅该消息。因此基于事件（消息对象）驱动的业务架构可以是一系列流程。</p>
+<p><strong>另外为了避免消息队列服务器宕机造成消息丢失，会将成功发送到消息队列的消息存储在消息生产者服务器上，等消息真正被消费者服务器处理后才删除消息。在消息队列服务器宕机后，生产者服务器会选择分布式消息队列服务器集群中的其他服务器发布消息。</strong></p>
+<p><strong>除了发布-订阅模式，还有点对点订阅模式（一个消息只有一个消费者），我们比较常用的是发布-订阅模式。</strong></p>
+<h3 id="常见的消息队列对比"><a href="#常见的消息队列对比" class="headerlink" title="常见的消息队列对比"></a>常见的消息队列对比</h3><ul>
+<li>ActiveMQ 的社区算是比较成熟，但是较目前来说，ActiveMQ 的性能比较差，而且版本迭代很慢，不推荐使用。</li>
+<li>RabbitMQ 在吞吐量方面虽然稍逊于 Kafka 和 RocketMQ ，但是由于它基于 erlang 开发，所以并发能力很强，性能极其好，延时很低，达到微秒级。但是也因为 RabbitMQ 基于 erlang 开发，所以国内很少有公司有实力做erlang源码级别的研究和定制。如果业务场景对并发量要求不是太高（十万级、百万级），那这四种消息队列中，RabbitMQ 一定是你的首选。如果是大数据领域的实时计算、日志采集等场景，用 Kafka 是业内标准的，绝对没问题，社区活跃度很高，绝对不会黄，何况几乎是全世界这个领域的事实性规范。</li>
+<li>RocketMQ 阿里出品，Java 系开源项目，源代码我们可以直接阅读，然后可以定制自己公司的MQ，并且 RocketMQ 有阿里巴巴的实际业务场景的实战考验。RocketMQ 社区活跃度相对较为一般，不过也还可以，文档相对来说简单一些，然后接口这块不是按照标准 JMS 规范走的有些系统要迁移需要修改大量代码。还有就是阿里出台的技术，你得做好这个技术万一被抛弃，社区黄掉的风险，那如果你们公司有技术实力我觉得用RocketMQ 挺好的</li>
+<li>Kafka 的特点其实很明显，就是仅仅提供较少的核心功能，但是提供超高的吞吐量，ms 级的延迟，极高的可用性以及可靠性，而且分布式可以任意扩展。同时 kafka 最好是支撑较少的 topic 数量即可，保证其超高吞吐量。kafka 唯一的一点劣势是有可能消息重复消费，那么对数据准确性会造成极其轻微的影响，在大数据领域中以及日志采集中，这点轻微影响可以忽略这个特性天然适合大数据实时计算以及日志收集。</li>
+</ul>
+</li>
+</ol>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2021/01/18/MySQL/#more" rel="contents">
+              <a class="btn" href="/2021/02/17/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/15/SpringCloud/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.png">
+      <meta itemprop="name" content="wuwu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fufu">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/02/15/SpringCloud/" class="post-title-link" itemprop="url">SpringCloud</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-02-15 15:40:19" itemprop="dateCreated datePublished" datetime="2021-02-15T15:40:19+08:00">2021-02-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-03 22:06:39" itemprop="dateModified" datetime="2022-03-03T22:06:39+08:00">2022-03-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" itemprop="url" rel="index"><span itemprop="name">微服务</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="微服务"><a href="#微服务" class="headerlink" title="微服务"></a>微服务</h1><p>划分成独立模块，每个模块拥有独立数据库</p>
+<h1 id="SpringCloud"><a href="#SpringCloud" class="headerlink" title="SpringCloud"></a>SpringCloud</h1>
+
+<h1 id="SpringCloud和SpringBoot关系"><a href="#SpringCloud和SpringBoot关系" class="headerlink" title="SpringCloud和SpringBoot关系"></a>SpringCloud和SpringBoot关系</h1><ul>
+<li>SpringCloud依赖于SpringBoot</li>
+<li>SpringBoot主要用于快速开发单个个体微服务（可以把每一个服务打包成jar包）</li>
+<li>SpringCloud主要用于全局微服务协调管理</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/02/15/SpringCloud/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -635,7 +613,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -703,14 +681,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-count">59</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">

@@ -246,7 +246,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/08/%E7%BA%BF%E7%A8%8B%E4%BA%A4%E4%BA%92/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/14/%E6%B3%A8%E8%A7%A3-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.png">
@@ -260,7 +260,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2022/06/08/%E7%BA%BF%E7%A8%8B%E4%BA%A4%E4%BA%92/" class="post-title-link" itemprop="url">线程交互</a>
+            <a href="/2022/06/14/%E6%B3%A8%E8%A7%A3-1/" class="post-title-link" itemprop="url">注解</a>
         </h1>
 
         <div class="post-meta">
@@ -269,18 +269,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-06-08 20:24:59 / Modified: 20:25:25" itemprop="dateCreated datePublished" datetime="2022-06-08T20:24:59+08:00">2022-06-08</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
+              <time title="Created: 2022-06-14 22:25:53" itemprop="dateCreated datePublished" datetime="2022-06-14T22:25:53+08:00">2022-06-14</time>
             </span>
 
           
@@ -294,18 +284,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="同步队列和等待队列"><a href="#同步队列和等待队列" class="headerlink" title="同步队列和等待队列"></a>同步队列和等待队列</h2><p>对应线程的两个状态，阻塞和等待</p>
-<p>阻塞：因为synchronized没获取到锁的线程就会阻塞在同步队列，同步队列中放的是尝试获取锁但失败的线程</p>
-<p>等待：使用了wait方法，就会进入到等待队列，等待进入同步队列去竞争同步锁，进入等待队列之后，需要notify唤醒或者使用wait(long timeout)等待指定时间后唤醒</p>
-<p>等待队列中会有多个线程wait同一个对象的情况，此时如果某一个线程调用了对象的notify方法，会任意的唤醒等待队列中的一个线程</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/06/08/%E7%BA%BF%E7%A8%8B%E4%BA%A4%E4%BA%92/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+          
       
     </div>
 
@@ -324,7 +303,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/07/%E5%85%B3%E4%BA%8E%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/14/%E5%8F%8D%E5%B0%84/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.png">
@@ -338,7 +317,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2022/06/07/%E5%85%B3%E4%BA%8E%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5/" class="post-title-link" itemprop="url">关于批量插入</a>
+            <a href="/2022/06/14/%E5%8F%8D%E5%B0%84/" class="post-title-link" itemprop="url">反射</a>
         </h1>
 
         <div class="post-meta">
@@ -347,9 +326,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-06-07 22:08:15 / Modified: 22:37:39" itemprop="dateCreated datePublished" datetime="2022-06-07T22:08:15+08:00">2022-06-07</time>
+              <time title="Created: 2022-06-14 22:25:36" itemprop="dateCreated datePublished" datetime="2022-06-14T22:25:36+08:00">2022-06-14</time>
             </span>
 
           
@@ -363,18 +341,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="批量插入的方式"><a href="#批量插入的方式" class="headerlink" title="批量插入的方式"></a>批量插入的方式</h2><p>1.使用for循环插入，这样速度很慢，数据量小的时候可以使用</p>
-<p>2.使用mybatis的foreach，这种情况下其实就是拼接sql，因为mysql本来就是支持批量插入的，有个问题就是拼接的sql不能太长，超过mysql服务器中的max_allow_packet的话就会报错（关于这里有两种写法，一种是在values里面使用foreach，另外一种是在insert使用foreach，最好是使用第一种写法；因为第二种写法，首先是字符长度增加，会导致每个批次可插入的数量变少，第二这种形式的插入其实是执行多条insert语句，这会导致如果后面出错了，前面的语句就会已经插入了，由于数据库默认是单条插入语句就会提交的，出错之前都是单条插入，所以没有回滚数据，如果想在插入失败回滚的话，需要使用spring事务，通过手动抛出异常的方式来回滚，而第一种方法由于是一条sql，所以就不需要使用事务）</p>
-<p>3.使用jdbc的batch批处理</p>
-<p>tips:批量插入要在数据库的配置加上allowMultiQueries=true</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/06/07/%E5%85%B3%E4%BA%8E%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+          
       
     </div>
 
@@ -393,7 +360,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/07/%E6%8A%BD%E5%8F%96%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%A1%A8/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/14/TreeSet-TreeMap/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.png">
@@ -407,7 +374,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2022/06/07/%E6%8A%BD%E5%8F%96%E5%A4%A7%E6%95%B0%E6%8D%AE%E8%A1%A8/" class="post-title-link" itemprop="url">抽取大数据表</a>
+            <a href="/2022/06/14/TreeSet-TreeMap/" class="post-title-link" itemprop="url">TreeSet & TreeMap</a>
         </h1>
 
         <div class="post-meta">
@@ -416,9 +383,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-06-07 21:17:55 / Modified: 22:32:00" itemprop="dateCreated datePublished" datetime="2022-06-07T21:17:55+08:00">2022-06-07</time>
+              <time title="Created: 2022-06-14 22:25:27" itemprop="dateCreated datePublished" datetime="2022-06-14T22:25:27+08:00">2022-06-14</time>
             </span>
 
           
@@ -432,23 +398,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>在项目中遇到抽取大数据并进行处理的需求（迁移数据，批量处理数据），解决过程，</p>
-<ol>
-<li><p>使用limit分页查找的方式，部分查找数据</p>
-<p>对于大量的数据，比如200w的数据量，一般不会一次性加载到内存中，一般会采取分页的方式抽取数据，由于limit是在查询结果的基础上跳过多少条记录，也就是跳过多少条记录也是需要记录的。当查询的起始记录页码越来越大的时候，速度也会变慢。<br>优化方式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#在查找单列的时候，利用索引覆盖，只查找索引项目</span><br><span class="line">#在查找多列的时候，有两种优化方式</span><br><span class="line">#1.子查询优化，利用在索引上的查询加快查找速度,相当于先找到id的值，不需要从头开始查找</span><br><span class="line">select * from user where id &gt;&#x3D; (select id from user limit 100000,1) limit 20;</span><br><span class="line">#2.通过索引字段定位之后，才取出相应的内容，利用join</span><br><span class="line">select * from user a join (select id from user limit 100000, 20)b on a.id&#x3D;b.id;</span><br></pre></td></tr></table></figure>
-<p>即使使用以上的方式，在进行大量数据操作时速度也是很慢，比如读取1000000条数据，再对数据进行处理，这里的耗时就很长</p>
-</li>
-<li><p>利用游标查找：以io的形式抽取数据，速度最快，会以一条一条数据的形式抽取数据到内存中。</p>
-</li>
-<li><p>利用流式查找：使用游标可以不用一次性取出所有的数据到内存中，而是根据fetchSize的大小来取数据，在使用的时候需要保持数据库连接，而mapper方法通常执行完后连接就关闭了，因此cursor也会关闭，要解决这个问题就要保持数据库连接的打开，有两种方式：1.在controller层手动打开连接；2.加上@Transactional注解</p>
-</li>
-<li><p>以上的方式都是在处理数据的过程中将数据保存在jvm或者内存中，还有一种方式是将数据存放在数据库的临时表空间中,使用以下的sql抽取表的数据，一方面是依赖于数据库的临时表空间大小，另一方面是会产生锁表的问题</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into select * from table</span><br></pre></td></tr></table></figure>
-<p>在默认的事务隔离级别下，对于语句insert into t1 select * from t2 加锁的规则是：t1为表锁，t2每扫描一条数据就会锁住一条数据，在这个过程中相当于是对t2也是加了表锁，如果要避免全表扫描的话，就需要给条件字段加索引，由于走了索引就不会有缩表的情况，不过一般这种方法用于复制表或者转移表数据</p>
-</li>
-</ol>
-
+          
       
     </div>
 
@@ -467,7 +417,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/05/%E9%94%81%E5%8E%9F%E7%90%86/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/14/LinkedHashSet-Map/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.png">
@@ -481,7 +431,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2022/06/05/%E9%94%81%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">锁原理</a>
+            <a href="/2022/06/14/LinkedHashSet-Map/" class="post-title-link" itemprop="url">LinkedHashSet & Map</a>
         </h1>
 
         <div class="post-meta">
@@ -491,23 +441,7 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2022-06-05 22:38:27" itemprop="dateCreated datePublished" datetime="2022-06-05T22:38:27+08:00">2022-06-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-06-14 21:18:34" itemprop="dateModified" datetime="2022-06-14T21:18:34+08:00">2022-06-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
+              <time title="Created: 2022-06-14 22:25:06" itemprop="dateCreated datePublished" datetime="2022-06-14T22:25:06+08:00">2022-06-14</time>
             </span>
 
           
@@ -521,17 +455,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h1><h2 id="悲观锁"><a href="#悲观锁" class="headerlink" title="悲观锁"></a>悲观锁</h2><p>悲观锁在操作数据时比较悲观，认为别人会同时修改数据。因此操作数据时直接把数据锁住，直到操作完成后才会释放锁；上锁期间其他人不能修改数据。</p>
-<p>对于synchronized和ReentrantLock都是独占锁，ReentrantReadWriteLock里的写锁式独占锁，读锁是共享锁</p>
-<h3 id="synchronized"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</h3>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/06/05/%E9%94%81%E5%8E%9F%E7%90%86/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+          
       
     </div>
 
@@ -550,7 +474,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -618,14 +542,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-count">59</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
